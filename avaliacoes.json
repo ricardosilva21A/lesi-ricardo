@@ -1,0 +1,25 @@
+{
+  "titulo": "Avaliações LESI",
+  "semestre": "1º semestre 2026/27",
+  "url": "https://lesi-ricardo.vercel.app",
+  "ucs": [
+    { "sigla": "MD", "nome": "Matemática Discreta", "cor": "#7c5cff" },
+    { "sigla": "AMS", "nome": "Análise e Modelação de Software", "cor": "#00a6a6" },
+    { "sigla": "AAD", "nome": "Armazenamento e Acesso a Dados", "cor": "#e08a00" },
+    { "sigla": "RC", "nome": "Redes de Computadores", "cor": "#2f7dff" },
+    { "sigla": "SETR", "nome": "Sistemas Embebidos e de Tempo Real", "cor": "#e5484d" }
+  ],
+  "avaliacoes": [
+    { "id": "md-t2", "uc": "MD", "tipo": "teste", "titulo": "2º teste", "data": "2026-11-28", "hora": "", "local": "", "notas": "", "estudo": "" },
+    { "id": "setr-t", "uc": "SETR", "tipo": "teste", "titulo": "Teste", "data": "2026-12-09", "hora": "", "local": "", "notas": "", "estudo": "" },
+    { "id": "rc-t2", "uc": "RC", "tipo": "teste", "titulo": "2º teste", "data": "2026-12-10", "hora": "", "local": "", "notas": "", "estudo": "" },
+    { "id": "ams-t2", "uc": "AMS", "tipo": "teste", "titulo": "2º teste", "data": "2026-12-16", "hora": "", "local": "", "notas": "", "estudo": "" },
+    { "id": "setr-rel", "uc": "SETR", "tipo": "trabalho", "titulo": "Entrega do relatório", "data": "2026-12-29", "hora": "", "local": "", "notas": "", "estudo": "" },
+    { "id": "ams-s4", "uc": "AMS", "tipo": "trabalho", "titulo": "4º sprint", "data": "2027-01-03", "hora": "", "local": "", "notas": "", "estudo": "" },
+    { "id": "aad-t2", "uc": "AAD", "tipo": "teste", "titulo": "2º teste", "data": "2027-01-05", "hora": "", "local": "", "notas": "", "estudo": "" },
+    { "id": "ams-def", "uc": "AMS", "tipo": "trabalho", "titulo": "Defesa final", "data": "2027-01-05", "hora": "", "local": "", "notas": "", "estudo": "" },
+    { "id": "rc-def", "uc": "RC", "tipo": "trabalho", "titulo": "Defesa do trabalho", "data": "2027-01-07", "hora": "", "local": "", "notas": "", "estudo": "" },
+    { "id": "setr-def", "uc": "SETR", "tipo": "trabalho", "titulo": "Defesa", "data": "2027-01-07", "hora": "", "local": "", "notas": "", "estudo": "" },
+    { "id": "md-t3", "uc": "MD", "tipo": "teste", "titulo": "3º teste", "data": "2027-01-13", "hora": "", "local": "", "notas": "", "estudo": "" }
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "buildCommand": "node build.js",
+  "outputDirectory": "public",
+  "installCommand": "",
+  "framework": null,
+  "headers": [
+    { "source": "/calendario.ics", "headers": [
+      { "key": "Content-Type", "value": "text/calendar; charset=utf-8" },
+      { "key": "Cache-Control", "value": "public, max-age=0, s-maxage=300" }
+    ]},
+    { "source": "/avaliacoes.json", "headers": [{ "key": "Cache-Control", "value": "public, max-age=0, s-maxage=60" }]},
+    { "source": "/(.*)", "headers": [{ "key": "X-Robots-Tag", "value": "noindex" }]}
+  ]
+}

@@ -1,0 +1,245 @@
+<!doctype html>
+<html lang="pt-PT">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" content="#0b0b0f">
+<title>Avaliações LESI · Ricardo</title>
+<meta name="description" content="Testes e trabalhos do semestre, com calendário para subscrever.">
+<meta name="robots" content="noindex">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📅</text></svg>">
+<style>
+  :root {
+    --bg: #f6f6f8; --card: #ffffff; --txt: #111116; --sub: #6b6b76; --line: #e6e6ec;
+    --acc: #111116; --accTxt: #fff; --chip: #ececf1; --ok: #1f9d55; --warn: #d97706; --hot: #e5484d;
+    --r: 16px;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root { --bg: #0b0b0f; --card: #16161c; --txt: #f2f2f5; --sub: #9a9aa6; --line: #26262f; --acc: #f2f2f5; --accTxt: #0b0b0f; --chip: #22222a; }
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body { margin: 0; background: var(--bg); color: var(--txt); font: 16px/1.45 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Inter, sans-serif; }
+  .wrap { max-width: 680px; margin: 0 auto; padding: max(20px, env(safe-area-inset-top)) 16px 60px; }
+  header h1 { font-size: 28px; letter-spacing: -0.02em; margin: 8px 0 2px; }
+  header p { margin: 0; color: var(--sub); }
+  h2 { font-size: 13px; text-transform: uppercase; letter-spacing: .08em; color: var(--sub); margin: 28px 0 10px; font-weight: 600; }
+  .card { background: var(--card); border: 1px solid var(--line); border-radius: var(--r); }
+  button, .btn { font: inherit; cursor: pointer; border: 0; border-radius: 999px; padding: 9px 14px; background: var(--chip); color: var(--txt); text-decoration: none; display: inline-flex; align-items: center; gap: 6px; font-size: 14px; font-weight: 500; }
+  .btn.primary { background: var(--acc); color: var(--accTxt); }
+
+  /* destaque */
+  .next { padding: 18px; display: grid; gap: 4px; position: relative; overflow: hidden; }
+  .next .bar { position: absolute; left: 0; top: 0; bottom: 0; width: 6px; }
+  .next .big { font-size: 44px; font-weight: 700; letter-spacing: -0.03em; line-height: 1; }
+  .next .big small { font-size: 16px; font-weight: 500; color: var(--sub); letter-spacing: 0; }
+  .next .t { font-size: 18px; font-weight: 600; }
+  .next .s { color: var(--sub); font-size: 14px; }
+  .mini { display: grid; gap: 8px; margin-top: 8px; }
+
+  /* tabs e filtros */
+  .tabs { display: flex; background: var(--chip); border-radius: 12px; padding: 4px; gap: 4px; }
+  .tabs button { flex: 1; border-radius: 9px; background: transparent; justify-content: center; padding: 8px; }
+  .tabs button[aria-selected="true"] { background: var(--card); box-shadow: 0 1px 2px rgba(0,0,0,.12); }
+  .chips { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
+  .chip { padding: 6px 11px; font-size: 13px; border: 1px solid transparent; }
+  .chip .dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; }
+  .chip[aria-pressed="true"] { background: var(--acc); color: var(--accTxt); }
+  .row { display: flex; justify-content: space-between; align-items: center; gap: 8px; flex-wrap: wrap; }
+  .toggle { font-size: 13px; color: var(--sub); display: flex; gap: 6px; align-items: center; margin-top: 10px; }
+
+  /* lista */
+  .mes { font-size: 13px; font-weight: 600; color: var(--sub); margin: 18px 4px 8px; }
+  .mes::first-letter { text-transform: uppercase; }
+  .item { display: grid; grid-template-columns: 54px 1fr auto; gap: 12px; align-items: center; padding: 12px; margin-bottom: 8px; }
+  .item.passada { opacity: .45; }
+  .date { text-align: center; border-radius: 12px; padding: 6px 0; background: var(--chip); }
+  .date b { display: block; font-size: 20px; line-height: 1.1; }
+  .date span { font-size: 11px; text-transform: uppercase; color: var(--sub); }
+  .info .t { font-weight: 600; }
+  .info .s { font-size: 13px; color: var(--sub); }
+  .badge { font-size: 11px; font-weight: 700; padding: 2px 7px; border-radius: 6px; color: #fff; margin-right: 6px; vertical-align: 1px; }
+  .tipo { font-size: 11px; color: var(--sub); border: 1px solid var(--line); padding: 1px 6px; border-radius: 6px; margin-left: 4px; }
+  .falta { font-size: 13px; font-weight: 600; white-space: nowrap; text-align: right; }
+  .falta.hot { color: var(--hot); } .falta.warn { color: var(--warn); }
+  .estudar { margin-top: 6px; padding: 5px 10px; font-size: 12px; }
+  .vazio { padding: 24px; text-align: center; color: var(--sub); }
+
+  /* subscrição */
+  .sub { padding: 16px; display: grid; gap: 10px; }
+  .sub .row { justify-content: flex-start; }
+  details { padding: 4px 16px; }
+  details summary { cursor: pointer; padding: 12px 0; font-weight: 600; }
+  details ol { margin-top: 0; padding-left: 20px; color: var(--sub); }
+  footer { text-align: center; color: var(--sub); font-size: 13px; margin-top: 36px; }
+  .toast { position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%); background: var(--acc); color: var(--accTxt); padding: 10px 16px; border-radius: 999px; font-size: 14px; opacity: 0; transition: .2s; pointer-events: none; }
+  .toast.on { opacity: 1; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <p id="semestre">&nbsp;</p>
+    <h1 id="titulo">Avaliações</h1>
+    <p>Testes e trabalhos, num só sítio.</p>
+  </header>
+
+  <h2>A seguir</h2>
+  <div id="aSeguir"></div>
+
+  <div class="row" style="margin-top:28px">
+    <h2 style="margin:0">Avaliações</h2>
+    <button id="partilhar" class="btn">↗ Partilhar</button>
+  </div>
+  <div style="margin-top:10px">
+    <div class="tabs" role="tablist">
+      <button role="tab" data-tab="teste">Testes</button>
+      <button role="tab" data-tab="trabalho">Trabalhos</button>
+      <button role="tab" data-tab="todas">Todas</button>
+    </div>
+    <div class="chips" id="chips"></div>
+    <label class="toggle"><input type="checkbox" id="mostrarPassadas"> Mostrar as que já passaram</label>
+  </div>
+  <div id="lista"></div>
+
+  <h2>Calendário</h2>
+  <div class="card sub">
+    <div>Subscreve uma vez e as datas aparecem e atualizam-se sozinhas no teu calendário.</div>
+    <div class="row">
+      <a class="btn primary" id="lnkApple" href="#"> iPhone / Mac</a>
+      <a class="btn primary" id="lnkGoogle" href="#" target="_blank" rel="noopener">Google / Android</a>
+      <a class="btn" href="/calendario.ics" download>Descarregar .ics</a>
+    </div>
+  </div>
+  <div class="card" style="margin-top:10px">
+    <details>
+      <summary>Como subscrever</summary>
+      <ol>
+        <li><b>iPhone / iPad / Mac:</b> toca em "iPhone / Mac" e confirma "Subscrever". Para atualizar mais vezes: Definições → Calendário → Contas → Subscrições → Obter novos dados.</li>
+        <li><b>Android / Google:</b> toca em "Google / Android" e confirma "Adicionar". Usa o calendário do Google com a mesma conta.</li>
+        <li>As alterações chegam em minutos no iPhone e podem demorar 8 a 24 horas no Google.</li>
+      </ol>
+    </details>
+  </div>
+
+  <footer>Feito pelo Ricardo · <a href="/estudo/" style="color:inherit">Estudo</a></footer>
+</div>
+<div class="toast" id="toast"></div>
+
+<script>
+(async function () {
+  const D = await fetch("/avaliacoes.json", { cache: "no-store" }).then(r => r.json());
+  const UC = Object.fromEntries(D.ucs.map(u => [u.sigla, u]));
+  const $ = s => document.querySelector(s);
+  const store = {
+    get(k, d) { try { const v = localStorage.getItem(k); return v === null ? d : JSON.parse(v); } catch { return d; } },
+    set(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch {} }
+  };
+
+  $("#semestre").textContent = D.semestre;
+  $("#titulo").textContent = D.titulo;
+  const host = location.host;
+  $("#lnkApple").href = `webcal://${host}/calendario.ics`;
+  $("#lnkGoogle").href = "https://calendar.google.com/calendar/r?cid=" + encodeURIComponent(`webcal://${host}/calendario.ics`);
+
+  const hoje = new Date(); hoje.setHours(0, 0, 0, 0);
+  const dataDe = s => { const [y, m, d] = s.split("-").map(Number); return new Date(y, m - 1, d); };
+  const dias = a => Math.round((dataDe(a.data) - hoje) / 86400000);
+  const faltaTxt = n => n < 0 ? "passou" : n === 0 ? "hoje" : n === 1 ? "amanhã" : `${n} dias`;
+  const faltaCls = n => n < 0 ? "" : n <= 3 ? "hot" : n <= 7 ? "warn" : "";
+  const fmt = (s, o) => dataDe(s).toLocaleDateString("pt-PT", o);
+  const linkEstudo = a => !a.estudo ? "" : a.estudo.endsWith(".html") ? "/" + a.estudo.replace(/^\//, "") : "/estudo/?banco=" + encodeURIComponent(a.estudo);
+  const tipoTxt = t => t === "teste" ? "Teste" : "Trabalho";
+
+  const todas = D.avaliacoes.slice().sort((a, b) => (a.data + (a.hora || "")).localeCompare(b.data + (b.hora || "")));
+
+  let tab = store.get("tab", "teste");
+  let filtro = store.get("ucs", []).filter(s => UC[s]);
+  let passadas = store.get("passadas", false);
+  $("#mostrarPassadas").checked = passadas;
+
+  function visiveis() {
+    return todas.filter(a => (filtro.length === 0 || filtro.includes(a.uc)));
+  }
+
+  function renderASeguir() {
+    const prox = visiveis().filter(a => dias(a) >= 0);
+    const el = $("#aSeguir");
+    if (!prox.length) { el.innerHTML = `<div class="card vazio">Nada pela frente. Bom descanso! 🎉</div>`; return; }
+    const a = prox[0], n = dias(a), u = UC[a.uc], est = linkEstudo(a);
+    el.innerHTML = `
+      <div class="card next">
+        <div class="bar" style="background:${u.cor}"></div>
+        <div class="big">${n === 0 ? "Hoje" : n === 1 ? "Amanhã" : `${n} <small>dias</small>`}</div>
+        <div class="t"><span class="badge" style="background:${u.cor}">${a.uc}</span>${a.titulo}<span class="tipo">${tipoTxt(a.tipo)}</span></div>
+        <div class="s">${u.nome} · ${fmt(a.data, { weekday: "long", day: "numeric", month: "long" })}${a.hora ? " · " + a.hora : ""}${a.local ? " · " + a.local : ""}</div>
+        ${est ? `<div><a class="btn primary estudar" href="${est}">📚 Estudar</a></div>` : ""}
+      </div>
+      <div class="mini">${prox.slice(1, 3).map(item).join("")}</div>`;
+  }
+
+  function item(a) {
+    const n = dias(a), u = UC[a.uc], est = linkEstudo(a);
+    return `
+      <div class="card item ${n < 0 ? "passada" : ""}">
+        <div class="date"><b>${fmt(a.data, { day: "numeric" })}</b><span>${fmt(a.data, { weekday: "short" }).replace(".", "")}</span></div>
+        <div class="info">
+          <div class="t"><span class="badge" style="background:${u.cor}">${a.uc}</span>${a.titulo}${tab === "todas" ? `<span class="tipo">${tipoTxt(a.tipo)}</span>` : ""}</div>
+          <div class="s">${u.nome}${a.hora ? " · " + a.hora : ""}${a.local ? " · " + a.local : ""}${a.notas ? " · " + a.notas : ""}</div>
+          ${est ? `<a class="btn estudar" href="${est}">📚 Estudar</a>` : ""}
+        </div>
+        <div class="falta ${faltaCls(n)}">${faltaTxt(n)}</div>
+      </div>`;
+  }
+
+  function renderLista() {
+    document.querySelectorAll("[data-tab]").forEach(b => b.setAttribute("aria-selected", b.dataset.tab === tab));
+    let l = visiveis().filter(a => tab === "todas" || a.tipo === tab);
+    if (!passadas) l = l.filter(a => dias(a) >= 0);
+    if (!l.length) { $("#lista").innerHTML = `<div class="card vazio">Sem avaliações para mostrar.</div>`; return; }
+    let html = "", mes = "";
+    for (const a of l) {
+      const m = fmt(a.data, { month: "long", year: "numeric" });
+      if (m !== mes) { html += `<div class="mes">${m}</div>`; mes = m; }
+      html += item(a);
+    }
+    $("#lista").innerHTML = html;
+  }
+
+  function renderChips() {
+    const c = $("#chips");
+    c.innerHTML = `<button class="btn chip" data-uc="" aria-pressed="${filtro.length === 0}">Todas as UCs</button>` +
+      D.ucs.map(u => `<button class="btn chip" data-uc="${u.sigla}" aria-pressed="${filtro.includes(u.sigla)}" title="${u.nome}"><span class="dot" style="background:${u.cor}"></span>${u.sigla}</button>`).join("");
+  }
+
+  function render() { renderChips(); renderASeguir(); renderLista(); }
+
+  document.addEventListener("click", e => {
+    const t = e.target.closest("[data-tab]");
+    if (t) { tab = t.dataset.tab; store.set("tab", tab); renderLista(); return; }
+    const c = e.target.closest("[data-uc]");
+    if (c) {
+      const s = c.dataset.uc;
+      filtro = !s ? [] : filtro.includes(s) ? filtro.filter(x => x !== s) : [...filtro, s];
+      if (filtro.length === D.ucs.length) filtro = [];
+      store.set("ucs", filtro); render();
+    }
+  });
+  $("#mostrarPassadas").addEventListener("change", e => { passadas = e.target.checked; store.set("passadas", passadas); renderLista(); });
+
+  function toast(m) { const t = $("#toast"); t.textContent = m; t.classList.add("on"); setTimeout(() => t.classList.remove("on"), 1800); }
+  $("#partilhar").addEventListener("click", async () => {
+    const l = visiveis().filter(a => dias(a) >= 0 && (tab === "todas" || a.tipo === tab));
+    const txt = `${D.titulo}\n\n` + l.map(a => `${fmt(a.data, { day: "2-digit", month: "2-digit" })} · ${a.uc} · ${a.titulo}`).join("\n") + `\n\n${location.origin}`;
+    try {
+      if (navigator.share) await navigator.share({ title: D.titulo, text: txt });
+      else { await navigator.clipboard.writeText(txt); toast("Lista copiada"); }
+    } catch {}
+  });
+
+  render();
+})();
+</script>
+</body>
+</html>

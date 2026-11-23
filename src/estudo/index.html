@@ -1,0 +1,272 @@
+<!doctype html>
+<html lang="pt-PT">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" content="#0b0b0f">
+<meta name="robots" content="noindex, nofollow">
+<title>Estudo · Avaliações LESI</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📚</text></svg>">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<style>
+  :root { --bg:#f6f6f8; --card:#fff; --txt:#111116; --sub:#6b6b76; --line:#e6e6ec; --acc:#111116; --accTxt:#fff; --chip:#ececf1; --ok:#1f9d55; --okBg:#e7f6ed; --bad:#e5484d; --badBg:#fdecec; --r:16px; }
+  @media (prefers-color-scheme: dark) { :root { --bg:#0b0b0f; --card:#16161c; --txt:#f2f2f5; --sub:#9a9aa6; --line:#26262f; --acc:#f2f2f5; --accTxt:#0b0b0f; --chip:#22222a; --okBg:#0f2a1b; --badBg:#331517; } }
+  * { box-sizing: border-box; }
+  body { margin:0; background:var(--bg); color:var(--txt); font:16px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Inter,sans-serif; }
+  .wrap { max-width:720px; margin:0 auto; padding:max(20px,env(safe-area-inset-top)) 16px 80px; }
+  a { color: inherit; }
+  h1 { font-size:26px; letter-spacing:-.02em; margin:6px 0 2px; }
+  h2 { font-size:13px; text-transform:uppercase; letter-spacing:.08em; color:var(--sub); margin:26px 0 10px; font-weight:600; }
+  .sub { color:var(--sub); margin:0; }
+  .card { background:var(--card); border:1px solid var(--line); border-radius:var(--r); padding:16px; margin-bottom:10px; }
+  button, .btn { font:inherit; cursor:pointer; border:0; border-radius:999px; padding:10px 16px; background:var(--chip); color:var(--txt); text-decoration:none; display:inline-flex; align-items:center; gap:6px; font-size:14px; font-weight:500; }
+  .btn.primary, button.primary { background:var(--acc); color:var(--accTxt); }
+  button:disabled { opacity:.4; cursor:default; }
+  .modes { display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:10px; }
+  .mode { text-align:left; display:block; border-radius:var(--r); padding:16px; background:var(--card); border:1px solid var(--line); }
+  .mode b { display:block; font-size:16px; margin-bottom:2px; }
+  .mode span { color:var(--sub); font-size:13px; }
+  .grupo { font-weight:700; margin:22px 0 8px; display:flex; justify-content:space-between; }
+  .grupo small { color:var(--sub); font-weight:500; }
+  .q .n { font-size:12px; color:var(--sub); margin-bottom:4px; }
+  .q .e { font-weight:500; margin-bottom:12px; white-space:pre-wrap; }
+  .q img { max-width:100%; border-radius:10px; }
+  .opt { display:flex; gap:10px; width:100%; text-align:left; border-radius:12px; padding:11px 12px; margin-bottom:6px; background:var(--chip); border:2px solid transparent; font-weight:400; }
+  .opt .l { font-weight:700; min-width:18px; }
+  .opt.sel { border-color:var(--acc); }
+  .opt.ok { background:var(--okBg); border-color:var(--ok); }
+  .opt.bad { background:var(--badBg); border-color:var(--bad); }
+  .expl { margin-top:10px; padding:10px 12px; border-radius:12px; background:var(--chip); font-size:14px; white-space:pre-wrap; }
+  .res { margin-top:10px; padding:12px; border-radius:12px; border:1px dashed var(--line); white-space:pre-wrap; }
+  textarea { width:100%; min-height:90px; font:inherit; padding:10px; border-radius:12px; border:1px solid var(--line); background:var(--bg); color:var(--txt); }
+  .row { display:flex; gap:8px; flex-wrap:wrap; align-items:center; }
+  .sticky { position:sticky; bottom:12px; display:flex; justify-content:center; margin-top:20px; }
+  .score { font-size:46px; font-weight:800; letter-spacing:-.03em; }
+  .pill { font-size:12px; padding:2px 8px; border-radius:999px; background:var(--chip); color:var(--sub); }
+  .prog { height:6px; background:var(--chip); border-radius:99px; overflow:hidden; margin:8px 0 16px; }
+  .prog i { display:block; height:100%; background:var(--acc); transition:width .2s; }
+  table { width:100%; border-collapse:collapse; font-size:14px; }
+  td { padding:6px 4px; border-bottom:1px solid var(--line); }
+  .top { display:flex; justify-content:space-between; align-items:center; }
+</style>
+</head>
+<body>
+<div class="wrap" id="app"><p class="sub">A carregar…</p></div>
+<script>
+(async function () {
+  const app = document.getElementById("app");
+  const params = new URLSearchParams(location.search);
+  const bancoId = params.get("banco");
+  const store = {
+    get(k, d) { try { const v = localStorage.getItem(k); return v === null ? d : JSON.parse(v); } catch { return d; } },
+    set(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch {} }
+  };
+  const shuffle = a => { a = a.slice(); for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; };
+  const esc = s => String(s ?? "");
+  const math = el => { if (window.renderMathInElement) renderMathInElement(el, { delimiters: [{ left: "$$", right: "$$", display: true }, { left: "$", right: "$", display: false }], throwOnError: false }); };
+  window.addEventListener("load", () => math(app));
+  const draw = html => { app.innerHTML = html; math(app); window.scrollTo(0, 0); };
+
+  // ---------- lista de bancos ----------
+  if (!bancoId) {
+    const lista = await fetch("bancos/index.json", { cache: "no-store" }).then(r => r.json()).catch(() => []);
+    draw(`
+      <a href="/" class="sub">← Avaliações</a>
+      <h1>Estudo</h1>
+      <p class="sub">Escolhe a disciplina para treinar.</p>
+      <h2>Bancos de perguntas</h2>
+      ${lista.length ? lista.map(b => `<a class="card" style="display:block;text-decoration:none" href="?banco=${encodeURIComponent(b.id)}"><b>${b.uc ? b.uc + " · " : ""}${esc(b.titulo)}</b><div class="sub" style="font-size:14px">${b.perguntas} perguntas</div></a>`).join("") : `<div class="card sub">Ainda não há bancos de perguntas.</div>`}
+    `);
+    return;
+  }
+
+  // ---------- banco ----------
+  const B = await fetch(`bancos/${encodeURIComponent(bancoId)}.json`, { cache: "no-store" }).then(r => { if (!r.ok) throw 0; return r.json(); }).catch(() => null);
+  if (!B) { draw(`<a href="./" class="sub">← Estudo</a><h1>Banco não encontrado</h1>`); return; }
+  B.perguntas.forEach((q, i) => { q._id = q.id || `${bancoId}-${i}`; q.tipo = q.tipo || (q.opcoes ? "escolha" : "aberta"); });
+  const porId = Object.fromEntries(B.perguntas.map(q => [q._id, q]));
+  const kErr = `erradas:${bancoId}`, kHist = `historico:${bancoId}`;
+  const erradas = () => store.get(kErr, []).filter(id => porId[id]);
+  const marcar = (id, certo) => {
+    let e = store.get(kErr, []);
+    e = certo ? e.filter(x => x !== id) : (e.includes(id) ? e : [...e, id]);
+    store.set(kErr, e);
+  };
+  const estrutura = B.estrutura && B.estrutura.length ? B.estrutura : [{ grupo: "Perguntas", n: Math.min(10, B.perguntas.length) }];
+  const L = "ABCDEFGH";
+
+  // baralha as opções mantendo a correta
+  const prepara = q => {
+    if (q.tipo !== "escolha") return { q };
+    const ordem = shuffle(q.opcoes.map((_, i) => i));
+    return { q, ordem, correta: ordem.indexOf(q.correta) };
+  };
+
+  function menu() {
+    const hist = store.get(kHist, []);
+    const nErr = erradas().length;
+    const nEsc = B.perguntas.filter(q => q.tipo === "escolha").length;
+    draw(`
+      <a href="./" class="sub">← Estudo</a>
+      <h1>${B.uc ? B.uc + " · " : ""}${esc(B.titulo)}</h1>
+      <p class="sub">${B.perguntas.length} perguntas${B.descricao ? " · " + esc(B.descricao) : ""}</p>
+      <h2>Como queres treinar?</h2>
+      <div class="modes">
+        <button class="mode" data-m="modelo"><b>📝 Teste modelo</b><span>${estrutura.map(g => `${g.grupo}: ${g.n}`).join(" · ")}. Perguntas novas a cada tentativa.</span></button>
+        <button class="mode" data-m="treino" ${nEsc ? "" : "disabled"}><b>🎯 Treino rápido</b><span>Escolhas múltiplas uma a uma, com correção imediata. As que erras voltam no fim.</span></button>
+        <button class="mode" data-m="erradas" ${nErr ? "" : "disabled"}><b>🔁 Repetir erradas</b><span>${nErr ? nErr + " por rever" : "Nenhuma por rever"}</span></button>
+        <button class="mode" data-m="tudo"><b>📖 Ver todas</b><span>Todas as perguntas com resposta e explicação, por grupo.</span></button>
+      </div>
+      ${hist.length ? `<h2>Histórico</h2><div class="card"><table>${hist.slice(-8).reverse().map(h => `<tr><td>${new Date(h.t).toLocaleDateString("pt-PT", { day: "2-digit", month: "2-digit" })} ${new Date(h.t).toLocaleTimeString("pt-PT", { hour: "2-digit", minute: "2-digit" })}</td><td>${h.modo}</td><td style="text-align:right"><b>${h.nota}</b></td></tr>`).join("")}</table></div>` : ""}
+    `);
+    app.querySelectorAll("[data-m]").forEach(b => b.onclick = () => ({ modelo: testeModelo, treino: () => treino(B.perguntas.filter(q => q.tipo === "escolha")), erradas: () => treino(erradas().map(id => porId[id])), tudo: verTudo })[b.dataset.m]());
+  }
+
+  // ---------- teste modelo ----------
+  function testeModelo() {
+    const grupos = estrutura.map(g => {
+      const pool = B.perguntas.filter(q => (q.grupo || "Perguntas") === g.grupo);
+      return { ...g, itens: shuffle(pool).slice(0, g.n).map(prepara) };
+    });
+    const resp = {};
+    let n = 0;
+    draw(`
+      <div class="top"><button id="sair">← Sair</button><span class="pill">Teste modelo</span></div>
+      <h1>${B.uc ? B.uc + " · " : ""}${esc(B.titulo)}</h1>
+      ${grupos.map((g, gi) => `
+        <div class="grupo">${esc(g.grupo)} <small>${g.cotacao ? g.cotacao + " valores" : ""}${g.itens.length < g.n ? ` · só ${g.itens.length} de ${g.n} no banco` : ""}</small></div>
+        ${g.itens.map((it, qi) => { n++; return pergunta(it, `${gi}-${qi}`, n); }).join("")}
+      `).join("")}
+      <div class="sticky"><button class="primary" id="entregar">Entregar e corrigir</button></div>
+    `);
+    app.querySelector("#sair").onclick = menu;
+    app.querySelectorAll(".opt").forEach(b => b.onclick = () => {
+      const k = b.dataset.k;
+      app.querySelectorAll(`.opt[data-k="${k}"]`).forEach(x => x.classList.remove("sel"));
+      b.classList.add("sel"); resp[k] = +b.dataset.i;
+    });
+    app.querySelector("#entregar").onclick = () => corrigir(grupos, resp);
+  }
+
+  function pergunta(it, k, n) {
+    const q = it.q;
+    return `<div class="card q" id="q-${k}">
+      <div class="n">Pergunta ${n}${q.tema ? " · " + esc(q.tema) : ""}</div>
+      <div class="e">${esc(q.enunciado)}</div>
+      ${q.imagem ? `<img src="${q.imagem}" alt="">` : ""}
+      ${q.tipo === "escolha"
+        ? it.ordem.map((oi, i) => `<button class="opt" data-k="${k}" data-i="${i}"><span class="l">${L[i]}</span><span>${esc(q.opcoes[oi])}</span></button>`).join("")
+        : `<textarea placeholder="Rascunho (opcional). Faz o esquema ou desenho no papel e depois compara com a resolução."></textarea>`}
+      <div class="fb"></div>
+    </div>`;
+  }
+
+  function corrigir(grupos, resp) {
+    app.querySelectorAll(".opt").forEach(b => b.disabled = true);
+    app.querySelector(".sticky").remove();
+    const abertas = [];
+    let certas = 0, total = 0, pontos = 0, max = 0;
+    grupos.forEach((g, gi) => g.itens.forEach((it, qi) => {
+      const k = `${gi}-${qi}`, card = app.querySelector(`#q-${k}`), fb = card.querySelector(".fb"), q = it.q;
+      const valor = g.cotacao ? g.cotacao / g.itens.length : 1;
+      max += valor;
+      if (q.tipo === "escolha") {
+        total++;
+        const r = resp[k], ok = r === it.correta;
+        if (ok) { certas++; pontos += valor; }
+        marcar(q._id, ok);
+        card.querySelectorAll(".opt").forEach((b, i) => { if (i === it.correta) b.classList.add("ok"); else if (i === r) b.classList.add("bad"); });
+        fb.innerHTML = `<div class="expl">${r === undefined ? "Sem resposta. " : ""}${ok ? "✅ Certo." : "❌ Errado."}${q.explicacao ? " " + esc(q.explicacao) : ""}</div>`;
+      } else {
+        abertas.push({ k, q, valor });
+        fb.innerHTML = `<div class="res"><b>Resolução</b>\n${esc(q.resolucao || "Sem resolução no banco.")}</div>
+          <div class="row" style="margin-top:10px"><span class="sub" style="font-size:14px">Como correu?</span>
+          <button data-auto="${k}" data-v="1">✅ Acertei</button><button data-auto="${k}" data-v="0.5">🟡 Meio</button><button data-auto="${k}" data-v="0">❌ Errei</button></div>`;
+      }
+    }));
+    math(app);
+    const auto = {};
+    const resumo = document.createElement("div");
+    resumo.className = "card"; resumo.style.marginTop = "20px";
+    const atualiza = () => {
+      const pa = abertas.reduce((s, a) => s + (auto[a.k] ?? 0) * a.valor, 0);
+      const nota = ((pontos + pa) / max * 20);
+      const falta = abertas.filter(a => auto[a.k] === undefined).length;
+      resumo.innerHTML = `<div class="sub">Resultado</div><div class="score">${nota.toFixed(1)}<span class="sub" style="font-size:18px"> / 20</span></div>
+        <div class="sub">Escolhas múltiplas: ${certas}/${total}${abertas.length ? ` · Abertas: ${falta ? `faltam ${falta} por autoavaliar` : "autoavaliadas"}` : ""}</div>
+        <div class="row" style="margin-top:12px"><button class="primary" id="outro">Novo teste modelo</button><button id="voltar">Menu</button></div>`;
+      resumo.querySelector("#outro").onclick = testeModelo;
+      resumo.querySelector("#voltar").onclick = menu;
+      return { nota, falta };
+    };
+    let guardado = false;
+    const guarda = () => { const { nota, falta } = atualiza(); if (!falta && !guardado) { guardado = true; const h = store.get(kHist, []); h.push({ t: Date.now(), modo: "Teste modelo", nota: nota.toFixed(1) + "/20" }); store.set(kHist, h.slice(-50)); } };
+    app.appendChild(resumo); guarda();
+    app.querySelectorAll("[data-auto]").forEach(b => b.onclick = () => {
+      const k = b.dataset.auto, a = abertas.find(x => x.k === k);
+      auto[k] = +b.dataset.v; marcar(a.q._id, auto[k] === 1);
+      app.querySelectorAll(`[data-auto="${k}"]`).forEach(x => x.classList.toggle("primary", x === b));
+      guarda();
+    });
+    resumo.scrollIntoView({ behavior: "smooth" });
+  }
+
+  // ---------- treino uma a uma ----------
+  function treino(lista) {
+    let fila = shuffle(lista).map(prepara), feitas = 0, primeiraCerta = 0;
+    const total = fila.length, jaErrou = new Set();
+    const proxima = () => {
+      if (!fila.length) {
+        const h = store.get(kHist, []); h.push({ t: Date.now(), modo: "Treino", nota: `${primeiraCerta}/${total} à 1ª` }); store.set(kHist, h.slice(-50));
+        draw(`<h1>Treino concluído 🎉</h1><div class="card"><div class="score">${primeiraCerta}/${total}</div><div class="sub">certas à primeira</div>
+          <div class="row" style="margin-top:12px"><button class="primary" id="denovo">Repetir</button><button id="voltar">Menu</button></div></div>`);
+        app.querySelector("#denovo").onclick = () => treino(lista); app.querySelector("#voltar").onclick = menu; return;
+      }
+      const it = fila[0], q = it.q;
+      draw(`
+        <div class="top"><button id="sair">← Sair</button><span class="pill">${feitas}/${total} · faltam ${fila.length}</span></div>
+        <div class="prog"><i style="width:${feitas / total * 100}%"></i></div>
+        ${pergunta(it, "t", feitas + 1)}
+        <div class="row" style="justify-content:flex-end"><button class="primary" id="seg" style="display:none">Seguinte →</button></div>
+      `);
+      app.querySelector("#sair").onclick = menu;
+      const seg = app.querySelector("#seg");
+      app.querySelectorAll(".opt").forEach(b => b.onclick = () => {
+        const i = +b.dataset.i, ok = i === it.correta;
+        app.querySelectorAll(".opt").forEach((x, j) => { x.disabled = true; if (j === it.correta) x.classList.add("ok"); else if (j === i) x.classList.add("bad"); });
+        app.querySelector(".fb").innerHTML = `<div class="expl">${ok ? "✅ Certo." : "❌ Errado."}${q.explicacao ? " " + esc(q.explicacao) : ""}</div>`;
+        math(app);
+        marcar(q._id, ok);
+        fila.shift();
+        if (ok) { feitas++; if (!jaErrou.has(q._id)) primeiraCerta++; }
+        else { jaErrou.add(q._id); fila.push(prepara(q)); }
+        seg.style.display = ""; seg.focus();
+      });
+      seg.onclick = proxima;
+    };
+    proxima();
+  }
+
+  // ---------- ver tudo ----------
+  function verTudo() {
+    const grupos = [...new Set(B.perguntas.map(q => q.grupo || "Perguntas"))];
+    draw(`
+      <div class="top"><button id="sair">← Menu</button><span class="pill">${B.perguntas.length} perguntas</span></div>
+      ${grupos.map(g => `<div class="grupo">${esc(g)}</div>` + B.perguntas.filter(q => (q.grupo || "Perguntas") === g).map((q, i) => `
+        <div class="card q"><div class="n">${q.tema ? esc(q.tema) : "Pergunta " + (i + 1)}</div><div class="e">${esc(q.enunciado)}</div>
+        ${q.imagem ? `<img src="${q.imagem}" alt="">` : ""}
+        ${q.tipo === "escolha" ? q.opcoes.map((o, j) => `<div class="opt ${j === q.correta ? "ok" : ""}"><span class="l">${L[j]}</span><span>${esc(o)}</span></div>`).join("") + (q.explicacao ? `<div class="expl">${esc(q.explicacao)}</div>` : "")
+          : `<div class="res"><b>Resolução</b>\n${esc(q.resolucao || "")}</div>`}
+        </div>`).join("")).join("")}
+    `);
+    app.querySelector("#sair").onclick = menu;
+  }
+
+  menu();
+})();
+</script>
+</body>
+</html>
