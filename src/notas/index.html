@@ -35,7 +35,8 @@
   .big small { font-size:15px; font-weight:500; color:var(--sub); }
   table { width:100%; border-collapse:collapse; font-size:14px; margin-top:8px; }
   td { padding:7px 4px; border-bottom:1px solid var(--line); }
-  td:last-child { text-align:right; font-weight:700; }
+  td:last-child { text-align:right; } td b { font-weight:700; }
+  .bad b, b.bad { color:var(--bad); }
   .ok { color:var(--ok); } .warn { color:var(--warn); } .bad { color:var(--bad); }
   .alerta { margin-top:10px; padding:10px 12px; border-radius:10px; font-size:14px; }
   .alerta.bad { background:var(--badBg); } .alerta.warn { background:var(--warnBg); } .alerta.ok { background:var(--okBg); }
@@ -52,6 +53,7 @@
   <p class="sub">Escreve as notas que já tens. As que faltam ficam em branco e eu calculo quanto precisas. Fica tudo guardado só neste dispositivo.</p>
   <div id="lista"></div>
 </div>
+<script src="/js/notas.js"></script>
 <script>
 (async function () {
   const D = await fetch("/avaliacoes.json", { cache: "no-store" }).then(r => r.json());
@@ -123,13 +125,12 @@
       return `<div class="res"><div class="sub">Nota final</div><div class="big ${ok ? "ok" : "bad"}">${f1(fin.a)} <small>/ 20 → ${Math.round(fin.a)}</small></div>
         ${falhados.length ? `<div class="alerta bad">Reprovado por nota mínima: ${falhados.join("; ")}</div>` : `<div class="alerta ${ok ? "ok" : "bad"}">${ok ? "Aprovado 🎉" : "Abaixo de 9,5"}</div>`}</div>`;
     }
+    if (!Object.values(notas[sig] || {}).some(v => v !== "" && v !== null && v !== undefined))
+      return `<div class="res"><div class="sub">Lança pelo menos uma nota desta UC para veres as contas. Na página inicial aparecem as avaliações que já fizeste e estão por lançar.</div></div>`;
     const nomesFalta = fin.falta.map(f => f.nome).join(", ");
     const alvoUser = alvos[sig] ?? 14;
-    const linhas = [9.5, 12, 14, 16, alvoUser].filter((x, i, a) => a.indexOf(x) === i).sort((a, b) => a - b).map(alvo => {
-      const g = precisa(fin, gMin, alvo);
-      const txt = g > 20 ? `<span class="bad">impossível</span>` : `<span class="${g >= 15 ? "warn" : "ok"}">${f1(Math.max(g, 0))}</span>`;
-      return `<tr><td>${alvo === 9.5 ? "Passar (9,5)" : "Ter " + String(alvo).replace(".", ",")}</td><td>${txt}</td></tr>`;
-    }).join("");
+    const linhas = [9.5, 12, 14, 16, alvoUser].filter((x, i, a) => a.indexOf(x) === i).sort((a, b) => a - b).map(alvo =>
+      `<tr><td>${alvo === 9.5 ? "Passar (9,5)" : "Ter " + String(alvo).replace(".", ",")}</td><td>${Notas.planoTxt(Notas.plano(uc, notas, alvo))}</td></tr>`).join("");
     const atual = fin.a / (1 - fin.b || 1);
     const maxPossivel = fin.a + fin.b * 20;
     const minPossivel = fin.a + fin.b * Math.max(gMin, 0);
@@ -138,12 +139,11 @@
       ${fin.b < 1 ? `<div class="big">${f1(atual)} <small>média do que já fizeste</small></div>` : ""}
       ${falhados.length ? `<div class="alerta bad">Já falhaste uma nota mínima: ${falhados.join("; ")}</div>` : ""}
       <table>
-        <tr><td class="sub">Para…</td><td class="sub" style="font-weight:500">precisas de (em cada uma)</td></tr>
+        <tr><td class="sub">Para…</td><td class="sub" style="font-weight:500">precisas de</td></tr>
         ${linhas}
       </table>
-      ${gMin > 0 ? `<div class="alerta warn">Mínimos: nunca menos de ${f1(gMin)} ${fin.falta.length > 1 ? "nas que faltam" : "na que falta"}, mesmo que a média chegasse.</div>` : ""}
       <div class="row">Objetivo personalizado: <input type="number" min="0" max="20" step="0.5" value="${alvoUser}" data-alvo="${sig}" style="width:70px"></div>
-      <div class="row sub">Com 20 em tudo o que falta: ${f1(Math.min(maxPossivel, 20))} · com o mínimo exigido: ${f1(minPossivel)}</div>
+      <div class="row sub">Com 20 em tudo o que falta: ${f1(Math.min(maxPossivel, 20))}. Os valores já respeitam as notas mínimas.</div>
     </div>`;
   }
 

@@ -75,6 +75,17 @@
   footer { text-align: center; color: var(--sub); font-size: 13px; margin-top: 36px; }
   .toast { position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%); background: var(--acc); color: var(--accTxt); padding: 10px 16px; border-radius: 999px; font-size: 14px; opacity: 0; transition: .2s; pointer-events: none; }
   .toast.on { opacity: 1; }
+  .lanc { display:grid; grid-template-columns:54px 1fr; gap:12px; align-items:center; padding:12px; margin-bottom:8px; }
+  .lanc .acoes { grid-column: 1 / -1; display:flex; gap:8px; align-items:center; }
+  .lanc input { width:96px; font:inherit; font-size:16px; padding:8px 10px; border-radius:10px; border:1px solid var(--line); background:var(--bg); color:var(--txt); text-align:center; }
+  .contas { padding:14px 16px; margin-bottom:8px; }
+  .contas .t { font-weight:600; display:flex; align-items:center; gap:6px; }
+  .contas .l { font-size:14px; color:var(--sub); margin-top:4px; }
+  .contas .l b { color:var(--txt); }
+  .ok { color:var(--ok); } .bad { color:var(--hot); } .warn { color:var(--warn); }
+  .nota { font-weight:700; font-size:15px; }
+  .h2row { display:flex; justify-content:space-between; align-items:baseline; }
+  .h2row a { font-size:13px; color:var(--sub); }
 </style>
 </head>
 <body>
@@ -88,6 +99,9 @@
 
   <h2>A seguir</h2>
   <div id="aSeguir"></div>
+
+  <div id="blocoLancar"></div>
+  <div id="blocoContas"></div>
 
   <div class="row" style="margin-top:28px">
     <h2 style="margin:0">Avaliações</h2>
@@ -128,6 +142,7 @@
 </div>
 <div class="toast" id="toast"></div>
 
+<script src="/js/notas.js"></script>
 <script>
 (async function () {
   const D = await fetch("/avaliacoes.json", { cache: "no-store" }).then(r => r.json());
@@ -190,7 +205,7 @@
           <div class="s">${u.nome}${a.hora ? " · " + a.hora : ""}${a.local ? " · " + a.local : ""}${a.notas ? " · " + a.notas : ""}</div>
           ${est ? `<a class="btn estudar" href="${est}">📚 Estudar</a>` : ""}
         </div>
-        <div class="falta ${faltaCls(n)}">${faltaTxt(n)}</div>
+        <div class="falta ${faltaCls(n)}">${n < 0 && lig[a.id] ? (notaDe(a) !== undefined ? `<span class="nota">${Notas.fmt(notaDe(a))}</span>` : `<span class="warn">por lançar</span>`) : faltaTxt(n)}</div>
       </div>`;
   }
 
@@ -214,7 +229,64 @@
       D.ucs.map(u => `<button class="btn chip" data-uc="${u.sigla}" aria-pressed="${filtro.includes(u.sigla)}" title="${u.nome}"><span class="dot" style="background:${u.cor}"></span>${u.sigla}</button>`).join("");
   }
 
-  function render() { renderChips(); renderASeguir(); renderLista(); }
+  // ---------- notas ----------
+  const lig = Notas.ligacoes(D);
+  let notas = Notas.load();
+  const notaDe = a => { const l = lig[a.id]; const v = l && notas[l.uc.sigla]?.[l.folha.id]; return Notas.tem(v) ? +v : undefined; };
+
+  function renderLancar() {
+    const pend = todas.filter(a => dias(a) < 0 && lig[a.id] && notaDe(a) === undefined);
+    const el = $("#blocoLancar");
+    if (!pend.length) { el.innerHTML = ""; return; }
+    el.innerHTML = `<h2>📝 Notas por lançar (${pend.length})</h2>` + pend.map(a => {
+      const u = UC[a.uc];
+      return `<div class="card lanc">
+        <div class="date"><b>${fmt(a.data, { day: "numeric" })}</b><span>${fmt(a.data, { month: "short" }).replace(".", "")}</span></div>
+        <div class="info"><div class="t"><span class="badge" style="background:${u.cor}">${a.uc}</span>${a.titulo}</div><div class="s">${u.nome} · já foi há ${-dias(a)} dias</div></div>
+        <div class="acoes"><input type="number" inputmode="decimal" min="0" max="20" step="0.1" placeholder="nota" data-lancar="${a.id}"><button class="btn primary" data-guardar="${a.id}">Guardar</button><span class="s" style="font-size:13px;color:var(--sub)">ainda sem nota? deixa estar</span></div>
+      </div>`;
+    }).join("");
+  }
+
+  function renderContas() {
+    const el = $("#blocoContas");
+    const ucs = D.ucs.filter(u => u.avaliacao && (filtro.length === 0 || filtro.includes(u.sigla)));
+    const linhas = ucs.map(u => ({ u, r: Notas.analisa(u, notas) })).filter(x => x.r.lancadas > 0);
+    if (!linhas.length) { el.innerHTML = ""; return; }
+    el.innerHTML = `<div class="h2row"><h2>🎯 As tuas contas</h2><a href="/notas/">detalhe →</a></div>` + linhas.map(({ u, r }) => {
+      const media = r.fin.a / (1 - r.fin.b || 1);
+      let corpo;
+      if (r.fin.b === 0) {
+        const ok = r.fin.a >= 9.5 && !r.falhados.length;
+        corpo = `<div class="l">Nota final: <b class="${ok ? "ok" : "bad"}">${Notas.fmt(r.fin.a)}</b> ${ok ? "· aprovado 🎉" : r.falhados.length ? "· reprovado por nota mínima" : ""}</div>`;
+      } else if (r.falhados.length) {
+        corpo = `<div class="l bad">Falhaste uma nota mínima: ${r.falhados.join("; ")}</div>`;
+      } else {
+        const pl = a => Notas.planoTxt(Notas.plano(u, notas, a));
+        corpo = `<div class="l">Média até agora <b>${Notas.fmt(media)}</b></div>
+          <div class="l">Para passar: ${pl(9.5)}</div>
+          <div class="l">Para 14: ${pl(14)}</div>`;
+      }
+      return `<div class="card contas"><div class="t"><span class="badge" style="background:${u.cor}">${u.sigla}</span>${u.nome}</div>${corpo}</div>`;
+    }).join("");
+  }
+
+  function guardarNota(id) {
+    const inp = document.querySelector(`[data-lancar="${id}"]`);
+    const v = inp.value.trim().replace(",", ".");
+    if (v === "" || isNaN(+v) || +v < 0 || +v > 20) { toast("Nota entre 0 e 20"); inp.focus(); return; }
+    const l = lig[id];
+    notas = Notas.load();
+    notas[l.uc.sigla] = notas[l.uc.sigla] || {};
+    notas[l.uc.sigla][l.folha.id] = Math.round(+v * 100) / 100;
+    Notas.save(notas);
+    toast(`${l.uc.sigla} · ${Notas.fmt(+v)} guardado`);
+    render();
+  }
+  document.addEventListener("click", e => { const g = e.target.closest("[data-guardar]"); if (g) guardarNota(g.dataset.guardar); });
+  document.addEventListener("keydown", e => { if (e.key === "Enter" && e.target.dataset?.lancar) guardarNota(e.target.dataset.lancar); });
+
+  function render() { renderChips(); renderASeguir(); renderLancar(); renderContas(); renderLista(); }
 
   document.addEventListener("click", e => {
     const t = e.target.closest("[data-tab]");
