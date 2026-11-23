@@ -51,6 +51,14 @@
   table { width:100%; border-collapse:collapse; font-size:14px; }
   td { padding:6px 4px; border-bottom:1px solid var(--line); }
   .top { display:flex; justify-content:space-between; align-items:center; }
+  .al { border-top:1px solid var(--line); padding-top:10px; margin-top:10px; }
+  .al .an { font-weight:700; margin-right:6px; }
+  .al .ac { font-size:12px; color:var(--sub); margin-left:6px; }
+  .al .ae { white-space:pre-wrap; }
+  .fonte { font-size:11px; padding:2px 8px; border-radius:999px; background:var(--chip); color:var(--sub); margin-left:6px; white-space:nowrap; }
+  .fonte.real { background:#7c5cff; color:#fff; }
+  .q svg text { paint-order: normal; }
+  .filtros { display:flex; gap:6px; flex-wrap:wrap; margin:8px 0 14px; }
 </style>
 </head>
 <body>
@@ -69,6 +77,7 @@
   const math = el => { if (window.renderMathInElement) renderMathInElement(el, { delimiters: [{ left: "$$", right: "$$", display: true }, { left: "$", right: "$", display: false }], throwOnError: false }); };
   window.addEventListener("load", () => math(app));
   const draw = html => { app.innerHTML = html; math(app); window.scrollTo(0, 0); };
+  const fmtN = x => (Math.round(x * 10) / 10).toString().replace(".", ",");
 
   // ---------- lista de bancos ----------
   if (!bancoId) {
@@ -88,17 +97,21 @@
   if (!B) { draw(`<a href="./" class="sub">← Estudo</a><h1>Banco não encontrado</h1>`); return; }
   B.perguntas.forEach((q, i) => { q._id = q.id || `${bancoId}-${i}`; q.tipo = q.tipo || (q.opcoes ? "escolha" : "aberta"); });
   const porId = Object.fromEntries(B.perguntas.map(q => [q._id, q]));
-  const kErr = `erradas:${bancoId}`, kHist = `historico:${bancoId}`;
+  const kErr = `erradas:${bancoId}`, kHist = `historico:${bancoId}`, kFeitas = `feitas:${bancoId}`;
   const erradas = () => store.get(kErr, []).filter(id => porId[id]);
   const marcar = (id, certo) => {
     let e = store.get(kErr, []);
     e = certo ? e.filter(x => x !== id) : (e.includes(id) ? e : [...e, id]);
     store.set(kErr, e);
   };
+  const feitas = () => new Set(store.get(kFeitas, []));
+  const marcarFeita = id => { const f = feitas(); f.add(id); store.set(kFeitas, [...f]); };
   const estrutura = B.estrutura && B.estrutura.length ? B.estrutura : [{ grupo: "Perguntas", n: Math.min(10, B.perguntas.length) }];
   const L = "ABCDEFGH";
+  const isReal = q => /real/i.test(q.fonte || "");
+  const fonteHtml = q => q.fonte ? `<span class="fonte ${isReal(q) ? "real" : ""}">${esc(q.fonte)}</span>` : "";
+  const histPush = (modo, nota) => { const h = store.get(kHist, []); h.push({ t: Date.now(), modo, nota }); store.set(kHist, h.slice(-50)); };
 
-  // baralha as opções mantendo a correta
   const prepara = q => {
     if (q.tipo !== "escolha") return { q };
     const ordem = shuffle(q.opcoes.map((_, i) => i));
@@ -107,40 +120,85 @@
 
   function menu() {
     const hist = store.get(kHist, []);
-    const nErr = erradas().length;
+    const err = erradas();
+    const errEsc = err.filter(id => porId[id].tipo === "escolha");
+    const errAb = err.filter(id => porId[id].tipo !== "escolha");
     const nEsc = B.perguntas.filter(q => q.tipo === "escolha").length;
+    const reais = B.testesReais || [];
     draw(`
       <a href="./" class="sub">← Estudo</a>
       <h1>${B.uc ? B.uc + " · " : ""}${esc(B.titulo)}</h1>
       <p class="sub">${B.perguntas.length} perguntas${B.descricao ? " · " + esc(B.descricao) : ""}</p>
-      <h2>Como queres treinar?</h2>
+      ${reais.length ? `<h2>1. Testes reais resolvidos</h2>
+        ${reais.map((t, i) => `<button class="mode" style="width:100%;margin-bottom:8px" data-real="${i}"><b>📄 ${esc(t.titulo)}</b><span>${t.nota ? esc(t.nota) + " " : ""}${t.ids.length} grupos</span></button>`).join("")}` : ""}
+      <h2>${reais.length ? "2. " : ""}Treinar</h2>
       <div class="modes">
-        <button class="mode" data-m="modelo"><b>📝 Teste modelo</b><span>${estrutura.map(g => `${g.grupo}: ${g.n}`).join(" · ")}. Perguntas novas a cada tentativa.</span></button>
-        <button class="mode" data-m="treino" ${nEsc ? "" : "disabled"}><b>🎯 Treino rápido</b><span>Escolhas múltiplas uma a uma, com correção imediata. As que erras voltam no fim.</span></button>
-        <button class="mode" data-m="erradas" ${nErr ? "" : "disabled"}><b>🔁 Repetir erradas</b><span>${nErr ? nErr + " por rever" : "Nenhuma por rever"}</span></button>
-        <button class="mode" data-m="tudo"><b>📖 Ver todas</b><span>Todas as perguntas com resposta e explicação, por grupo.</span></button>
+        <button class="mode" data-m="modelo"><b>📝 Teste modelo</b><span>${estrutura.map(g => `${esc(g.grupo)}${g.cotacao ? ` (${fmtN(g.cotacao)} val.)` : ""}`).join(" · ")}. Exercícios novos em cada tentativa.</span></button>
+        <button class="mode" data-m="treino" ${nEsc ? "" : "disabled"}><b>🎯 Conceitos (escolha múltipla)</b><span>${nEsc} perguntas uma a uma, com correção imediata. As que erras voltam no fim.</span></button>
+        <button class="mode" data-m="grupo"><b>🧩 Treinar um grupo</b><span>Só exercícios do grupo onde tens mais dificuldade.</span></button>
+        <button class="mode" data-m="erradas" ${err.length ? "" : "disabled"}><b>🔁 Repetir o que falhei</b><span>${err.length ? `${errAb.length} exercícios · ${errEsc.length} escolhas múltiplas` : "Nada por rever"}</span></button>
+        <button class="mode" data-m="tudo"><b>📖 Ver resoluções</b><span>Consultar exercícios resolvidos por grupo.</span></button>
       </div>
-      ${hist.length ? `<h2>Histórico</h2><div class="card"><table>${hist.slice(-8).reverse().map(h => `<tr><td>${new Date(h.t).toLocaleDateString("pt-PT", { day: "2-digit", month: "2-digit" })} ${new Date(h.t).toLocaleTimeString("pt-PT", { hour: "2-digit", minute: "2-digit" })}</td><td>${h.modo}</td><td style="text-align:right"><b>${h.nota}</b></td></tr>`).join("")}</table></div>` : ""}
+      ${hist.length ? `<h2>Histórico</h2><div class="card"><table>${hist.slice(-10).reverse().map(h => `<tr><td>${new Date(h.t).toLocaleDateString("pt-PT", { day: "2-digit", month: "2-digit" })} ${new Date(h.t).toLocaleTimeString("pt-PT", { hour: "2-digit", minute: "2-digit" })}</td><td>${esc(h.modo)}</td><td style="text-align:right"><b>${esc(h.nota)}</b></td></tr>`).join("")}</table></div>` : ""}
     `);
-    app.querySelectorAll("[data-m]").forEach(b => b.onclick = () => ({ modelo: testeModelo, treino: () => treino(B.perguntas.filter(q => q.tipo === "escolha")), erradas: () => treino(erradas().map(id => porId[id])), tudo: verTudo })[b.dataset.m]());
+    app.querySelectorAll("[data-real]").forEach(b => b.onclick = () => {
+      const t = reais[+b.dataset.real];
+      const grupos = t.ids.map(id => porId[id]).filter(Boolean).map(q => ({ grupo: q.grupo, cotacao: somaCot(q) / 10, itens: [prepara(q)] }));
+      runTest(grupos, t.titulo);
+    });
+    app.querySelectorAll("[data-m]").forEach(b => b.onclick = () => ({
+      modelo: () => testeModelo(),
+      treino: () => treino(B.perguntas.filter(q => q.tipo === "escolha")),
+      grupo: escolherGrupo,
+      erradas: () => {
+        if (errAb.length) runTest(errAb.map(id => porId[id]).map(q => ({ grupo: q.grupo, cotacao: grupoCot(q.grupo), itens: [prepara(q)] })), "Rever falhados", () => errEsc.length && treino(errEsc.map(id => porId[id])));
+        else treino(errEsc.map(id => porId[id]));
+      },
+      tudo: verTudo
+    })[b.dataset.m]());
   }
 
-  // ---------- teste modelo ----------
-  function testeModelo() {
-    const grupos = estrutura.map(g => {
-      const pool = B.perguntas.filter(q => (q.grupo || "Perguntas") === g.grupo);
-      return { ...g, itens: shuffle(pool).slice(0, g.n).map(prepara) };
+  const somaCot = q => (q.alineas || []).reduce((s, a) => s + (+a.cotacao || 0), 0) || 10;
+  const grupoCot = g => (estrutura.find(e => e.grupo === g) || {}).cotacao || 1;
+
+  // escolhe perguntas novas primeiro
+  function sortear(pool, n) {
+    const f = feitas();
+    const novas = shuffle(pool.filter(q => !f.has(q._id) && !isReal(q)));
+    const resto = shuffle(pool.filter(q => f.has(q._id) && !isReal(q)));
+    const reais = shuffle(pool.filter(isReal));
+    return [...novas, ...resto, ...reais].slice(0, n);
+  }
+
+  function testeModelo(soGrupo) {
+    const est = soGrupo ? estrutura.filter(g => g.grupo === soGrupo) : estrutura;
+    const grupos = est.map(g => {
+      const pool = B.perguntas.filter(q => (q.grupo || "Perguntas") === g.grupo && q.tipo !== "escolha");
+      return { ...g, itens: sortear(pool, soGrupo ? 1 : g.n).map(prepara) };
     });
+    runTest(grupos, soGrupo ? `Treino · ${soGrupo}` : "Teste modelo", null, () => testeModelo(soGrupo));
+  }
+
+  function escolherGrupo() {
+    draw(`<div class="top"><button id="sair">← Menu</button></div><h1>Que grupo queres treinar?</h1>
+      ${estrutura.map((g, i) => `<button class="mode" style="width:100%;margin-bottom:8px" data-g="${i}"><b>${esc(g.grupo)}</b><span>${B.perguntas.filter(q => q.grupo === g.grupo).length} exercícios</span></button>`).join("")}`);
+    app.querySelector("#sair").onclick = menu;
+    app.querySelectorAll("[data-g]").forEach(b => b.onclick = () => testeModelo(estrutura[+b.dataset.g].grupo));
+  }
+
+  // ---------- teste (modelo, real ou revisão) ----------
+  function runTest(grupos, titulo, depois, repetir) {
     const resp = {};
     let n = 0;
     draw(`
-      <div class="top"><button id="sair">← Sair</button><span class="pill">Teste modelo</span></div>
+      <div class="top"><button id="sair">← Sair</button><span class="pill">${esc(titulo)}</span></div>
       <h1>${B.uc ? B.uc + " · " : ""}${esc(B.titulo)}</h1>
+      <p class="sub">Resolve no papel como no teste e depois carrega em "Corrigir" para veres as resoluções e te autoavaliares alínea a alínea.</p>
       ${grupos.map((g, gi) => `
-        <div class="grupo">${esc(g.grupo)} <small>${g.cotacao ? g.cotacao + " valores" : ""}${g.itens.length < g.n ? ` · só ${g.itens.length} de ${g.n} no banco` : ""}</small></div>
-        ${g.itens.map((it, qi) => { n++; return pergunta(it, `${gi}-${qi}`, n); }).join("")}
+        <div class="grupo">${esc(g.grupo)} <small>${g.cotacao ? fmtN(g.cotacao) + " valores" : ""}</small></div>
+        ${g.itens.length ? g.itens.map((it, qi) => { n++; return pergunta(it, `${gi}-${qi}`, gi + 1); }).join("") : `<div class="card sub">Sem exercícios deste grupo no banco.</div>`}
       `).join("")}
-      <div class="sticky"><button class="primary" id="entregar">Entregar e corrigir</button></div>
+      <div class="sticky"><button class="primary" id="entregar">Corrigir</button></div>
     `);
     app.querySelector("#sair").onclick = menu;
     app.querySelectorAll(".opt").forEach(b => b.onclick = () => {
@@ -148,88 +206,106 @@
       app.querySelectorAll(`.opt[data-k="${k}"]`).forEach(x => x.classList.remove("sel"));
       b.classList.add("sel"); resp[k] = +b.dataset.i;
     });
-    app.querySelector("#entregar").onclick = () => corrigir(grupos, resp);
+    app.querySelector("#entregar").onclick = () => corrigir(grupos, resp, titulo, depois, repetir);
   }
 
-  function pergunta(it, k, n) {
+  function pergunta(it, k, num) {
     const q = it.q;
+    const corpo = q.tipo === "escolha"
+      ? it.ordem.map((oi, i) => `<button class="opt" data-k="${k}" data-i="${i}"><span class="l">${L[i]}</span><span>${esc(q.opcoes[oi])}</span></button>`).join("")
+      : q.alineas
+        ? q.alineas.map((a, j) => `<div class="al" id="al-${k}-${j}"><div><span class="an">${num}.${j + 1}</span><span class="ae">${esc(a.enunciado)}</span><span class="ac">(${a.cotacao} pts)</span></div><div class="fb"></div></div>`).join("")
+        : `<textarea placeholder="Rascunho (opcional)."></textarea>`;
     return `<div class="card q" id="q-${k}">
-      <div class="n">Pergunta ${n}${q.tema ? " · " + esc(q.tema) : ""}</div>
+      <div class="n">${q.tema ? esc(q.tema) : ""}${fonteHtml(q)}</div>
       <div class="e">${esc(q.enunciado)}</div>
-      ${q.imagem ? `<img src="${q.imagem}" alt="">` : ""}
-      ${q.tipo === "escolha"
-        ? it.ordem.map((oi, i) => `<button class="opt" data-k="${k}" data-i="${i}"><span class="l">${L[i]}</span><span>${esc(q.opcoes[oi])}</span></button>`).join("")
-        : `<textarea placeholder="Rascunho (opcional). Faz o esquema ou desenho no papel e depois compara com a resolução."></textarea>`}
-      <div class="fb"></div>
+      ${q.imagem ? `<img src="${q.imagem}" alt="figura do enunciado" style="background:#fff;padding:6px">` : ""}
+      ${corpo}
+      ${q.alineas ? "" : `<div class="fb"></div>`}
     </div>`;
   }
 
-  function corrigir(grupos, resp) {
+  function corrigir(grupos, resp, titulo, depois, repetir) {
     app.querySelectorAll(".opt").forEach(b => b.disabled = true);
     app.querySelector(".sticky").remove();
     const abertas = [];
     let certas = 0, total = 0, pontos = 0, max = 0;
+    const btns = key => `<div class="row" style="margin-top:8px"><span class="sub" style="font-size:13px">Como correu?</span>
+        <button data-auto="${key}" data-v="1">✅ Certo</button><button data-auto="${key}" data-v="0.5">🟡 Meio</button><button data-auto="${key}" data-v="0">❌ Errado</button></div>`;
     grupos.forEach((g, gi) => g.itens.forEach((it, qi) => {
-      const k = `${gi}-${qi}`, card = app.querySelector(`#q-${k}`), fb = card.querySelector(".fb"), q = it.q;
-      const valor = g.cotacao ? g.cotacao / g.itens.length : 1;
-      max += valor;
+      const k = `${gi}-${qi}`, card = app.querySelector(`#q-${k}`), q = it.q;
+      const valorQ = g.cotacao ? g.cotacao / g.itens.length : 1;
+      max += valorQ;
+      marcarFeita(q._id);
       if (q.tipo === "escolha") {
         total++;
         const r = resp[k], ok = r === it.correta;
-        if (ok) { certas++; pontos += valor; }
+        if (ok) { certas++; pontos += valorQ; }
         marcar(q._id, ok);
         card.querySelectorAll(".opt").forEach((b, i) => { if (i === it.correta) b.classList.add("ok"); else if (i === r) b.classList.add("bad"); });
-        fb.innerHTML = `<div class="expl">${r === undefined ? "Sem resposta. " : ""}${ok ? "✅ Certo." : "❌ Errado."}${q.explicacao ? " " + esc(q.explicacao) : ""}</div>`;
+        card.querySelector(".fb").innerHTML = `<div class="expl">${r === undefined ? "Sem resposta. " : ""}${ok ? "✅ Certo." : "❌ Errado."}${q.explicacao ? " " + esc(q.explicacao) : ""}</div>`;
+      } else if (q.alineas) {
+        const sc = somaCot(q);
+        q.alineas.forEach((a, j) => {
+          const key = `${k}-${j}`;
+          abertas.push({ key, q, valor: valorQ * (+a.cotacao || 0) / sc });
+          card.querySelector(`#al-${key} .fb`).innerHTML = `<div class="res"><b>Resolução</b>\n${esc(a.resolucao)}</div>${btns(key)}`;
+        });
       } else {
-        abertas.push({ k, q, valor });
-        fb.innerHTML = `<div class="res"><b>Resolução</b>\n${esc(q.resolucao || "Sem resolução no banco.")}</div>
-          <div class="row" style="margin-top:10px"><span class="sub" style="font-size:14px">Como correu?</span>
-          <button data-auto="${k}" data-v="1">✅ Acertei</button><button data-auto="${k}" data-v="0.5">🟡 Meio</button><button data-auto="${k}" data-v="0">❌ Errei</button></div>`;
+        abertas.push({ key: k, q, valor: valorQ });
+        card.querySelector(".fb").innerHTML = `<div class="res"><b>Resolução</b>\n${esc(q.resolucao || "")}</div>${btns(k)}`;
       }
     }));
     math(app);
     const auto = {};
     const resumo = document.createElement("div");
     resumo.className = "card"; resumo.style.marginTop = "20px";
-    const atualiza = () => {
-      const pa = abertas.reduce((s, a) => s + (auto[a.k] ?? 0) * a.valor, 0);
-      const nota = ((pontos + pa) / max * 20);
-      const falta = abertas.filter(a => auto[a.k] === undefined).length;
-      resumo.innerHTML = `<div class="sub">Resultado</div><div class="score">${nota.toFixed(1)}<span class="sub" style="font-size:18px"> / 20</span></div>
-        <div class="sub">Escolhas múltiplas: ${certas}/${total}${abertas.length ? ` · Abertas: ${falta ? `faltam ${falta} por autoavaliar` : "autoavaliadas"}` : ""}</div>
-        <div class="row" style="margin-top:12px"><button class="primary" id="outro">Novo teste modelo</button><button id="voltar">Menu</button></div>`;
-      resumo.querySelector("#outro").onclick = testeModelo;
-      resumo.querySelector("#voltar").onclick = menu;
-      return { nota, falta };
-    };
     let guardado = false;
-    const guarda = () => { const { nota, falta } = atualiza(); if (!falta && !guardado) { guardado = true; const h = store.get(kHist, []); h.push({ t: Date.now(), modo: "Teste modelo", nota: nota.toFixed(1) + "/20" }); store.set(kHist, h.slice(-50)); } };
-    app.appendChild(resumo); guarda();
+    const atualiza = () => {
+      const pa = abertas.reduce((s, a) => s + (auto[a.key] ?? 0) * a.valor, 0);
+      const nota = max ? (pontos + pa) / max * 20 : 0;
+      const falta = abertas.filter(a => auto[a.key] === undefined).length;
+      resumo.innerHTML = `<div class="sub">Resultado</div><div class="score">${fmtN(nota)}<span class="sub" style="font-size:18px"> / 20</span></div>
+        <div class="sub">${total ? `Escolhas múltiplas: ${certas}/${total} · ` : ""}${abertas.length ? (falta ? `faltam ${falta} alíneas por autoavaliar` : "tudo autoavaliado") : ""}</div>
+        <div class="row" style="margin-top:12px">${repetir ? `<button class="primary" id="outro">Gerar outro</button>` : ""}${depois ? `<button id="depois">Continuar</button>` : ""}<button id="voltar">Menu</button></div>`;
+      if (repetir) resumo.querySelector("#outro").onclick = repetir;
+      if (depois) resumo.querySelector("#depois").onclick = depois;
+      resumo.querySelector("#voltar").onclick = menu;
+      if (!falta && !guardado) {
+        guardado = true; histPush(titulo, fmtN(nota) + "/20");
+        // exercício conta como falhado se tiver alguma alínea abaixo de "certo"
+        const porQ = {};
+        abertas.forEach(a => { porQ[a.q._id] = (porQ[a.q._id] ?? true) && auto[a.key] === 1; });
+        Object.entries(porQ).forEach(([id, ok]) => marcar(id, ok));
+      }
+    };
+    app.appendChild(resumo); atualiza();
     app.querySelectorAll("[data-auto]").forEach(b => b.onclick = () => {
-      const k = b.dataset.auto, a = abertas.find(x => x.k === k);
-      auto[k] = +b.dataset.v; marcar(a.q._id, auto[k] === 1);
-      app.querySelectorAll(`[data-auto="${k}"]`).forEach(x => x.classList.toggle("primary", x === b));
-      guarda();
+      const key = b.dataset.auto;
+      auto[key] = +b.dataset.v;
+      app.querySelectorAll(`[data-auto="${key}"]`).forEach(x => x.classList.toggle("primary", x === b));
+      atualiza();
     });
-    resumo.scrollIntoView({ behavior: "smooth" });
+    if (!abertas.length) resumo.scrollIntoView({ behavior: "smooth" });
+    else app.querySelector(".res").scrollIntoView({ behavior: "smooth", block: "center" });
   }
 
   // ---------- treino uma a uma ----------
   function treino(lista) {
-    let fila = shuffle(lista).map(prepara), feitas = 0, primeiraCerta = 0;
+    let fila = shuffle(lista).map(prepara), feitasN = 0, primeiraCerta = 0;
     const total = fila.length, jaErrou = new Set();
     const proxima = () => {
       if (!fila.length) {
-        const h = store.get(kHist, []); h.push({ t: Date.now(), modo: "Treino", nota: `${primeiraCerta}/${total} à 1ª` }); store.set(kHist, h.slice(-50));
+        histPush("Conceitos", `${primeiraCerta}/${total} à 1ª`);
         draw(`<h1>Treino concluído 🎉</h1><div class="card"><div class="score">${primeiraCerta}/${total}</div><div class="sub">certas à primeira</div>
           <div class="row" style="margin-top:12px"><button class="primary" id="denovo">Repetir</button><button id="voltar">Menu</button></div></div>`);
         app.querySelector("#denovo").onclick = () => treino(lista); app.querySelector("#voltar").onclick = menu; return;
       }
       const it = fila[0], q = it.q;
       draw(`
-        <div class="top"><button id="sair">← Sair</button><span class="pill">${feitas}/${total} · faltam ${fila.length}</span></div>
-        <div class="prog"><i style="width:${feitas / total * 100}%"></i></div>
-        ${pergunta(it, "t", feitas + 1)}
+        <div class="top"><button id="sair">← Sair</button><span class="pill">${feitasN}/${total} · faltam ${fila.length}</span></div>
+        <div class="prog"><i style="width:${feitasN / total * 100}%"></i></div>
+        ${pergunta(it, "t", feitasN + 1)}
         <div class="row" style="justify-content:flex-end"><button class="primary" id="seg" style="display:none">Seguinte →</button></div>
       `);
       app.querySelector("#sair").onclick = menu;
@@ -241,7 +317,7 @@
         math(app);
         marcar(q._id, ok);
         fila.shift();
-        if (ok) { feitas++; if (!jaErrou.has(q._id)) primeiraCerta++; }
+        if (ok) { feitasN++; if (!jaErrou.has(q._id)) primeiraCerta++; }
         else { jaErrou.add(q._id); fila.push(prepara(q)); }
         seg.style.display = ""; seg.focus();
       });
@@ -250,19 +326,26 @@
     proxima();
   }
 
-  // ---------- ver tudo ----------
-  function verTudo() {
+  // ---------- ver resoluções ----------
+  function verTudo(gSel) {
     const grupos = [...new Set(B.perguntas.map(q => q.grupo || "Perguntas"))];
+    const g = gSel || grupos[0];
+    const lista = B.perguntas.filter(q => (q.grupo || "Perguntas") === g).sort((a, b) => isReal(b) - isReal(a));
+    const mostrar = lista.slice(0, 12);
     draw(`
-      <div class="top"><button id="sair">← Menu</button><span class="pill">${B.perguntas.length} perguntas</span></div>
-      ${grupos.map(g => `<div class="grupo">${esc(g)}</div>` + B.perguntas.filter(q => (q.grupo || "Perguntas") === g).map((q, i) => `
-        <div class="card q"><div class="n">${q.tema ? esc(q.tema) : "Pergunta " + (i + 1)}</div><div class="e">${esc(q.enunciado)}</div>
-        ${q.imagem ? `<img src="${q.imagem}" alt="">` : ""}
+      <div class="top"><button id="sair">← Menu</button><span class="pill">${lista.length} exercícios</span></div>
+      <div class="filtros">${grupos.map(x => `<button data-vg="${esc(x)}" class="${x === g ? "primary" : ""}">${esc(x)}</button>`).join("")}</div>
+      ${mostrar.map((q, i) => `
+        <div class="card q"><div class="n">${q.tema ? esc(q.tema) : ""}${fonteHtml(q)}</div><div class="e">${esc(q.enunciado)}</div>
+        ${q.imagem ? `<img src="${q.imagem}" alt="" style="background:#fff;padding:6px">` : ""}
         ${q.tipo === "escolha" ? q.opcoes.map((o, j) => `<div class="opt ${j === q.correta ? "ok" : ""}"><span class="l">${L[j]}</span><span>${esc(o)}</span></div>`).join("") + (q.explicacao ? `<div class="expl">${esc(q.explicacao)}</div>` : "")
-          : `<div class="res"><b>Resolução</b>\n${esc(q.resolucao || "")}</div>`}
-        </div>`).join("")).join("")}
+          : q.alineas ? q.alineas.map((a, j) => `<div class="al"><span class="an">${j + 1}.</span><span class="ae">${esc(a.enunciado)}</span><details><summary class="sub" style="cursor:pointer;margin-top:6px">Ver resolução</summary><div class="res">${esc(a.resolucao)}</div></details></div>`).join("")
+          : `<div class="res">${esc(q.resolucao || "")}</div>`}
+        </div>`).join("")}
+      ${lista.length > mostrar.length ? `<p class="sub">A mostrar ${mostrar.length} de ${lista.length}. Os restantes aparecem nos testes modelo.</p>` : ""}
     `);
     app.querySelector("#sair").onclick = menu;
+    app.querySelectorAll("[data-vg]").forEach(b => b.onclick = () => verTudo(b.dataset.vg));
   }
 
   menu();
