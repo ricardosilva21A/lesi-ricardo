@@ -6,7 +6,39 @@
     {
       "sigla": "MD",
       "nome": "Matemática Discreta",
-      "cor": "#7c5cff"
+      "cor": "#7c5cff",
+      "avaliacao": [
+        {
+          "id": "T",
+          "nome": "Testes",
+          "peso": 85,
+          "filhos": [
+            {
+              "id": "t1",
+              "nome": "1º teste",
+              "peso": 35
+            },
+            {
+              "id": "t2",
+              "nome": "2º teste",
+              "peso": 30,
+              "avaliacao": "md-t2"
+            },
+            {
+              "id": "t3",
+              "nome": "3º teste",
+              "peso": 35,
+              "min": 7,
+              "avaliacao": "md-t3"
+            }
+          ]
+        },
+        {
+          "id": "tg",
+          "nome": "Trabalho de grupo",
+          "peso": 15
+        }
+      ]
     },
     {
       "sigla": "AMS",

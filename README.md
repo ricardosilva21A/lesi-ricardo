@@ -23,6 +23,22 @@ Edita o ficheiro `avaliacoes.json` (dá para fazer no github.com, no lápis ✏�
 
 Se algo estiver mal escrito (UC inexistente, data errada), o build falha e o site antigo mantém-se no ar.
 
+## Método de avaliação (página /notas/)
+
+Cada UC em `ucs` pode ter um campo `avaliacao` com as componentes. Os pesos são relativos dentro de cada nível, `min` é a nota mínima e `avaliacao` liga à data no calendário (opcional). As notas que escreves no site ficam só no teu dispositivo.
+
+```json
+"avaliacao": [
+  { "id": "T", "nome": "Testes", "peso": 85, "filhos": [
+    { "id": "t1", "nome": "1º teste", "peso": 35 },
+    { "id": "t2", "nome": "2º teste", "peso": 30, "avaliacao": "md-t2" },
+    { "id": "t3", "nome": "3º teste", "peso": 35, "min": 7, "avaliacao": "md-t3" } ] },
+  { "id": "tg", "nome": "Trabalho de grupo", "peso": 15 }
+]
+```
+
+A calculadora assume a mesma nota em todas as avaliações que faltam e respeita as notas mínimas.
+
 ## Bancos de estudo
 
 Cada banco é um ficheiro em `src/estudo/bancos/<nome>.json`. Aparece sozinho na página `/estudo/`. O motor faz testes modelo aleatórios a partir da `estrutura`, treino uma a uma, repetição das erradas e histórico de notas (guardado no dispositivo).

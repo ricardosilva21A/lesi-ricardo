@@ -19,6 +19,21 @@ for (const a of dados.avaliacoes) {
   ids.add(a.id);
 }
 
+// método de avaliação: pesos positivos, ids únicos dentro da UC
+for (const u of dados.ucs) {
+  if (!u.avaliacao) continue;
+  const vistos = new Set();
+  (function walk(nos, onde) {
+    for (const n of nos) {
+      if (!n.id || !(n.peso > 0)) throw new Error(`Avaliação de ${u.sigla}: cada componente precisa de "id" e "peso" > 0 (${onde})`);
+      if (vistos.has(n.id)) throw new Error(`Avaliação de ${u.sigla}: id repetido "${n.id}"`);
+      vistos.add(n.id);
+      if (n.avaliacao && !ids.has(n.avaliacao)) throw new Error(`Avaliação de ${u.sigla}: "${n.avaliacao}" não existe nas avaliações`);
+      if (n.filhos) walk(n.filhos, n.nome);
+    }
+  })(u.avaliacao, "raiz");
+}
+
 // ---------- copiar src/ ----------
 fs.rmSync(OUT, { recursive: true, force: true });
 fs.cpSync(path.join(ROOT, "src"), OUT, { recursive: true });
