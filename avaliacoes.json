@@ -16,7 +16,8 @@
             {
               "id": "t1",
               "nome": "1º teste",
-              "peso": 35
+              "peso": 35,
+              "avaliacao": "md-t1"
             },
             {
               "id": "t2",
@@ -54,7 +55,8 @@
             {
               "id": "t1",
               "nome": "1º teste",
-              "peso": 50
+              "peso": 50,
+              "avaliacao": "ams-t1"
             },
             {
               "id": "t2",
@@ -85,7 +87,8 @@
             {
               "id": "t1",
               "nome": "1º teste",
-              "peso": 50
+              "peso": 50,
+              "avaliacao": "aad-t1"
             },
             {
               "id": "t2",
@@ -116,7 +119,8 @@
             {
               "id": "t1",
               "nome": "1º teste",
-              "peso": 50
+              "peso": 50,
+              "avaliacao": "rc-t1"
             },
             {
               "id": "t2",
@@ -163,6 +167,50 @@
     }
   ],
   "avaliacoes": [
+    {
+      "id": "rc-t1",
+      "uc": "RC",
+      "tipo": "teste",
+      "titulo": "1º teste",
+      "data": "2026-10-20",
+      "hora": "",
+      "local": "",
+      "notas": "",
+      "estudo": ""
+    },
+    {
+      "id": "md-t1",
+      "uc": "MD",
+      "tipo": "teste",
+      "titulo": "1º teste",
+      "data": "2026-10-31",
+      "hora": "",
+      "local": "",
+      "notas": "",
+      "estudo": ""
+    },
+    {
+      "id": "ams-t1",
+      "uc": "AMS",
+      "tipo": "teste",
+      "titulo": "1º teste",
+      "data": "2026-11-17",
+      "hora": "",
+      "local": "",
+      "notas": "",
+      "estudo": ""
+    },
+    {
+      "id": "aad-t1",
+      "uc": "AAD",
+      "tipo": "teste",
+      "titulo": "1º teste",
+      "data": "2026-11-20",
+      "hora": "",
+      "local": "",
+      "notas": "",
+      "estudo": ""
+    },
     {
       "id": "md-t2",
       "uc": "MD",
