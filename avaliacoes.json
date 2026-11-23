@@ -43,22 +43,123 @@
     {
       "sigla": "AMS",
       "nome": "Análise e Modelação de Software",
-      "cor": "#00a6a6"
+      "cor": "#00a6a6",
+      "avaliacao": [
+        {
+          "id": "T",
+          "nome": "Testes (média)",
+          "peso": 50,
+          "min": 8,
+          "filhos": [
+            {
+              "id": "t1",
+              "nome": "1º teste",
+              "peso": 50
+            },
+            {
+              "id": "t2",
+              "nome": "2º teste",
+              "peso": 50,
+              "avaliacao": "ams-t2"
+            }
+          ]
+        },
+        {
+          "id": "tp",
+          "nome": "Trabalho (sprints + defesa)",
+          "peso": 50,
+          "avaliacao": "ams-def"
+        }
+      ]
     },
     {
       "sigla": "AAD",
       "nome": "Armazenamento e Acesso a Dados",
-      "cor": "#e08a00"
+      "cor": "#e08a00",
+      "avaliacao": [
+        {
+          "id": "T",
+          "nome": "Testes",
+          "peso": 65,
+          "filhos": [
+            {
+              "id": "t1",
+              "nome": "1º teste",
+              "peso": 50
+            },
+            {
+              "id": "t2",
+              "nome": "2º teste",
+              "peso": 50,
+              "avaliacao": "aad-t2"
+            }
+          ]
+        },
+        {
+          "id": "tp",
+          "nome": "Trabalho",
+          "peso": 35
+        }
+      ]
     },
     {
       "sigla": "RC",
       "nome": "Redes de Computadores",
-      "cor": "#2f7dff"
+      "cor": "#2f7dff",
+      "avaliacao": [
+        {
+          "id": "T",
+          "nome": "Testes (média)",
+          "peso": 60,
+          "min": 8,
+          "filhos": [
+            {
+              "id": "t1",
+              "nome": "1º teste",
+              "peso": 50
+            },
+            {
+              "id": "t2",
+              "nome": "2º teste",
+              "peso": 50,
+              "avaliacao": "rc-t2"
+            }
+          ]
+        },
+        {
+          "id": "tp",
+          "nome": "Trabalho prático",
+          "peso": 40,
+          "min": 9,
+          "avaliacao": "rc-def"
+        }
+      ]
     },
     {
       "sigla": "SETR",
       "nome": "Sistemas Embebidos e de Tempo Real",
-      "cor": "#e5484d"
+      "cor": "#e5484d",
+      "avaliacao": [
+        {
+          "id": "nt",
+          "nome": "Componente teórica (prova escrita)",
+          "peso": 40,
+          "min": 8,
+          "avaliacao": "setr-t"
+        },
+        {
+          "id": "np",
+          "nome": "Componente prática (trabalho)",
+          "peso": 50,
+          "min": 9,
+          "avaliacao": "setr-def"
+        },
+        {
+          "id": "ft",
+          "nome": "Fichas de trabalho (média)",
+          "peso": 10
+        }
+      ]
     }
   ],
   "avaliacoes": [
