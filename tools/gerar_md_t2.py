@@ -774,6 +774,7 @@ def main():
     banco = dict(
         uc="MD", titulo="2º teste · Teoria de Grafos",
         descricao="Formato do teste do prof. Ricardo (2025/26). Os grafos e as resoluções são gerados e calculados automaticamente.",
+        cabula="https://claude.ai/artifact/ShdbdPjQgkLmhrSpaJ9odP",
         estrutura=[dict(grupo=G1, n=1, cotacao=8), dict(grupo=G2, n=1, cotacao=4.5), dict(grupo=G3, n=1, cotacao=3.5), dict(grupo=G4, n=1, cotacao=4)],
         testesReais=[
             dict(titulo="Teste do Ricardo · 21/11/2025", nota="O mais parecido com o teu: faz este primeiro, com 1h30.", ids=["r-ric25-1", "r-ric25-2", "r-ric25-3", "r-ric25-4"]),
@@ -781,6 +782,15 @@ def main():
             dict(titulo="Teste do José Castro · 28/11/2023 (partes sem figura)", ids=["r-jc23-3", "r-jc23-6"]),
         ],
         perguntas=perguntas)
+    import re
+    def limpa(x):
+        if isinstance(x, str):
+            partes = re.split(r"(\$[^$]*\$)", x)  # fora de $...$ o KaTeX não atua
+            return "".join(p if p.startswith("$") else p.replace("\\{", "{").replace("\\}", "}") for p in partes)
+        if isinstance(x, list): return [limpa(y) for y in x]
+        if isinstance(x, dict): return {k: limpa(v) for k, v in x.items()}
+        return x
+    banco = limpa(banco)
     with open(OUT, "w", encoding="utf8") as fh:
         json.dump(banco, fh, ensure_ascii=False, indent=1)
     print("ok", len(perguntas), "perguntas", os.path.getsize(OUT) // 1024, "KB")
