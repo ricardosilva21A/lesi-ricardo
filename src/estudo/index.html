@@ -271,7 +271,7 @@
       <div class="row" style="margin-top:12px">${B.cabula ? `<a class="btn primary" href="${B.cabula}" target="_blank" rel="noopener">📄 Abrir a cábula</a>` : ""}${(B.extra || []).map(x => `<a class="btn" href="?banco=${encodeURIComponent(x.banco)}">📘 ${esc(x.titulo)}</a>`).join("")}</div>
       ${reais.length ? `<h2>1. Testes reais resolvidos</h2>
         ${reais.map((t, i) => `<button class="mode" style="width:100%;margin-bottom:8px" data-real="${i}"><b>📄 ${esc(t.titulo)}</b><span>${t.nota ? esc(t.nota) + " " : ""}${t.ids.length} grupos</span></button>`).join("")}` : ""}
-      ${(B.fichas || []).length ? `<h2>2. Fichas de exercícios (com a correção da professora)</h2>
+      ${(B.fichas || []).length ? `<h2>2. ${esc(B.fichasTitulo || "Fichas de exercícios (com a correção da professora)")}</h2>
         <div class="modes">${B.fichas.map((t, i) => `<button class="mode" data-ficha="${i}"><b>📘 ${esc(t.titulo)}</b><span>${t.ids.length} exercícios</span></button>`).join("")}</div>` : ""}
       <h2>${reais.length ? ((B.fichas || []).length ? "3. " : "2. ") : ""}Treinar</h2>
       <div class="modes">
@@ -322,8 +322,8 @@
   function testeModelo(soGrupo) {
     const est = soGrupo ? estrutura.filter(g => g.grupo === soGrupo) : estrutura;
     const grupos = est.map(g => {
-      const pool = B.perguntas.filter(q => (q.grupo || "Perguntas") === g.grupo && q.tipo !== "escolha");
-      return { ...g, itens: sortear(pool, soGrupo ? 1 : g.n).map(prepara) };
+      const pool = B.perguntas.filter(q => (q.grupo || "Perguntas") === g.grupo);
+      return { ...g, itens: sortear(pool, g.n || 1).map(prepara) };
     });
     runTest(grupos, soGrupo ? `Treino · ${soGrupo}` : "Teste modelo", null, () => testeModelo(soGrupo));
   }

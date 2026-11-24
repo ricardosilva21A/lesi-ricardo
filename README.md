@@ -66,12 +66,16 @@ Cada banco é um ficheiro em `src/estudo/bancos/<nome>.json`. Aparece sozinho na
 - As afirmações de `afirmacoes` e `vf` aparecem também no modo «Afirmações uma a uma».
 - Fórmulas em LaTeX entre `$...$` (escrever `\\` no JSON). Pode-se usar HTML, tabelas e SVG.
 - Põe mais perguntas do que o `n` de cada grupo para os testes modelo variarem.
+- Um grupo da `estrutura` pode ser só de escolhas múltiplas (como o Grupo 1 de RC): os testes modelo sorteiam `n` delas.
+- `fichas` lista exercícios por ficha; `fichasTitulo` muda o título dessa secção.
 
 Para uma página de estudo HTML feita à parte, mete-a em `src/estudo/paginas/` e aponta o campo `estudo` para ela.
 
 Prompt para gerar um banco com o Claude:
 
 > Com base nestes PowerPoints, gera um banco de perguntas em JSON no formato do README do repositório lesi-ricardo para a UC X, teste Y. Estrutura: grupo 1 com N escolhas múltiplas, grupo 2 com ... Quero pelo menos 3 vezes mais perguntas do que as de um teste, com explicação em todas.
+
+Bancos que existem: `md-t2` (gerado por `tools/gerar_md_t2.py`) e `rc-t2` (gerado por `tools/gerar_rc_t2.py`, com cábula em `src/estudo/paginas/rc-cabula.html`).
 
 ## Estrutura
 

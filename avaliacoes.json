@@ -239,10 +239,10 @@
       "tipo": "teste",
       "titulo": "2º teste",
       "data": "2026-12-10",
-      "hora": "",
+      "hora": "20:00",
       "local": "",
-      "notas": "",
-      "estudo": ""
+      "notas": "Endereçamento IP (sub-redes, VLSM), encaminhamento e VLANs",
+      "estudo": "rc-t2"
     },
     {
       "id": "ams-t2",
