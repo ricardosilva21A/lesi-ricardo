@@ -140,10 +140,28 @@
     sc.onerror = rej; document.head.appendChild(sc);
   }));
   const docsAbertos = {};
+  // chave das correções encriptadas: chega uma vez pelo link (#chave=...) e fica guardada neste navegador
+  (() => {
+    const m = location.hash.match(/chave=([A-Za-z0-9_-]+)/);
+    if (m) { try { localStorage.setItem("chave-correcoes", m[1]); } catch {} history.replaceState(null, "", location.pathname + location.search); }
+  })();
+  const b64u = t => Uint8Array.from(atob(t.replace(/-/g, "+").replace(/_/g, "/") + "===".slice((t.length + 3) % 4)), ch => ch.charCodeAt(0));
+  async function desencripta(c) {
+    let chave = null; try { chave = localStorage.getItem("chave-correcoes"); } catch {}
+    if (!chave || !c.enc || !window.crypto?.subtle) return null;
+    try {
+      const raw = new Uint8Array(await fetch(c.enc).then(r => { if (!r.ok) throw 0; return r.arrayBuffer(); }));
+      const key = await crypto.subtle.importKey("raw", b64u(chave), "AES-GCM", false, ["decrypt"]);
+      const pdf = await crypto.subtle.decrypt({ name: "AES-GCM", iv: raw.slice(0, 12) }, key, raw.slice(12));
+      await idb.set(c.pdf, pdf);
+      return pdf;
+    } catch { return null; }
+  }
   async function mostraCorrecao(el, c) {
-    const buf = await idb.get(c.pdf);
+    let buf = await idb.get(c.pdf);
+    if (!buf && c.enc) { el.innerHTML = `<p class="sub">A abrir a correção…</p>`; buf = await desencripta(c); }
     if (!buf) {
-      el.innerHTML = `<b>Correção da professora</b><p class="sub">Escolhe o ficheiro <b>${esc(c.pdf)}</b> no teu computador (pasta Resoluções). Fica guardado só neste navegador, não é enviado para lado nenhum. Basta fazer isto uma vez.</p><input type="file" accept="application/pdf">`;
+      el.innerHTML = `<b>Correção da professora</b><p class="sub">Para ver a correção abre o site uma vez pelo teu link com a chave. Em alternativa, escolhe o ficheiro <b>${esc(c.pdf)}</b> no teu computador (fica só neste navegador).</p><input type="file" accept="application/pdf">`;
       el.querySelector("input").onchange = async e => {
         const f = e.target.files[0]; if (!f) return;
         el.innerHTML = `<p class="sub">A guardar…</p>`;

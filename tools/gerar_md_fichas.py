@@ -20,7 +20,9 @@ def q(id, grupo, tema, enun, res, pags=(), pre="prof", imagem=None):
         res = "Resolve no papel e compara com a correção da professora indicada abaixo."
     d = dict(id=id, grupo=grupo, tipo="aberta", tema=tema, fonte="Ficha de exercícios", enunciado=enun, resolucao=(res or ""))
     if pags:
-        d["correcao"] = dict(pdf=nome, paginas=list(pags), ex=id.split("-")[-1])
+        import hashlib
+        enc = "/estudo/privado/" + hashlib.sha256(nome.encode()).hexdigest()[:16] + ".bin"  # PDF encriptado (AES-GCM); a chave não está no repositório
+        d["correcao"] = dict(pdf=nome, paginas=list(pags), ex=id.split("-")[-1], enc=enc)
     if imagem:
         d["imagem"] = imagem
     return d
