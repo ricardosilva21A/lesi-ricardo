@@ -770,7 +770,8 @@ def main():
     for i in range(30): perguntas.append(ex_grupo2(i))
     for i in range(24): perguntas.append(ex_grupo3(i))
     for i in range(30): perguntas.append(ex_grupo4(i))
-    perguntas += conceitos()
+    import mc_md
+    perguntas += mc_md.gerar(MC)
     banco = dict(
         uc="MD", titulo="2º teste · Teoria de Grafos",
         descricao="Formato do teste do prof. Ricardo (2025/26). Os grafos e as resoluções são gerados e calculados automaticamente.",

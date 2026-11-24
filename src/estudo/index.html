@@ -112,6 +112,16 @@
   const fonteHtml = q => q.fonte ? `<span class="fonte ${isReal(q) ? "real" : ""}">${esc(q.fonte)}</span>` : "";
   const histPush = (modo, nota) => { const h = store.get(kHist, []); h.push({ t: Date.now(), modo, nota }); store.set(kHist, h.slice(-50)); };
 
+  // texto da correção de uma escolha múltipla (r = índice mostrado escolhido, it = item preparado)
+  const fbEscolha = (it, r) => {
+    const q = it.q;
+    if (r === undefined) return `Sem resposta. ✅ Certa: «${esc(q.opcoes[q.correta])}». ${esc(q.explicacao || "")}`;
+    if (r === it.correta) return `✅ Certo. ${esc(q.explicacao || "")}`;
+    const oi = it.ordem[r];
+    const porque = q.porque && q.porque[oi];
+    return `❌ Escolheste «${esc(q.opcoes[oi])}»${porque ? `: ${esc(porque)}` : "."}\n\n✅ Certa: «${esc(q.opcoes[q.correta])}». ${esc(q.explicacao || "")}`;
+  };
+
   const prepara = q => {
     if (q.tipo !== "escolha") return { q };
     const ordem = shuffle(q.opcoes.map((_, i) => i));
@@ -244,7 +254,7 @@
         if (ok) { certas++; pontos += valorQ; }
         marcar(q._id, ok);
         card.querySelectorAll(".opt").forEach((b, i) => { if (i === it.correta) b.classList.add("ok"); else if (i === r) b.classList.add("bad"); });
-        card.querySelector(".fb").innerHTML = `<div class="expl">${r === undefined ? "Sem resposta. " : ""}${ok ? "✅ Certo." : "❌ Errado."}${q.explicacao ? " " + esc(q.explicacao) : ""}</div>`;
+        card.querySelector(".fb").innerHTML = `<div class="expl">${fbEscolha(it, r)}</div>`;
       } else if (q.alineas) {
         const sc = somaCot(q);
         q.alineas.forEach((a, j) => {
@@ -314,7 +324,7 @@
       app.querySelectorAll(".opt").forEach(b => b.onclick = () => {
         const i = +b.dataset.i, ok = i === it.correta;
         app.querySelectorAll(".opt").forEach((x, j) => { x.disabled = true; if (j === it.correta) x.classList.add("ok"); else if (j === i) x.classList.add("bad"); });
-        app.querySelector(".fb").innerHTML = `<div class="expl">${ok ? "✅ Certo." : "❌ Errado."}${q.explicacao ? " " + esc(q.explicacao) : ""}</div>`;
+        app.querySelector(".fb").innerHTML = `<div class="expl">${fbEscolha(it, i)}</div>`;
         math(app);
         marcar(q._id, ok);
         fila.shift();
@@ -339,7 +349,7 @@
       ${mostrar.map((q, i) => `
         <div class="card q"><div class="n">${q.tema ? esc(q.tema) : ""}${fonteHtml(q)}</div><div class="e">${esc(q.enunciado)}</div>
         ${q.imagem ? `<img src="${q.imagem}" alt="" style="background:#fff;padding:6px">` : ""}
-        ${q.tipo === "escolha" ? q.opcoes.map((o, j) => `<div class="opt ${j === q.correta ? "ok" : ""}"><span class="l">${L[j]}</span><span>${esc(o)}</span></div>`).join("") + (q.explicacao ? `<div class="expl">${esc(q.explicacao)}</div>` : "")
+        ${q.tipo === "escolha" ? q.opcoes.map((o, j) => `<div class="opt ${j === q.correta ? "ok" : ""}"><span class="l">${L[j]}</span><span>${esc(o)}${j !== q.correta && q.porque && q.porque[j] ? `<br><small class="sub">✗ ${esc(q.porque[j])}</small>` : ""}</span></div>`).join("") + (q.explicacao ? `<div class="expl">${esc(q.explicacao)}</div>` : "")
           : q.alineas ? q.alineas.map((a, j) => `<div class="al"><span class="an">${j + 1}.</span><span class="ae">${esc(a.enunciado)}</span><details><summary class="sub" style="cursor:pointer;margin-top:6px">Ver resolução</summary><div class="res">${esc(a.resolucao)}</div></details></div>`).join("")
           : `<div class="res">${esc(q.resolucao || "")}</div>`}
         </div>`).join("")}
