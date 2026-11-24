@@ -18,7 +18,9 @@ def q(id, grupo, tema, enun, res, pags=(), pre="prof", imagem=None):
     corr = (f"\n\n<b>Correção da professora:</b> no PDF \"{nome}\" (pasta Resoluções), pág. {', '.join(map(str, pags))}. Procura o número do exercício." if pags else "")
     if not res:
         res = "Resolve no papel e compara com a correção da professora indicada abaixo."
-    d = dict(id=id, grupo=grupo, tipo="aberta", tema=tema, fonte="Ficha de exercícios", enunciado=enun, resolucao=(res or "") + corr)
+    d = dict(id=id, grupo=grupo, tipo="aberta", tema=tema, fonte="Ficha de exercícios", enunciado=enun, resolucao=(res or ""))
+    if pags:
+        d["correcao"] = dict(pdf=nome, paginas=list(pags), ex=id.split("-")[-1])
     if imagem:
         d["imagem"] = imagem
     return d

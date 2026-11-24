@@ -59,6 +59,11 @@
   .fonte.real { background:#7c5cff; color:#fff; }
   .q svg text { paint-order: normal; }
   .filtros { display:flex; gap:6px; flex-wrap:wrap; margin:8px 0 14px; }
+  .lado { display:grid; grid-template-columns:1fr; gap:12px; }
+  @media (min-width: 1000px) { .wrap.largo { max-width:1240px; } .lado { grid-template-columns:1fr 1fr; align-items:start; } .lado .prof { position:sticky; top:12px; max-height:calc(100vh - 24px); overflow:auto; } }
+  .prof { border:1px solid var(--line); border-radius:12px; padding:10px; background:var(--bg); }
+  .prof canvas { width:100%; border-radius:8px; background:#fff; margin-bottom:8px; display:block; }
+  .prof .sub { font-size:13px; }
 </style>
 </head>
 <body>
@@ -122,6 +127,55 @@
     return `❌ Escolheste «${esc(q.opcoes[oi])}»${porque ? `: ${esc(porque)}` : "."}\n\n✅ Certa: «${esc(q.opcoes[q.correta])}». ${esc(q.explicacao || "")}`;
   };
 
+  // ---------- correção da professora: PDF guardado só neste navegador ----------
+  const idb = {
+    open: () => new Promise((res, rej) => { const r = indexedDB.open("estudo", 1); r.onupgradeneeded = () => r.result.createObjectStore("pdfs"); r.onsuccess = () => res(r.result); r.onerror = () => rej(r.error); }),
+    async get(k) { try { const db = await idb.open(); return await new Promise(res => { const t = db.transaction("pdfs").objectStore("pdfs").get(k); t.onsuccess = () => res(t.result || null); t.onerror = () => res(null); }); } catch { return null; } },
+    async set(k, v) { try { const db = await idb.open(); await new Promise(res => { const t = db.transaction("pdfs", "readwrite"); t.objectStore("pdfs").put(v, k); t.oncomplete = res; t.onerror = res; }); return true; } catch { return false; } }
+  };
+  let pdfLib = null;
+  const carregaPdfJs = () => pdfLib || (pdfLib = new Promise((res, rej) => {
+    const sc = document.createElement("script"); sc.src = "/vendor/pdfjs/pdf.min.js";
+    sc.onload = () => { window.pdfjsLib.GlobalWorkerOptions.workerSrc = "/vendor/pdfjs/pdf.worker.min.js"; res(window.pdfjsLib); };
+    sc.onerror = rej; document.head.appendChild(sc);
+  }));
+  const docsAbertos = {};
+  async function mostraCorrecao(el, c) {
+    const buf = await idb.get(c.pdf);
+    if (!buf) {
+      el.innerHTML = `<b>Correção da professora</b><p class="sub">Escolhe o ficheiro <b>${esc(c.pdf)}</b> no teu computador (pasta Resoluções). Fica guardado só neste navegador, não é enviado para lado nenhum. Basta fazer isto uma vez.</p><input type="file" accept="application/pdf">`;
+      el.querySelector("input").onchange = async e => {
+        const f = e.target.files[0]; if (!f) return;
+        el.innerHTML = `<p class="sub">A guardar…</p>`;
+        await idb.set(c.pdf, await f.arrayBuffer());
+        delete docsAbertos[c.pdf];
+        document.querySelectorAll(`[data-pdf="${CSS.escape(c.pdf)}"]`).forEach(x => mostraCorrecao(x, JSON.parse(x.dataset.c)));
+      };
+      return;
+    }
+    el.innerHTML = `<b>Correção da professora</b> <span class="sub">· ${esc(c.pdf)}, pág. ${c.paginas.join(", ")} · procura o exercício ${esc(c.ex || "")}</span><div class="pags"><p class="sub">A abrir…</p></div><button class="trocar" style="margin-top:6px;font-size:12px;padding:6px 10px">Trocar ficheiro</button>`;
+    el.querySelector(".trocar").onclick = async () => { await idb.set(c.pdf, null); delete docsAbertos[c.pdf]; mostraCorrecao(el, c); };
+    try {
+      const lib = await carregaPdfJs();
+      const doc = await (docsAbertos[c.pdf] || (docsAbertos[c.pdf] = lib.getDocument({ data: buf.slice(0) }).promise));
+      const box = el.querySelector(".pags"); box.innerHTML = "";
+      for (const n of c.paginas) {
+        if (n > doc.numPages) continue;
+        const page = await doc.getPage(n);
+        const v1 = page.getViewport({ scale: 1 });
+        const scale = Math.min(2.2, (box.clientWidth || 600) * (window.devicePixelRatio || 1) / v1.width);
+        const vp = page.getViewport({ scale });
+        const cv = document.createElement("canvas"); cv.width = vp.width; cv.height = vp.height;
+        box.appendChild(cv);
+        await page.render({ canvasContext: cv.getContext("2d"), viewport: vp }).promise;
+      }
+    } catch (err) {
+      el.querySelector(".pags").innerHTML = `<p class="sub">Não consegui abrir este PDF. Carrega em "Trocar ficheiro" e escolhe o certo.</p>`;
+    }
+  }
+  const blocoCorrecao = c => `<div class="prof" data-pdf="${esc(c.pdf)}" data-c='${JSON.stringify(c).replace(/'/g, "&#39;")}'></div>`;
+  const ativaCorrecoes = root => root.querySelectorAll(".prof[data-pdf]").forEach(x => { if (!x.dataset.on) { x.dataset.on = 1; mostraCorrecao(x, JSON.parse(x.dataset.c)); } });
+
   const prepara = q => {
     if (q.tipo !== "escolha") return { q };
     const ordem = shuffle(q.opcoes.map((_, i) => i));
@@ -129,6 +183,7 @@
   };
 
   function menu() {
+    app.classList.remove("largo");
     const hist = store.get(kHist, []);
     const err = erradas();
     const errEsc = err.filter(id => porId[id].tipo === "escolha");
@@ -200,6 +255,7 @@
   // ---------- teste (modelo, real ou revisão) ----------
   function runTest(grupos, titulo, depois, repetir) {
     const resp = {};
+    app.classList.toggle("largo", grupos.some(g => g.itens.some(it => it.q.correcao)));
     let n = 0;
     draw(`
       <div class="top"><button id="sair">← Sair</button><span class="pill">${esc(titulo)}</span></div>
@@ -264,10 +320,12 @@
         });
       } else {
         abertas.push({ key: k, q, valor: valorQ });
-        card.querySelector(".fb").innerHTML = `<div class="res"><b>Resolução</b>\n${esc(q.resolucao || "")}</div>${btns(k)}`;
+        const resHtml = `<div class="res"><b>Resolução</b>\n${esc(q.resolucao || "")}</div>${btns(k)}`;
+        card.querySelector(".fb").innerHTML = q.correcao ? `<div class="lado"><div>${resHtml}</div>${blocoCorrecao(q.correcao)}</div>` : resHtml;
       }
     }));
     math(app);
+    ativaCorrecoes(app);
     const auto = {};
     const resumo = document.createElement("div");
     resumo.className = "card"; resumo.style.marginTop = "20px";
@@ -351,11 +409,12 @@
         ${q.imagem ? `<img src="${q.imagem}" alt="" style="background:#fff;padding:6px">` : ""}
         ${q.tipo === "escolha" ? q.opcoes.map((o, j) => `<div class="opt ${j === q.correta ? "ok" : ""}"><span class="l">${L[j]}</span><span>${esc(o)}${j !== q.correta && q.porque && q.porque[j] ? `<br><small class="sub">✗ ${esc(q.porque[j])}</small>` : ""}</span></div>`).join("") + (q.explicacao ? `<div class="expl">${esc(q.explicacao)}</div>` : "")
           : q.alineas ? q.alineas.map((a, j) => `<div class="al"><span class="an">${j + 1}.</span><span class="ae">${esc(a.enunciado)}</span><details><summary class="sub" style="cursor:pointer;margin-top:6px">Ver resolução</summary><div class="res">${esc(a.resolucao)}</div></details></div>`).join("")
-          : `<div class="res">${esc(q.resolucao || "")}</div>`}
+          : `<div class="res">${esc(q.resolucao || "")}</div>${q.correcao ? `<details><summary class="sub" style="cursor:pointer;margin-top:8px">Ver a correção da professora</summary>${blocoCorrecao(q.correcao)}</details>` : ""}`}
         </div>`).join("")}
       ${lista.length > mostrar.length ? `<p class="sub">A mostrar ${mostrar.length} de ${lista.length}. Os restantes aparecem nos testes modelo.</p>` : ""}
     `);
     app.querySelector("#sair").onclick = menu;
+    app.querySelectorAll("details").forEach(d => d.addEventListener("toggle", () => d.open && ativaCorrecoes(d)));
     app.querySelectorAll("[data-vg]").forEach(b => b.onclick = () => verTudo(b.dataset.vg));
   }
 
