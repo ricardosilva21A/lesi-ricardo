@@ -27,7 +27,7 @@ def q(id, grupo, tema, enun, res, pags=(), pre="prof", imagem=None):
         d["imagem"] = imagem
     return d
 
-def main():
+def build():
     P = []
     # ---------------- Ficha de aula 25/10 (Anabela Silva), enunciados em texto
     a = "Ficha de aula 25/10 · "
@@ -94,11 +94,7 @@ def main():
        f"46.4 Itinerário sem ciclos que passa por todas: árvore geradora mínima. Prim a partir de A: " + ", ".join(f"{a}–{b} {w}" for a, b, w in st46) + f". Total {t46} minutos.")
     assert (c46, p46) == (47, ["A", "D", "E", "F"])
 
-    banco = dict(uc="MD", titulo="Fichas de exercícios resolvidas · Teoria de Grafos",
-                 descricao="Exercícios das fichas, com a resposta calculada quando possível e a página da correção da professora nos teus PDFs.",
-                 estrutura=[dict(grupo=g, n=1) for g in (T1, T2, T3, T4, T5)], perguntas=P)
-    json.dump(banco, open(OUT, "w", encoding="utf8"), ensure_ascii=False, indent=1)
-    print("ok", len(P), "exercícios", "45:", tot, path, cost, "46 MST:", t46)
+    return P
 
 if __name__ == "__main__":
-    main()
+    print(len(build()), "exercícios")

@@ -846,11 +846,19 @@ def main():
     for i in range(30): perguntas.append(ex_grupo4(i))
     import mc_md
     perguntas += mc_md.gerar(MC)
+    # fichas de exercícios, arrumadas nos grupos do teste
+    import gerar_md_fichas as gf
+    para_grupo = {gf.T1: G1, gf.T2: G1, gf.T3: G3, gf.T4: G2, gf.T5: G4}
+    fichas = gf.build()
+    temas = {}
+    for f in fichas:
+        temas.setdefault(f["grupo"], []).append(f["id"])
+        f["grupo"] = G2 if f["id"] in ("ex-2", "ex-17", "aula-2") else para_grupo[f["grupo"]]
+    perguntas += fichas
     banco = dict(
         uc="MD", titulo="2º teste · Teoria de Grafos",
         descricao="Formato do teste do prof. Ricardo (2025/26). Os grafos e as resoluções são gerados e calculados automaticamente.",
         cabula="https://claude.ai/artifact/ShdbdPjQgkLmhrSpaJ9odP",
-        extra=[dict(titulo="Fichas resolvidas", banco="md-fichas")],
         estrutura=[dict(grupo=G1, n=1, cotacao=8), dict(grupo=G2, n=1, cotacao=4.5), dict(grupo=G3, n=1, cotacao=3.5), dict(grupo=G4, n=1, cotacao=4)],
         testesReais=[
             dict(titulo="Teste do Ricardo · 21/11/2025", nota="O mais parecido com o teu: faz este primeiro, com 1h30.", ids=["r-ric25-1", "r-ric25-2", "r-ric25-3", "r-ric25-4"]),
@@ -858,6 +866,7 @@ def main():
             dict(titulo="Teste da Teresa Abreu · 18/11/2025 (partes sem figura)", ids=["r-ter25-2", "r-ter25-3", "r-ter25-4"]),
             dict(titulo="Teste do José Castro · 28/11/2023 (partes sem figura)", ids=["r-jc23-3", "r-jc23-6"]),
         ],
+        fichas=[dict(titulo=t, ids=temas[t]) for t in ("Conceitos e graus", "Euler e Hamilton", "Planares", "Matrizes e fecho", "Redes") if t in temas],
         perguntas=perguntas)
     import re
     def limpa(x):

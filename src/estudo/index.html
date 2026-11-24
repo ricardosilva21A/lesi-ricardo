@@ -215,7 +215,9 @@
       <div class="row" style="margin-top:12px">${B.cabula ? `<a class="btn primary" href="${B.cabula}" target="_blank" rel="noopener">📄 Abrir a cábula</a>` : ""}${(B.extra || []).map(x => `<a class="btn" href="?banco=${encodeURIComponent(x.banco)}">📘 ${esc(x.titulo)}</a>`).join("")}</div>
       ${reais.length ? `<h2>1. Testes reais resolvidos</h2>
         ${reais.map((t, i) => `<button class="mode" style="width:100%;margin-bottom:8px" data-real="${i}"><b>📄 ${esc(t.titulo)}</b><span>${t.nota ? esc(t.nota) + " " : ""}${t.ids.length} grupos</span></button>`).join("")}` : ""}
-      <h2>${reais.length ? "2. " : ""}Treinar</h2>
+      ${(B.fichas || []).length ? `<h2>2. Fichas de exercícios (com a correção da professora)</h2>
+        <div class="modes">${B.fichas.map((t, i) => `<button class="mode" data-ficha="${i}"><b>📘 ${esc(t.titulo)}</b><span>${t.ids.length} exercícios</span></button>`).join("")}</div>` : ""}
+      <h2>${reais.length ? ((B.fichas || []).length ? "3. " : "2. ") : ""}Treinar</h2>
       <div class="modes">
         <button class="mode" data-m="modelo"><b>📝 Teste modelo</b><span>${estrutura.map(g => `${esc(g.grupo)}${g.cotacao ? ` (${fmtN(g.cotacao)} val.)` : ""}`).join(" · ")}. Exercícios novos em cada tentativa.</span></button>
         <button class="mode" data-m="treino" ${nEsc ? "" : "disabled"}><b>🎯 Conceitos (escolha múltipla)</b><span>${nEsc} perguntas uma a uma, com correção imediata. As que erras voltam no fim.</span></button>
@@ -229,6 +231,10 @@
       const t = reais[+b.dataset.real];
       const grupos = t.ids.map(id => porId[id]).filter(Boolean).map(q => ({ grupo: q.grupo, cotacao: somaCot(q) / 10, itens: [prepara(q)] }));
       runTest(grupos, t.titulo);
+    });
+    app.querySelectorAll("[data-ficha]").forEach(b => b.onclick = () => {
+      const t = B.fichas[+b.dataset.ficha];
+      runTest([{ grupo: t.titulo, itens: t.ids.map(id => porId[id]).filter(Boolean).map(prepara) }], `Ficha · ${t.titulo}`);
     });
     app.querySelectorAll("[data-m]").forEach(b => b.onclick = () => ({
       modelo: () => testeModelo(),
@@ -248,10 +254,11 @@
   // escolhe perguntas novas primeiro
   function sortear(pool, n) {
     const f = feitas();
+    pool = pool.filter(q => !q.correcao);
     const novas = shuffle(pool.filter(q => !f.has(q._id) && !isReal(q)));
     const resto = shuffle(pool.filter(q => f.has(q._id) && !isReal(q)));
     const reais = shuffle(pool.filter(isReal));
-    return [...novas, ...resto, ...reais].slice(0, n);
+    return [...novas, ...resto, ...reais].filter(q => !q.correcao).slice(0, n);
   }
 
   function testeModelo(soGrupo) {
