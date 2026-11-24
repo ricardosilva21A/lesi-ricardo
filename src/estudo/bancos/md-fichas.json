@@ -1,0 +1,293 @@
+{
+ "uc": "MD",
+ "titulo": "Fichas de exercícios resolvidas · Teoria de Grafos",
+ "descricao": "Exercícios das fichas, com a resposta calculada quando possível e a página da correção da professora nos teus PDFs.",
+ "estrutura": [
+  {
+   "grupo": "Conceitos e graus",
+   "n": 1
+  },
+  {
+   "grupo": "Euler e Hamilton",
+   "n": 1
+  },
+  {
+   "grupo": "Planares",
+   "n": 1
+  },
+  {
+   "grupo": "Matrizes e fecho",
+   "n": 1
+  },
+  {
+   "grupo": "Redes",
+   "n": 1
+  }
+ ],
+ "perguntas": [
+  {
+   "id": "aula-1",
+   "grupo": "Conceitos e graus",
+   "tipo": "aberta",
+   "tema": "Graus",
+   "fonte": "Ficha de exercícios",
+   "enunciado": "Ficha de aula 25/10 · Exercício 1. Grafo G com V = {1,2,3,4,5} e arestas {1,2}, {1,3}, {2,3}, {2,4}, {4,5}.\na) Desenha o grafo. b) Calcula o grau de cada vértice. c) Quantas arestas tem G? Verifica que 2 × arestas = soma dos graus.",
+   "resolucao": "<svg viewBox='0 0 260 200' width='260' style='max-width:100%;display:block;margin:6px auto' font-family='system-ui,sans-serif'><line x1='56.2' y1='79.5' x2='110.2' y2='46.5' stroke='currentColor' stroke-width='1.4' opacity='1'/><line x1='57.8' y1='85.2' x2='191.8' y2='85.2' stroke='currentColor' stroke-width='1.4' opacity='1'/><line x1='129.3' y1='46.0' x2='193.1' y2='80.0' stroke='currentColor' stroke-width='1.4' opacity='1'/><line x1='119.6' y1='51.8' x2='119.6' y2='118.6' stroke='currentColor' stroke-width='1.4' opacity='1'/><line x1='129.8' y1='133.6' x2='203.0' y2='162.6' stroke='currentColor' stroke-width='1.4' opacity='1'/><circle cx='46.8' cy='85.2' r='11' fill='var(--card)' stroke='currentColor' stroke-width='1.6'/><text x='46.8' y='89.2' font-size='11' text-anchor='middle' fill='currentColor' font-weight='700'>1</text><circle cx='119.6' cy='40.8' r='11' fill='var(--card)' stroke='currentColor' stroke-width='1.6'/><text x='119.6' y='44.8' font-size='11' text-anchor='middle' fill='currentColor' font-weight='700'>2</text><circle cx='202.8' cy='85.2' r='11' fill='var(--card)' stroke='currentColor' stroke-width='1.6'/><text x='202.8' y='89.2' font-size='11' text-anchor='middle' fill='currentColor' font-weight='700'>3</text><circle cx='119.6' cy='129.6' r='11' fill='var(--card)' stroke='currentColor' stroke-width='1.6'/><text x='119.6' y='133.6' font-size='11' text-anchor='middle' fill='currentColor' font-weight='700'>4</text><circle cx='213.2' cy='166.6' r='11' fill='var(--card)' stroke='currentColor' stroke-width='1.6'/><text x='213.2' y='170.6' font-size='11' text-anchor='middle' fill='currentColor' font-weight='700'>5</text></svg>b) deg(1) = 2, deg(2) = 3, deg(3) = 2, deg(4) = 2, deg(5) = 1.\nc) A = 5. Σ deg = 2 + 3 + 2 + 2 + 1 = 10 = 2 × 5 ✓\n\n<b>Correção da professora:</b> no PDF \"Ficha extra 25_10.pdf\" (pasta Resoluções), pág. 1. Procura o número do exercício."
+  },
+  {
+   "id": "aula-2",
+   "grupo": "Matrizes e fecho",
+   "tipo": "aberta",
+   "tema": "Digrafo",
+   "fonte": "Ficha de exercícios",
+   "enunciado": "Ficha de aula 25/10 · Exercício 2. Digrafo com V = {A,B,C,D,E} e arcos (A,B), (A,C), (B,D), (C,D), (D,E), (E,B).\na) Desenha o digrafo. b) Tabela de antecessores e sucessores. c) d⁻ e d⁺ de cada vértice.",
+   "resolucao": "<svg viewBox='0 0 280 200' width='280' style='max-width:100%;display:block;margin:6px auto' font-family='system-ui,sans-serif'><defs><marker id='ar2' viewBox='0 0 10 10' refX='9' refY='5' markerWidth='7' markerHeight='7' orient='auto-start-reverse'><path d='M0,0 L10,5 L0,10 z' fill='currentColor'/></marker></defs><line x1='46.2' y1='93.4' x2='95.4' y2='56.0' stroke='currentColor' stroke-width='1.4' opacity='1' marker-end='url(#ar2)'/><line x1='46.2' y1='106.6' x2='95.4' y2='144.0' stroke='currentColor' stroke-width='1.4' opacity='1' marker-end='url(#ar2)'/><line x1='114.6' y1='54.8' x2='163.8' y2='92.2' stroke='currentColor' stroke-width='1.4' opacity='1' marker-end='url(#ar2)'/><line x1='114.6' y1='145.2' x2='163.8' y2='107.8' stroke='currentColor' stroke-width='1.4' opacity='1' marker-end='url(#ar2)'/><line x1='183.0' y1='93.4' x2='232.2' y2='56.0' stroke='currentColor' stroke-width='1.4' opacity='1' marker-end='url(#ar2)'/><line x1='231.6' y1='48.2' x2='118.8' y2='48.2' stroke='currentColor' stroke-width='1.4' opacity='1' marker-end='url(#ar2)'/><circle cx='37.4' cy='100.0' r='11' fill='var(--card)' stroke='currentColor' stroke-width='1.6'/><text x='37.4' y='104.0' font-size='11' text-anchor='middle' fill='currentColor' font-weight='700'>A</text><circle cx='105.8' cy='48.2' r='11' fill='var(--card)' stroke='currentColor' stroke-width='1.6'/><text x='105.8' y='52.2' font-size='11' text-anchor='middle' fill='currentColor' font-weight='700'>B</text><circle cx='105.8' cy='151.8' r='11' fill='var(--card)' stroke='currentColor' stroke-width='1.6'/><text x='105.8' y='155.8' font-size='11' text-anchor='middle' fill='currentColor' font-weight='700'>C</text><circle cx='174.2' cy='100.0' r='11' fill='var(--card)' stroke='currentColor' stroke-width='1.6'/><text x='174.2' y='104.0' font-size='11' text-anchor='middle' fill='currentColor' font-weight='700'>D</text><circle cx='242.6' cy='48.2' r='11' fill='var(--card)' stroke='currentColor' stroke-width='1.6'/><text x='242.6' y='52.2' font-size='11' text-anchor='middle' fill='currentColor' font-weight='700'>E</text></svg><div style='overflow-x:auto'><table style='border-collapse:collapse;font-size:13px;margin:6px 0'><tr><th style='padding:4px 7px;border:1px solid var(--line)'>v</th><th style='padding:4px 7px;border:1px solid var(--line)'>Γ⁻ (antecessores)</th><th style='padding:4px 7px;border:1px solid var(--line)'>Γ⁺ (sucessores)</th><th style='padding:4px 7px;border:1px solid var(--line)'>d⁻</th><th style='padding:4px 7px;border:1px solid var(--line)'>d⁺</th></tr><tr><td style='padding:4px 7px;border:1px solid var(--line);text-align:center;font-weight:700'>A</td><td style='padding:4px 7px;border:1px solid var(--line);text-align:center'>∅</td><td style='padding:4px 7px;border:1px solid var(--line);text-align:center'>{B, C}</td><td style='padding:4px 7px;border:1px solid var(--line);text-align:center'>0</td><td style='padding:4px 7px;border:1px solid var(--line);text-align:center'>2</td></tr><tr><td style='padding:4px 7px;border:1px solid var(--line);text-align:center;font-weight:700'>B</td><td style='padding:4px 7px;border:1px solid var(--line);text-align:center'>{A, E}</td><td style='padding:4px 7px;border:1px solid var(--line);text-align:center'>{D}</td><td style='padding:4px 7px;border:1px solid var(--line);text-align:center'>2</td><td style='padding:4px 7px;border:1px solid var(--line);text-align:center'>1</td></tr><tr><td style='padding:4px 7px;border:1px solid var(--line);text-align:center;font-weight:700'>C</td><td style='padding:4px 7px;border:1px solid var(--line);text-align:center'>{A}</td><td style='padding:4px 7px;border:1px solid var(--line);text-align:center'>{D}</td><td style='padding:4px 7px;border:1px solid var(--line);text-align:center'>1</td><td style='padding:4px 7px;border:1px solid var(--line);text-align:center'>1</td></tr><tr><td style='padding:4px 7px;border:1px solid var(--line);text-align:center;font-weight:700'>D</td><td style='padding:4px 7px;border:1px solid var(--line);text-align:center'>{B, C}</td><td style='padding:4px 7px;border:1px solid var(--line);text-align:center'>{E}</td><td style='padding:4px 7px;border:1px solid var(--line);text-align:center'>2</td><td style='padding:4px 7px;border:1px solid var(--line);text-align:center'>1</td></tr><tr><td style='padding:4px 7px;border:1px solid var(--line);text-align:center;font-weight:700'>E</td><td style='padding:4px 7px;border:1px solid var(--line);text-align:center'>{D}</td><td style='padding:4px 7px;border:1px solid var(--line);text-align:center'>{B}</td><td style='padding:4px 7px;border:1px solid var(--line);text-align:center'>1</td><td style='padding:4px 7px;border:1px solid var(--line);text-align:center'>1</td></tr></table></div>Confirmação: Σ d⁻ = Σ d⁺ = 6 = número de arcos.\n\n<b>Correção da professora:</b> no PDF \"Ficha extra 25_10.pdf\" (pasta Resoluções), pág. 1, 2. Procura o número do exercício."
+  },
+  {
+   "id": "aula-3",
+   "grupo": "Conceitos e graus",
+   "tipo": "aberta",
+   "tema": "Cadeias",
+   "fonte": "Ficha de exercícios",
+   "enunciado": "Ficha de aula 25/10 · Exercício 3. G com vértices A, B, C, D, E, F e arestas AB, AC, AE, BC, BD, CF, DE, DF, EF.\na) Desenha o grafo. b) Grau e vizinhos. c) Verifica se a cadeia [AB, BC, AC, AE, ED, DB] é simples e se é elementar. d) G é conexo?",
+   "resolucao": "b) Todos os vértices têm grau 3. Γ(A) = {B,C,E}, Γ(B) = {A,C,D}, Γ(C) = {A,B,F}, Γ(D) = {B,E,F}, Γ(E) = {A,D,F}, Γ(F) = {C,D,E}.\nc) A cadeia é A → B → C → A → E → D → B. É simples: as 6 arestas são todas diferentes. Não é elementar: passa duas vezes por A e por B.\nd) Conexo: de qualquer vértice chega-se a qualquer outro.\n\n<b>Correção da professora:</b> no PDF \"Ficha extra 25_10.pdf\" (pasta Resoluções), pág. 2. Procura o número do exercício."
+  },
+  {
+   "id": "aula-4",
+   "grupo": "Conceitos e graus",
+   "tipo": "aberta",
+   "tema": "Completos",
+   "fonte": "Ficha de exercícios",
+   "enunciado": "Ficha de aula 25/10 · Exercício 4. a) Desenha K4. Quantas arestas tem? b) Quantas arestas tem Kn em geral?",
+   "resolucao": "a) K4 tem 6 arestas (4 vértices, cada um liga aos outros 3: 4 × 3 / 2 = 6).\nb) Kn tem n(n − 1)/2 arestas.\n\n<b>Correção da professora:</b> no PDF \"Ficha extra 25_10.pdf\" (pasta Resoluções), pág. 3. Procura o número do exercício."
+  },
+  {
+   "id": "aula-5",
+   "grupo": "Conceitos e graus",
+   "tipo": "aberta",
+   "tema": "Bipartidos",
+   "fonte": "Ficha de exercícios",
+   "enunciado": "Ficha de aula 25/10 · Exercício 5. Grafo com vértices {a,b,c,d} e arestas {a,b}, {b,c}, {c,d}, {d,a}. É bipartido?",
+   "resolucao": "Sim: é um ciclo de comprimento 4 (par). Partição V1 = {a, c}, V2 = {b, d}: todas as arestas ligam V1 a V2.\n\n<b>Correção da professora:</b> no PDF \"Ficha extra 25_10.pdf\" (pasta Resoluções), pág. 3. Procura o número do exercício."
+  },
+  {
+   "id": "aula-6",
+   "grupo": "Conceitos e graus",
+   "tipo": "aberta",
+   "tema": "Cadeias",
+   "fonte": "Ficha de exercícios",
+   "enunciado": "Ficha de aula 25/10 · Exercício 6. Grafo com vértices {A,B,C,D} e arestas A–B, B–C, C–A, C–D.\na) Exemplo de um ciclo elementar. b) Exemplo de uma cadeia que não é elementar. c) O grafo é conexo?",
+   "resolucao": "a) [A, B, C, A].\nb) [D, C, A, B, C]: não repete arestas mas passa duas vezes por C (simples, não elementar). A professora deu [A,B,C,A,B,C,D], que também não é elementar (e nem é simples, porque repete arestas).\nc) Sim, é conexo.\n\n<b>Correção da professora:</b> no PDF \"Ficha extra 25_10.pdf\" (pasta Resoluções), pág. 3, 4. Procura o número do exercício."
+  },
+  {
+   "id": "ex-1",
+   "grupo": "Conceitos e graus",
+   "tipo": "aberta",
+   "tema": "Graus e digrafo associado",
+   "fonte": "Ficha de exercícios",
+   "enunciado": "Ficha de exercícios · Exercício 1",
+   "resolucao": "Resolve no papel e compara com a correção da professora indicada abaixo.\n\n<b>Correção da professora:</b> no PDF \"Ficha grafos_v3.pdf\" (pasta Resoluções), pág. 1. Procura o número do exercício.",
+   "imagem": "/estudo/img/md/fichas/ex1.jpg"
+  },
+  {
+   "id": "ex-2",
+   "grupo": "Conceitos e graus",
+   "tipo": "aberta",
+   "tema": "Antecessores e sucessores",
+   "fonte": "Ficha de exercícios",
+   "enunciado": "Ficha de exercícios · Exercício 2",
+   "resolucao": "Resolve no papel e compara com a correção da professora indicada abaixo.\n\n<b>Correção da professora:</b> no PDF \"Ficha grafos_v3.pdf\" (pasta Resoluções), pág. 2. Procura o número do exercício.",
+   "imagem": "/estudo/img/md/fichas/ex2.jpg"
+  },
+  {
+   "id": "ex-3",
+   "grupo": "Conceitos e graus",
+   "tipo": "aberta",
+   "tema": "Representação",
+   "fonte": "Ficha de exercícios",
+   "enunciado": "Ficha de exercícios · Exercício 3",
+   "resolucao": "Resolve no papel e compara com a correção da professora indicada abaixo.\n\n<b>Correção da professora:</b> no PDF \"Ficha grafos_v3.pdf\" (pasta Resoluções), pág. 2. Procura o número do exercício.",
+   "imagem": "/estudo/img/md/fichas/ex3.jpg"
+  },
+  {
+   "id": "ex-4",
+   "grupo": "Conceitos e graus",
+   "tipo": "aberta",
+   "tema": "Completos",
+   "fonte": "Ficha de exercícios",
+   "enunciado": "Ficha de exercícios · Exercício 4",
+   "resolucao": "deg num Kn = n − 1. Arestas: K1 = 0, K2 = 1, K3 = 3, K4 = 6, K5 = 10, em geral n(n − 1)/2.\n\n<b>Correção da professora:</b> no PDF \"Ficha grafos_v3.pdf\" (pasta Resoluções), pág. 3. Procura o número do exercício.",
+   "imagem": "/estudo/img/md/fichas/ex4.jpg"
+  },
+  {
+   "id": "ex-6",
+   "grupo": "Conceitos e graus",
+   "tipo": "aberta",
+   "tema": "Bipartidos",
+   "fonte": "Ficha de exercícios",
+   "enunciado": "Ficha de exercícios · Exercício 6",
+   "resolucao": "Resolve no papel e compara com a correção da professora indicada abaixo.\n\n<b>Correção da professora:</b> no PDF \"Ficha grafos_v3.pdf\" (pasta Resoluções), pág. 4, 5. Procura o número do exercício.",
+   "imagem": "/estudo/img/md/fichas/ex6.jpg"
+  },
+  {
+   "id": "ex-14",
+   "grupo": "Euler e Hamilton",
+   "tipo": "aberta",
+   "tema": "Eulerianos",
+   "fonte": "Ficha de exercícios",
+   "enunciado": "Ficha de exercícios · Exercício 14",
+   "resolucao": "Resolve no papel e compara com a correção da professora indicada abaixo.\n\n<b>Correção da professora:</b> no PDF \"Ficha grafos_v3.pdf\" (pasta Resoluções), pág. 5, 6, 7. Procura o número do exercício.",
+   "imagem": "/estudo/img/md/fichas/ex14.jpg"
+  },
+  {
+   "id": "ex-15",
+   "grupo": "Euler e Hamilton",
+   "tipo": "aberta",
+   "tema": "Eulerianos",
+   "fonte": "Ficha de exercícios",
+   "enunciado": "Ficha de exercícios · Exercício 15",
+   "resolucao": "Resolve no papel e compara com a correção da professora indicada abaixo.\n\n<b>Correção da professora:</b> no PDF \"Ficha grafos_v3.pdf\" (pasta Resoluções), pág. 7. Procura o número do exercício.",
+   "imagem": "/estudo/img/md/fichas/ex15.jpg"
+  },
+  {
+   "id": "ex-16",
+   "grupo": "Euler e Hamilton",
+   "tipo": "aberta",
+   "tema": "Eulerianos e hamiltonianos",
+   "fonte": "Ficha de exercícios",
+   "enunciado": "Ficha de exercícios · Exercício 16",
+   "resolucao": "Resolve no papel e compara com a correção da professora indicada abaixo.\n\n<b>Correção da professora:</b> no PDF \"Ficha grafos_v3.pdf\" (pasta Resoluções), pág. 7, 8. Procura o número do exercício.",
+   "imagem": "/estudo/img/md/fichas/ex16.jpg"
+  },
+  {
+   "id": "ex-17",
+   "grupo": "Euler e Hamilton",
+   "tipo": "aberta",
+   "tema": "Eulerianos em digrafos",
+   "fonte": "Ficha de exercícios",
+   "enunciado": "Ficha de exercícios · Exercício 17",
+   "resolucao": "Resolve no papel e compara com a correção da professora indicada abaixo.\n\n<b>Correção da professora:</b> no PDF \"Ficha grafos_v3.pdf\" (pasta Resoluções), pág. 9, 10. Procura o número do exercício.",
+   "imagem": "/estudo/img/md/fichas/ex17.jpg"
+  },
+  {
+   "id": "ex-19",
+   "grupo": "Euler e Hamilton",
+   "tipo": "aberta",
+   "tema": "Eulerianos e hamiltonianos",
+   "fonte": "Ficha de exercícios",
+   "enunciado": "Ficha de exercícios · Exercício 19",
+   "resolucao": "Resolve no papel e compara com a correção da professora indicada abaixo.\n\n<b>Correção da professora:</b> no PDF \"Ficha grafos_v3.pdf\" (pasta Resoluções), pág. 11, 12. Procura o número do exercício.",
+   "imagem": "/estudo/img/md/fichas/ex19.jpg"
+  },
+  {
+   "id": "ex-20",
+   "grupo": "Euler e Hamilton",
+   "tipo": "aberta",
+   "tema": "Dirac e Ore",
+   "fonte": "Ficha de exercícios",
+   "enunciado": "Ficha de exercícios · Exercício 20",
+   "resolucao": "Um exemplo que cumpre Ore e não cumpre Dirac precisa de um vértice com grau < n/2, mas com todos os pares não adjacentes a somar ≥ n.\n\n<b>Correção da professora:</b> no PDF \"Ficha grafos_v3.pdf\" (pasta Resoluções), pág. 12, 13. Procura o número do exercício.",
+   "imagem": "/estudo/img/md/fichas/ex20.jpg"
+  },
+  {
+   "id": "ex-22",
+   "grupo": "Euler e Hamilton",
+   "tipo": "aberta",
+   "tema": "Hamiltonianos",
+   "fonte": "Ficha de exercícios",
+   "enunciado": "Ficha de exercícios · Exercício 22",
+   "resolucao": "Resolve no papel e compara com a correção da professora indicada abaixo.\n\n<b>Correção da professora:</b> no PDF \"Ficha grafos_v3.pdf\" (pasta Resoluções), pág. 13, 14. Procura o número do exercício.",
+   "imagem": "/estudo/img/md/fichas/ex22.jpg"
+  },
+  {
+   "id": "ex-26",
+   "grupo": "Planares",
+   "tipo": "aberta",
+   "tema": "Fórmula de Euler",
+   "fonte": "Ficha de exercícios",
+   "enunciado": "Ficha de exercícios · Exercício 26",
+   "resolucao": "Usa V − A + F = 2 (planar conexo) e confirma A ≤ 3V − 6.\n26.1: 7 − 10 + 6 = 3 ≠ 2, logo não existe (planar conexo).\n26.2: 8 − 10 + 4 = 2 e 10 ≤ 18, logo pode existir.\n26.3: 7 − 11 + 6 = 2 e 11 ≤ 15, logo pode existir.\n\n<b>Correção da professora:</b> no PDF \"Ficha grafos_v3.pdf\" (pasta Resoluções), pág. 14. Procura o número do exercício.",
+   "imagem": "/estudo/img/md/fichas/ex26.jpg"
+  },
+  {
+   "id": "ex-28",
+   "grupo": "Planares",
+   "tipo": "aberta",
+   "tema": "Representação planar",
+   "fonte": "Ficha de exercícios",
+   "enunciado": "Ficha de exercícios · Exercício 28",
+   "resolucao": "Resolve no papel e compara com a correção da professora indicada abaixo.\n\n<b>Correção da professora:</b> no PDF \"Ficha grafos_v3.pdf\" (pasta Resoluções), pág. 15. Procura o número do exercício.",
+   "imagem": "/estudo/img/md/fichas/ex28.jpg"
+  },
+  {
+   "id": "ex-29",
+   "grupo": "Planares",
+   "tipo": "aberta",
+   "tema": "K3,3 sem uma aresta",
+   "fonte": "Ficha de exercícios",
+   "enunciado": "Ficha de exercícios · Exercício 29",
+   "resolucao": "K3,3 sem uma aresta: V = 6, A = 8. Desenha-se sem cruzamentos (a professora mostra o desenho) e confirma-se com Euler: F = 2 − 6 + 8 = 4.\n\n<b>Correção da professora:</b> no PDF \"Ficha grafos_v3.pdf\" (pasta Resoluções), pág. 15, 16. Procura o número do exercício.",
+   "imagem": "/estudo/img/md/fichas/ex29.jpg"
+  },
+  {
+   "id": "ex-34",
+   "grupo": "Matrizes e fecho",
+   "tipo": "aberta",
+   "tema": "Matriz booleana e fecho",
+   "fonte": "Ficha de exercícios",
+   "enunciado": "Ficha de exercícios · Exercício 34",
+   "resolucao": "Resolve no papel e compara com a correção da professora indicada abaixo.\n\n<b>Correção da professora:</b> no PDF \"Ficha grafos_v3.pdf\" (pasta Resoluções), pág. 16, 17, 18. Procura o número do exercício.",
+   "imagem": "/estudo/img/md/fichas/ex34.jpg"
+  },
+  {
+   "id": "ex-36",
+   "grupo": "Redes",
+   "tipo": "aberta",
+   "tema": "Árvore geradora mínima",
+   "fonte": "Ficha de exercícios",
+   "enunciado": "Ficha de exercícios · Exercício 36",
+   "resolucao": "Valor da árvore geradora mínima (correção da professora): 760.\n\n<b>Correção da professora:</b> no PDF \"Ficha grafos_v3.pdf\" (pasta Resoluções), pág. 18, 19, 20. Procura o número do exercício.",
+   "imagem": "/estudo/img/md/fichas/ex36.jpg"
+  },
+  {
+   "id": "ex-40",
+   "grupo": "Redes",
+   "tipo": "aberta",
+   "tema": "Árvore geradora mínima",
+   "fonte": "Ficha de exercícios",
+   "enunciado": "Ficha de exercícios · Exercício 40",
+   "resolucao": "Árvore da professora: {a,c} 13, {c,e} 3, {e,b} 6, {b,d} 5, {e,f} 10. Total 37.\n\n<b>Correção da professora:</b> no PDF \"Ficha grafos_v3.pdf\" (pasta Resoluções), pág. 20, 21. Procura o número do exercício.",
+   "imagem": "/estudo/img/md/fichas/ex40.jpg"
+  },
+  {
+   "id": "ex-45",
+   "grupo": "Redes",
+   "tipo": "aberta",
+   "tema": "Árvore e Dijkstra",
+   "fonte": "Ficha de exercícios",
+   "enunciado": "Ficha de exercícios · Exercício 45",
+   "resolucao": "45.1 Conexa (há caminho entre todos) e não completa (por exemplo, Évora e Braga não estão ligadas).\n45.2 Árvore geradora mínima (Prim a partir de Évora): Évora–Faro 7, Évora–Setúbal 8, Setúbal–Leiria 14, Leiria–Coimbra 13, Leiria–Porto 15, Leiria–Braga 19. Total 76 €.\n45.3 Dijkstra Évora → Leiria: Évora → Setúbal → Leiria, custo 22 €.\n\n<b>Correção da professora:</b> no PDF \"Ficha grafos_v3.pdf\" (pasta Resoluções), pág. 21, 22. Procura o número do exercício.",
+   "imagem": "/estudo/img/md/fichas/ex45.jpg"
+  },
+  {
+   "id": "ex-43",
+   "grupo": "Redes",
+   "tipo": "aberta",
+   "tema": "Dijkstra",
+   "fonte": "Ficha de exercícios",
+   "enunciado": "Ficha de exercícios · Exercício 43",
+   "resolucao": "Percurso mínimo de a para g (correção da professora): a – c – d – b – e – g, custo 16.\n\n<b>Correção da professora:</b> no PDF \"Ficha grafos_v3.pdf\" (pasta Resoluções), pág. 22, 23. Procura o número do exercício.",
+   "imagem": "/estudo/img/md/fichas/ex43.jpg"
+  },
+  {
+   "id": "ex-46",
+   "grupo": "Redes",
+   "tipo": "aberta",
+   "tema": "Dijkstra e árvore",
+   "fonte": "Ficha de exercícios",
+   "enunciado": "Ficha de exercícios · Exercício 46",
+   "resolucao": "46.2 Percurso mínimo de A para F: problema de caminho mais curto (Dijkstra).\n46.3 A → D → E → F, 47 minutos (igual à correção da professora).\n46.4 Itinerário sem ciclos que passa por todas: árvore geradora mínima. Prim a partir de A: A–B 18, B–C 12, C–D 17, D–E 4, E–F 11. Total 62 minutos.\n\n<b>Correção da professora:</b> no PDF \"Ficha grafos_v3.pdf\" (pasta Resoluções), pág. 23, 24. Procura o número do exercício.",
+   "imagem": "/estudo/img/md/fichas/ex46.jpg"
+  }
+ ]
+}

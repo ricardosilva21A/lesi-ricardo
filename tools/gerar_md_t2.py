@@ -850,6 +850,7 @@ def main():
         uc="MD", titulo="2º teste · Teoria de Grafos",
         descricao="Formato do teste do prof. Ricardo (2025/26). Os grafos e as resoluções são gerados e calculados automaticamente.",
         cabula="https://claude.ai/artifact/ShdbdPjQgkLmhrSpaJ9odP",
+        extra=[dict(titulo="Fichas resolvidas", banco="md-fichas")],
         estrutura=[dict(grupo=G1, n=1, cotacao=8), dict(grupo=G2, n=1, cotacao=4.5), dict(grupo=G3, n=1, cotacao=3.5), dict(grupo=G4, n=1, cotacao=4)],
         testesReais=[
             dict(titulo="Teste do Ricardo · 21/11/2025", nota="O mais parecido com o teu: faz este primeiro, com 1h30.", ids=["r-ric25-1", "r-ric25-2", "r-ric25-3", "r-ric25-4"]),
