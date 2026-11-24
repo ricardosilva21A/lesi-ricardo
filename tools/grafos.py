@@ -400,3 +400,33 @@ def matrix_table(V, W, directed, blank=""):
             r.append(blank if val is None else val)
         rows.append(r)
     return table([""] + V, rows)
+
+def planar_svg(cyc, A_, B_, w=300, h=300):
+    """Desenho plano a partir do método cíclico: ciclo como polígono, A dentro (retas), B por fora (curvas)."""
+    n = len(cyc); cx, cy, R = w / 2, h / 2, min(w, h) * 0.27
+    ang = {v: -math.pi / 2 + 2 * math.pi * i / n for i, v in enumerate(cyc)}
+    P = {v: (cx + R * math.cos(ang[v]), cy + R * math.sin(ang[v])) for v in cyc}
+    idx = {v: i for i, v in enumerate(cyc)}
+    s = [f"<svg viewBox='0 0 {w} {h}' width='{w}' style='max-width:100%;display:block;margin:6px auto' font-family='system-ui,sans-serif'>"]
+    def seg(a, b, col, sw):
+        (x1, y1), (x2, y2) = P[a], P[b]
+        s.append(f"<line x1='{x1:.1f}' y1='{y1:.1f}' x2='{x2:.1f}' y2='{y2:.1f}' stroke='{col}' stroke-width='{sw}'/>")
+    for i in range(n):
+        seg(cyc[i], cyc[(i + 1) % n], "currentColor", 1.6)
+    for a, b in A_:
+        seg(a, b, "#2f7dff", 2)
+    for a, b in B_:
+        i, j = sorted((idx[a], idx[b]))
+        span = j - i
+        if span > n / 2:  # contornar pelo arco mais curto
+            i, j = j, i + n; span = n - span
+        mid = -math.pi / 2 + 2 * math.pi * ((i + j) / 2) / n
+        r2 = R * (1.25 + 0.22 * span)
+        qx, qy = cx + r2 * math.cos(mid), cy + r2 * math.sin(mid)
+        (x1, y1), (x2, y2) = P[a], P[b]
+        s.append(f"<path d='M{x1:.1f},{y1:.1f} Q{qx:.1f},{qy:.1f} {x2:.1f},{y2:.1f}' fill='none' stroke='#e5484d' stroke-width='2'/>")
+    for v in cyc:
+        x, y = P[v]
+        s.append(f"<circle cx='{x:.1f}' cy='{y:.1f}' r='11' fill='var(--card)' stroke='currentColor' stroke-width='1.6'/><text x='{x:.1f}' y='{y + 4:.1f}' font-size='11' text-anchor='middle' fill='currentColor' font-weight='700'>{v}</text>")
+    s.append(f"<text x='8' y='{h - 8}' font-size='11' fill='currentColor'>preto: ciclo C · azul: A dentro · vermelho: B fora</text></svg>")
+    return "".join(s)

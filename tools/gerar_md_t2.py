@@ -361,7 +361,8 @@ def metodo_ciclico(V, E, C):
     if ok:
         A_, B_ = info
         txt += (f"Distribuição sem conflitos: A (dentro de C) = {{{edges_txt(A_)}}}, B (fora de C) = {{{edges_txt(B_)}}}. L fica vazio ⇒ o grafo É planar.\n"
-                f"Faces de uma representação planar: $f = 2 - n + m = 2 - {n} + {m} = {2 - n + m}$.")
+                f"Representação planar (é este o desenho a apresentar quando pedem \"apresente uma representação planar\"):\n" + planar_svg(cyc, A_, B_) +
+                f"Faces: $F = 2 - V + A = 2 - {n} + {m} = {2 - n + m}$ (confirma contando as regiões do desenho, incluindo a de fora).")
     else:
         oc = info
         txt += ("Distribuindo à vez (cada uma obriga a seguinte a ir para o outro lado): " +
@@ -667,6 +668,79 @@ def reais():
              resolucao="Seria um grafo com 9 vértices todos de grau 3: $\\sum \\deg = 27$, ímpar. Mas $\\sum \\deg = 2|E|$ é sempre par (equivalente: o nº de vértices de grau ímpar é par). Impossível."),
         dict(enunciado="Se a rede de amizades for um grafo planar, qual é o número máximo de amizades?", cotacao=16,
              resolucao="Grafo simples planar com n = 9 ≥ 3: $m \\le 3n - 6 = 21$. Máximo: 21 amizades.")]))
+    # ---- Anabela Silva 2025/26 (2º teste, PL turno 2, 04/12/2025)
+    VA = list("abcde")
+    EA = [norm_edge(a, b, VA) for a, b in ["ab", "ac", "ae", "ad", "bc", "bd", "ce", "cd", "ed"]]
+    adjA = adj_from_edges(VA, EA); dA = {v: len(adjA[v]) for v in VA}
+    CA = ["a", "b", "c", "e", "d", "a"]
+    okA, metA = metodo_ciclico(VA, EA, CA)
+    assert okA and dA == {"a": 4, "b": 3, "c": 4, "d": 4, "e": 3}
+    hamA = ["a", "b", "c", "e", "d", "a"]
+    assert all(y in adjA[x] for x, y in zip(hamA, hamA[1:]))
+    boolA = table([""] + VA, [[x] + [1 if y in adjA[x] else 0 for y in VA] for x in VA])
+    out.append(dict(id="r-ana25-1", grupo=G1, tipo="aberta", tema="Grafo não orientado", fonte="Teste real · Anabela Silva · 04/12/2025",
+        enunciado="Seja G = (V, E) o grafo representado na figura:", imagem="/estudo/img/md/ana25-g1.png", alineas=[
+        dict(enunciado="Indique o grau de cada um dos vértices.", cotacao=10,
+             resolucao="deg(a) = 4, deg(b) = 3, deg(c) = 4, deg(d) = 4, deg(e) = 3.\nConfirmação: Σ deg = 18 = 2 × 9 arestas ✓"),
+        dict(enunciado="Determine os vizinhos dos vértices c, d e f.", cotacao=10,
+             resolucao="Γ(c) = {a, b, d, e} e Γ(d) = {a, b, c, e}.\nO vértice f não existe no grafo (gralha no enunciado): escreve isso na prova em vez de inventar."),
+        dict(enunciado="O grafo é planar? Apresente a sua representação planar.", cotacao=15,
+             resolucao=("Sim. G é o K5 sem a aresta {b,e} (o único par não adjacente é b e e).\n"
+                        "O desenho dado tem cruzamentos, mas isso não prova nada: é preciso redesenhar. Pelo método cíclico:\n" + metA)),
+        dict(enunciado="A fórmula de Euler é verificada? Justifique.", cotacao=9,
+             resolucao="G é planar (representação da alínea anterior) e conexo, por isso aplica-se.\nV = 5, A = 9, F = 6 (5 interiores + a exterior).\nV − A + F = 5 − 9 + 6 = 2: verifica-se."),
+        dict(enunciado="Indique, se existir, uma cadeia elementar que não seja simples.", cotacao=6,
+             resolucao=("Não existe (é uma armadilha). Elementar = não repete vértices. Se uma cadeia não repete vértices, também não pode repetir arestas (repetir uma aresta obriga a repetir as pontas).\n"
+                        "Logo toda a cadeia elementar é simples. O contrário é que pode acontecer: simples mas não elementar, por exemplo [a, b, c, a, d].")),
+        dict(enunciado="Indique, se existir, um ciclo com comprimento 4.", cotacao=6,
+             resolucao="[a, b, c, d, a]: 4 arestas ({a,b}, {b,c}, {c,d}, {d,a}), não repete arestas e volta ao início."),
+        dict(enunciado="O que pode dizer sobre a veracidade do Teorema de Ore?", cotacao=10,
+             resolucao=("G é simples, conexo e V = 5 ≥ 3. O único par NÃO adjacente é b e e: deg(b) + deg(e) = 3 + 3 = 6 ≥ 5.\n"
+                        "A condição de Ore verifica-se, logo G tem ciclo hamiltoniano, por exemplo [a, b, c, e, d, a].")),
+        dict(enunciado="Construa a matriz booleana para G.", cotacao=10,
+             resolucao=boolA + "Simétrica (grafo não orientado), diagonal a 0 (sem lacetes). A soma de cada linha é o grau do vértice."),
+        dict(enunciado="Como classificaria o grafo quanto à conexidade?", cotacao=6,
+             resolucao="Conexo: há cadeia entre quaisquer dois vértices (por exemplo [a, b, c, e, d] passa por todos). Não é completo: falta a aresta {b,e}.")]))
+    VD = list("123456")
+    AD = [("3", "6"), ("2", "6"), ("2", "5"), ("1", "5"), ("2", "1"), ("2", "4"), ("4", "3"), ("4", "4"), ("2", "3"), ("3", "2")]
+    oD, iD = digraph_maps(VD, AD)
+    assert reach(oD, "3") == set(VD) and reach(iD, "3") == {"2", "3", "4"}
+    out.append(dict(id="r-ana25-2", grupo=G2, tipo="aberta", tema="Digrafo", fonte="Teste real · Anabela Silva · 04/12/2025",
+        enunciado="Considere a representação do seguinte digrafo D (o vértice 4 tem um lacete; entre 2 e 3 há um arco em cada sentido):", imagem="/estudo/img/md/ana25-d2.png", alineas=[
+        dict(enunciado="Indique os antecessores do vértice 1 e os sucessores do vértice 4.", cotacao=10,
+             resolucao="Antecessores de 1: Γ⁻(1) = {2} (só o arco 2→1 chega a 1).\nSucessores de 4: Γ⁺(4) = {3, 4} (arco 4→3 e o lacete 4→4: com lacete, o vértice é sucessor de si próprio)."),
+        dict(enunciado="Apresente o fecho transitivo direto e o fecho transitivo inverso do vértice 3. D é fortemente conexo?", cotacao=20,
+             resolucao=("Γ3: 3→6, 3→2; de 2: 2→1, 2→4, 2→5, 2→6; de 1: 1→5 ⇒ Γ3 = {1, 2, 3, 4, 5, 6}.\n"
+                        "Γ⁻¹3: 2→3, 4→3; quem chega a 2: 3; quem chega a 4: 2 e 4 ⇒ Γ⁻¹3 = {2, 3, 4}.\n"
+                        "Γ3 ∩ Γ⁻¹3 = {2, 3, 4} ≠ V, logo D NÃO é fortemente conexo (por exemplo, de 5 e de 6 não sai nenhum arco).")),
+        dict(enunciado="Verifique se D tem um circuito euleriano.", cotacao=15,
+             resolucao=(table(["v", "deg⁺", "deg⁻"], [[v, len(oD[v]), len(iD[v])] for v in VD]) +
+                        "Para haver circuito euleriano é preciso deg⁺(v) = deg⁻(v) em todos. Falha, por exemplo, em 2 (5 ≠ 1), 5 (0 ≠ 2) e 6 (0 ≠ 2). Não tem circuito euleriano (nem caminho: há mais de 2 vértices desequilibrados).\n"
+                        "O lacete em 4 conta 1 a sair e 1 a entrar."))]))
+    VI = ["I1", "I2", "I3", "I4", "I5", "I6", "I7"]
+    WI = {("I1", "I2"): 15, ("I1", "I3"): 8, ("I1", "I6"): 10, ("I1", "I7"): 100, ("I2", "I3"): 25, ("I3", "I4"): 5, ("I3", "I7"): 80,
+          ("I4", "I5"): 15, ("I5", "I6"): 20, ("I5", "I7"): 10}
+    stI, totI, ptabI = prim_html(VI, WI, "I1")
+    pathI, costI, dtabI = dijkstra_html(VI, WI, "I4", "I2", False)
+    posI = {"I1": (.3, .3), "I2": (.05, .05), "I3": (.1, .6), "I4": (.35, .95), "I5": (.75, .8), "I6": (.65, .25), "I7": (.95, .5)}
+    out.append(dict(id="r-ana25-3", grupo=G4, tipo="aberta", tema="Redes", fonte="Teste real · Anabela Silva · 04/12/2025",
+        enunciado="Custos de transporte (€ por unidade) entre armazéns; em branco, não há transporte:\n" + matrix_table(VI, WI, False),
+        alineas=[
+        dict(enunciado="Desenhe o grafo capaz de representar a situação descrita.", cotacao=15,
+             resolucao="Rede não orientada (a tabela é simétrica), com 7 vértices e 10 arestas com os custos:\n" + svg(VI, posI, list(WI), weights=WI, w=360, h=280)),
+        dict(enunciado="Através de um algoritmo adequado, apresente o valor mínimo do comprimento de fio de luzes que permite ligar todos os armazéns.", cotacao=20,
+             resolucao=("Ligar todos com o mínimo: árvore geradora mínima. Prim a partir de I1:\n" + ptabI +
+                        svg(VI, posI, list(WI), weights=WI, highlight=[(a, b) for a, b, _ in stI], w=360, h=280) + f"Valor mínimo: {totI}")),
+        dict(enunciado="Determine o custo mínimo do envio de uma encomenda entre o armazém I4 e o I2. Utilize um algoritmo adequado.", cotacao=25,
+             resolucao="Percurso mínimo entre dois pontos: Dijkstra.\n" + dtabI + f"Percurso: {' → '.join(pathI)}, custo {costI} €")]))
+    out.append(dict(id="r-ana25-4", grupo=G1, tipo="aberta", tema="Contagem de arestas", fonte="Teste real · Anabela Silva · 04/12/2025",
+        enunciado="Numa empresa existem 6 routers. Cada router deve estar ligado diretamente a todos os outros, exceto a um router específico de cada par, por questões de segurança. Cada ligação é um cabo físico.",
+        alineas=[
+        dict(enunciado="Quantas ligações físicas existem ao todo?", cotacao=8,
+             resolucao=("Cada router liga a todos menos a 1: grau 6 − 2 = 4 (não liga a si próprio nem ao seu par).\n"
+                        "Σ deg = 6 × 4 = 24 = 2A ⇒ A = 12 ligações.\nOutra forma: K6 teria 6 × 5 / 2 = 15 arestas; tiram-se as 3 dos pares proibidos: 15 − 3 = 12.")),
+        dict(enunciado="Se cada cabo custa 50 €, qual é o custo total da instalação da rede?", cotacao=5,
+             resolucao="12 × 50 € = 600 €.")]))
     # ---- José Castro 2023/24 Q6 (rede orientada)
     VJ = list("sabcdefgt")
     WJ = {("s", "a"): 7, ("s", "b"): 5, ("s", "c"): 8, ("a", "f"): 6, ("a", "g"): 5, ("b", "d"): 7, ("c", "d"): 5, ("c", "f"): 6, ("d", "e"): 11,
@@ -779,6 +853,7 @@ def main():
         estrutura=[dict(grupo=G1, n=1, cotacao=8), dict(grupo=G2, n=1, cotacao=4.5), dict(grupo=G3, n=1, cotacao=3.5), dict(grupo=G4, n=1, cotacao=4)],
         testesReais=[
             dict(titulo="Teste do Ricardo · 21/11/2025", nota="O mais parecido com o teu: faz este primeiro, com 1h30.", ids=["r-ric25-1", "r-ric25-2", "r-ric25-3", "r-ric25-4"]),
+            dict(titulo="Teste da Anabela Silva · 04/12/2025 (2º teste, PL)", nota="Pede uma representação planar: treina redesenhar.", ids=["r-ana25-1", "r-ana25-2", "r-ana25-3", "r-ana25-4"]),
             dict(titulo="Teste da Teresa Abreu · 18/11/2025 (partes sem figura)", ids=["r-ter25-2", "r-ter25-3", "r-ter25-4"]),
             dict(titulo="Teste do José Castro · 28/11/2023 (partes sem figura)", ids=["r-jc23-3", "r-jc23-6"]),
         ],
