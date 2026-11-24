@@ -1,0 +1,3721 @@
+{
+ "uc": "SETR",
+ "titulo": "Teste · 9 dez. 2026",
+ "descricao": "Matéria dos objetivos para o teste (circuitos, conceitos de SETR, instruction set, CPUs, análise de performance, multiprocessadores). A estrutura do teste modelo é um palpite a partir de dois testes anteriores. Resoluções feitas a partir dos slides.",
+ "cabula": "/estudo/paginas/setr.html",
+ "estrutura": [
+  {
+   "grupo": "Grupo 1 · Circuitos",
+   "n": 1,
+   "cotacao": 4
+  },
+  {
+   "grupo": "Grupo 2 · Escolha as corretas",
+   "n": 3,
+   "cotacao": 6
+  },
+  {
+   "grupo": "Grupo 3 · Verdadeiro ou falso",
+   "n": 1,
+   "cotacao": 2
+  },
+  {
+   "grupo": "Grupo 4 · Assembly ARM",
+   "n": 1,
+   "cotacao": 3
+  },
+  {
+   "grupo": "Grupo 5 · Cálculos",
+   "n": 2,
+   "cotacao": 5
+  }
+ ],
+ "testesReais": [
+  {
+   "titulo": "Teste em Moodle (perguntas 3 a 9)",
+   "nota": "As perguntas 1 e 2 não estão nas fotos. Faz com 1h.",
+   "ids": [
+    "r-m3",
+    "r-m4",
+    "r-m5",
+    "r-m6",
+    "r-m7",
+    "r-m8",
+    "r-m9"
+   ]
+  },
+  {
+   "titulo": "Teste em papel (página 2, grupo 2)",
+   "nota": "Só a página 2 está na foto.",
+   "ids": [
+    "r-p21",
+    "r-p22",
+    "r-p23"
+   ]
+  }
+ ],
+ "perguntas": [
+  {
+   "id": "c-serie-0",
+   "grupo": "Grupo 1 · Circuitos",
+   "tipo": "aberta",
+   "tema": "Circuito em série",
+   "enunciado": "Considere o circuito da figura, alimentado por uma fonte ideal.",
+   "imagem": "/estudo/img/setr/serie-0.svg",
+   "alineas": [
+    {
+     "enunciado": "Enuncie a 1ª lei de Kirchhoff (lei dos nós) e o princípio em que se baseia.",
+     "cotacao": 10,
+     "resolucao": "Num nó, a soma das correntes que chegam é igual à soma das correntes que saem (Σ I = 0 no nó).\nResulta do princípio da conservação da carga elétrica."
+    },
+    {
+     "enunciado": "Calcule a resistência equivalente e a corrente I no circuito.",
+     "cotacao": 10,
+     "resolucao": "Em série a corrente é a mesma em todo o circuito.\nReq = 5 + 2 + 10 = 17 Ω\nI = E / Req = 34 / 17 = 2 A"
+    },
+    {
+     "enunciado": "Calcule a tensão aos terminais de cada resistência e verifique a 2ª lei de Kirchhoff.",
+     "cotacao": 10,
+     "resolucao": "V1 = R1 × I = 5 × 2 = 10 V\nV2 = R2 × I = 2 × 2 = 4 V\nV3 = R3 × I = 10 × 2 = 20 V\nVerificação (2ª lei de Kirchhoff): 34 − 10 − 4 − 20 = 0 ✓"
+    },
+    {
+     "enunciado": "Calcule a potência dissipada em R3.",
+     "cotacao": 10,
+     "resolucao": "Lei de Joule: P = R × I² = 10 × 2² = 40 W\n(ou P = V × I = 20 × 2 = 40 W)"
+    }
+   ]
+  },
+  {
+   "id": "c-serie-1",
+   "grupo": "Grupo 1 · Circuitos",
+   "tipo": "aberta",
+   "tema": "Circuito em série",
+   "enunciado": "Considere o circuito da figura, alimentado por uma fonte ideal.",
+   "imagem": "/estudo/img/setr/serie-1.svg",
+   "alineas": [
+    {
+     "enunciado": "Enuncie a 1ª lei de Kirchhoff (lei dos nós) e o princípio em que se baseia.",
+     "cotacao": 10,
+     "resolucao": "Num nó, a soma das correntes que chegam é igual à soma das correntes que saem (Σ I = 0 no nó).\nResulta do princípio da conservação da carga elétrica."
+    },
+    {
+     "enunciado": "Calcule a resistência equivalente e a corrente I no circuito.",
+     "cotacao": 10,
+     "resolucao": "Em série a corrente é a mesma em todo o circuito.\nReq = 6 + 1 + 8 = 15 Ω\nI = E / Req = 30 / 15 = 2 A"
+    },
+    {
+     "enunciado": "Calcule a tensão aos terminais de cada resistência e verifique a 2ª lei de Kirchhoff.",
+     "cotacao": 10,
+     "resolucao": "V1 = R1 × I = 6 × 2 = 12 V\nV2 = R2 × I = 1 × 2 = 2 V\nV3 = R3 × I = 8 × 2 = 16 V\nVerificação (2ª lei de Kirchhoff): 30 − 12 − 2 − 16 = 0 ✓"
+    },
+    {
+     "enunciado": "Calcule a potência dissipada em R3.",
+     "cotacao": 10,
+     "resolucao": "Lei de Joule: P = R × I² = 8 × 2² = 32 W\n(ou P = V × I = 16 × 2 = 32 W)"
+    }
+   ]
+  },
+  {
+   "id": "c-serie-2",
+   "grupo": "Grupo 1 · Circuitos",
+   "tipo": "aberta",
+   "tema": "Circuito em série",
+   "enunciado": "Considere o circuito da figura, alimentado por uma fonte ideal.",
+   "imagem": "/estudo/img/setr/serie-2.svg",
+   "alineas": [
+    {
+     "enunciado": "Enuncie a 1ª lei de Kirchhoff (lei dos nós) e o princípio em que se baseia.",
+     "cotacao": 10,
+     "resolucao": "Num nó, a soma das correntes que chegam é igual à soma das correntes que saem (Σ I = 0 no nó).\nResulta do princípio da conservação da carga elétrica."
+    },
+    {
+     "enunciado": "Calcule a resistência equivalente e a corrente I no circuito.",
+     "cotacao": 10,
+     "resolucao": "Em série a corrente é a mesma em todo o circuito.\nReq = 10 + 3 + 1 = 14 Ω\nI = E / Req = 42 / 14 = 3 A"
+    },
+    {
+     "enunciado": "Calcule a tensão aos terminais de cada resistência e verifique a 2ª lei de Kirchhoff.",
+     "cotacao": 10,
+     "resolucao": "V1 = R1 × I = 10 × 3 = 30 V\nV2 = R2 × I = 3 × 3 = 9 V\nV3 = R3 × I = 1 × 3 = 3 V\nVerificação (2ª lei de Kirchhoff): 42 − 30 − 9 − 3 = 0 ✓"
+    },
+    {
+     "enunciado": "Calcule a potência dissipada em R1.",
+     "cotacao": 10,
+     "resolucao": "Lei de Joule: P = R × I² = 10 × 3² = 90 W\n(ou P = V × I = 30 × 3 = 90 W)"
+    }
+   ]
+  },
+  {
+   "id": "c-serie-3",
+   "grupo": "Grupo 1 · Circuitos",
+   "tipo": "aberta",
+   "tema": "Circuito em série",
+   "enunciado": "Considere o circuito da figura, alimentado por uma fonte ideal.",
+   "imagem": "/estudo/img/setr/serie-3.svg",
+   "alineas": [
+    {
+     "enunciado": "Indique como se identificam geradores e recetores ao aplicar a 2ª lei de Kirchhoff.",
+     "cotacao": 10,
+     "resolucao": "No símbolo, a barra comprida é o polo positivo e a curta o negativo.\nGerador: a corrente entra pelo terminal negativo e sai pelo positivo (ganha energia).\nRecetor: a corrente entra pelo terminal positivo e sai pelo negativo (perde energia).\nAo percorrer a malha, se se encontra primeiro o terminal negativo, a tensão entra com sinal negativo."
+    },
+    {
+     "enunciado": "Calcule a resistência equivalente e a corrente I no circuito.",
+     "cotacao": 10,
+     "resolucao": "Em série a corrente é a mesma em todo o circuito.\nReq = 10 + 2 = 12 Ω\nI = E / Req = 24 / 12 = 2 A"
+    },
+    {
+     "enunciado": "Calcule a tensão aos terminais de cada resistência e verifique a 2ª lei de Kirchhoff.",
+     "cotacao": 10,
+     "resolucao": "V1 = R1 × I = 10 × 2 = 20 V\nV2 = R2 × I = 2 × 2 = 4 V\nVerificação (2ª lei de Kirchhoff): 24 − 20 − 4 = 0 ✓"
+    },
+    {
+     "enunciado": "Calcule a potência dissipada em R2.",
+     "cotacao": 10,
+     "resolucao": "Lei de Joule: P = R × I² = 2 × 2² = 8 W\n(ou P = V × I = 4 × 2 = 8 W)"
+    }
+   ]
+  },
+  {
+   "id": "c-serie-4",
+   "grupo": "Grupo 1 · Circuitos",
+   "tipo": "aberta",
+   "tema": "Circuito em série",
+   "enunciado": "Considere o circuito da figura, alimentado por uma fonte ideal.",
+   "imagem": "/estudo/img/setr/serie-4.svg",
+   "alineas": [
+    {
+     "enunciado": "Enuncie a lei de Ohm e indique a unidade de cada grandeza.",
+     "cotacao": 10,
+     "resolucao": "E = R × I (tensão = resistência × corrente).\nE em volts (V), I em amperes (A), R em ohms (Ω).\nConhecendo duas grandezas calcula-se a terceira: I = E/R, R = E/I."
+    },
+    {
+     "enunciado": "Calcule a resistência equivalente e a corrente I no circuito.",
+     "cotacao": 10,
+     "resolucao": "Em série a corrente é a mesma em todo o circuito.\nReq = 1 + 6 = 7 Ω\nI = E / Req = 14 / 7 = 2 A"
+    },
+    {
+     "enunciado": "Calcule a tensão aos terminais de cada resistência e verifique a 2ª lei de Kirchhoff.",
+     "cotacao": 10,
+     "resolucao": "V1 = R1 × I = 1 × 2 = 2 V\nV2 = R2 × I = 6 × 2 = 12 V\nVerificação (2ª lei de Kirchhoff): 14 − 2 − 12 = 0 ✓"
+    },
+    {
+     "enunciado": "Calcule a potência dissipada em R1.",
+     "cotacao": 10,
+     "resolucao": "Lei de Joule: P = R × I² = 1 × 2² = 4 W\n(ou P = V × I = 2 × 2 = 4 W)"
+    }
+   ]
+  },
+  {
+   "id": "c-serie-5",
+   "grupo": "Grupo 1 · Circuitos",
+   "tipo": "aberta",
+   "tema": "Circuito em série",
+   "enunciado": "Considere o circuito da figura, alimentado por uma fonte ideal.",
+   "imagem": "/estudo/img/setr/serie-5.svg",
+   "alineas": [
+    {
+     "enunciado": "Enuncie a 2ª lei de Kirchhoff (lei das malhas) e o princípio em que se baseia.",
+     "cotacao": 10,
+     "resolucao": "A soma dos potenciais elétricos (tensões) ao longo de uma malha fechada é zero (Σ V = 0).\nResulta da conservação da energia: toda a energia fornecida à malha é consumida pelos elementos dessa malha."
+    },
+    {
+     "enunciado": "Calcule a resistência equivalente e a corrente I no circuito.",
+     "cotacao": 10,
+     "resolucao": "Em série a corrente é a mesma em todo o circuito.\nReq = 10 + 6 = 16 Ω\nI = E / Req = 16 / 16 = 1 A"
+    },
+    {
+     "enunciado": "Calcule a tensão aos terminais de cada resistência e verifique a 2ª lei de Kirchhoff.",
+     "cotacao": 10,
+     "resolucao": "V1 = R1 × I = 10 × 1 = 10 V\nV2 = R2 × I = 6 × 1 = 6 V\nVerificação (2ª lei de Kirchhoff): 16 − 10 − 6 = 0 ✓"
+    },
+    {
+     "enunciado": "Calcule a potência dissipada em R2.",
+     "cotacao": 10,
+     "resolucao": "Lei de Joule: P = R × I² = 6 × 1² = 6 W\n(ou P = V × I = 6 × 1 = 6 W)"
+    }
+   ]
+  },
+  {
+   "id": "c-serie-6",
+   "grupo": "Grupo 1 · Circuitos",
+   "tipo": "aberta",
+   "tema": "Circuito em série",
+   "enunciado": "Considere o circuito da figura, alimentado por uma fonte ideal.",
+   "imagem": "/estudo/img/setr/serie-6.svg",
+   "alineas": [
+    {
+     "enunciado": "O que é um circuito RLC? Qual o efeito da resistência no circuito?",
+     "cotacao": 10,
+     "resolucao": "Circuito com uma resistência (R), uma bobine/indutor (L) e um condensador (C), ligados em série ou em paralelo.\nForma um oscilador harmónico para a corrente e ressoa como um circuito LC.\nA resistência aumenta o amortecimento (declínio das oscilações) e reduz a frequência de ressonância de pico. Na prática há sempre alguma resistência."
+    },
+    {
+     "enunciado": "Calcule a resistência equivalente e a corrente I no circuito.",
+     "cotacao": 10,
+     "resolucao": "Em série a corrente é a mesma em todo o circuito.\nReq = 1 + 8 + 10 = 19 Ω\nI = E / Req = 38 / 19 = 2 A"
+    },
+    {
+     "enunciado": "Calcule a tensão aos terminais de cada resistência e verifique a 2ª lei de Kirchhoff.",
+     "cotacao": 10,
+     "resolucao": "V1 = R1 × I = 1 × 2 = 2 V\nV2 = R2 × I = 8 × 2 = 16 V\nV3 = R3 × I = 10 × 2 = 20 V\nVerificação (2ª lei de Kirchhoff): 38 − 2 − 16 − 20 = 0 ✓"
+    },
+    {
+     "enunciado": "Calcule a potência dissipada em R2.",
+     "cotacao": 10,
+     "resolucao": "Lei de Joule: P = R × I² = 8 × 2² = 32 W\n(ou P = V × I = 16 × 2 = 32 W)"
+    }
+   ]
+  },
+  {
+   "id": "c-serie-7",
+   "grupo": "Grupo 1 · Circuitos",
+   "tipo": "aberta",
+   "tema": "Circuito em série",
+   "enunciado": "Considere o circuito da figura, alimentado por uma fonte ideal.",
+   "imagem": "/estudo/img/setr/serie-7.svg",
+   "alineas": [
+    {
+     "enunciado": "Indique como se identificam geradores e recetores ao aplicar a 2ª lei de Kirchhoff.",
+     "cotacao": 10,
+     "resolucao": "No símbolo, a barra comprida é o polo positivo e a curta o negativo.\nGerador: a corrente entra pelo terminal negativo e sai pelo positivo (ganha energia).\nRecetor: a corrente entra pelo terminal positivo e sai pelo negativo (perde energia).\nAo percorrer a malha, se se encontra primeiro o terminal negativo, a tensão entra com sinal negativo."
+    },
+    {
+     "enunciado": "Calcule a resistência equivalente e a corrente I no circuito.",
+     "cotacao": 10,
+     "resolucao": "Em série a corrente é a mesma em todo o circuito.\nReq = 10 + 2 + 1 = 13 Ω\nI = E / Req = 39 / 13 = 3 A"
+    },
+    {
+     "enunciado": "Calcule a tensão aos terminais de cada resistência e verifique a 2ª lei de Kirchhoff.",
+     "cotacao": 10,
+     "resolucao": "V1 = R1 × I = 10 × 3 = 30 V\nV2 = R2 × I = 2 × 3 = 6 V\nV3 = R3 × I = 1 × 3 = 3 V\nVerificação (2ª lei de Kirchhoff): 39 − 30 − 6 − 3 = 0 ✓"
+    },
+    {
+     "enunciado": "Calcule a potência dissipada em R1.",
+     "cotacao": 10,
+     "resolucao": "Lei de Joule: P = R × I² = 10 × 3² = 90 W\n(ou P = V × I = 30 × 3 = 90 W)"
+    }
+   ]
+  },
+  {
+   "id": "c-paralelo-0",
+   "grupo": "Grupo 1 · Circuitos",
+   "tipo": "aberta",
+   "tema": "Circuito em paralelo",
+   "enunciado": "Considere o circuito da figura, alimentado por uma fonte ideal.",
+   "imagem": "/estudo/img/setr/paralelo-0.svg",
+   "alineas": [
+    {
+     "enunciado": "Indique como se identificam geradores e recetores ao aplicar a 2ª lei de Kirchhoff.",
+     "cotacao": 10,
+     "resolucao": "No símbolo, a barra comprida é o polo positivo e a curta o negativo.\nGerador: a corrente entra pelo terminal negativo e sai pelo positivo (ganha energia).\nRecetor: a corrente entra pelo terminal positivo e sai pelo negativo (perde energia).\nAo percorrer a malha, se se encontra primeiro o terminal negativo, a tensão entra com sinal negativo."
+    },
+    {
+     "enunciado": "Calcule a corrente em cada uma das resistências.",
+     "cotacao": 10,
+     "resolucao": "Em paralelo todas as resistências têm a tensão da fonte (E).\nI1 = E / R1 = 24 / 4 = 6 A\nI2 = E / R2 = 24 / 1 = 24 A\nI3 = E / R3 = 24 / 8 = 3 A"
+    },
+    {
+     "enunciado": "Usando a 1ª lei de Kirchhoff, calcule a corrente total It fornecida pela fonte.",
+     "cotacao": 10,
+     "resolucao": "Lei dos nós: a corrente que chega ao nó é igual à soma das que saem.\nIt = 6 + 24 + 3 = 33 A"
+    },
+    {
+     "enunciado": "Calcule a resistência equivalente do circuito.",
+     "cotacao": 10,
+     "resolucao": "Req = E / It = 24 / 33 = 0,727 Ω\n(ou 1/Req = 1/4 + 1/1 + 1/8)"
+    }
+   ]
+  },
+  {
+   "id": "c-paralelo-1",
+   "grupo": "Grupo 1 · Circuitos",
+   "tipo": "aberta",
+   "tema": "Circuito em paralelo",
+   "enunciado": "Considere o circuito da figura, alimentado por uma fonte ideal.",
+   "imagem": "/estudo/img/setr/paralelo-1.svg",
+   "alineas": [
+    {
+     "enunciado": "Indique como se identificam geradores e recetores ao aplicar a 2ª lei de Kirchhoff.",
+     "cotacao": 10,
+     "resolucao": "No símbolo, a barra comprida é o polo positivo e a curta o negativo.\nGerador: a corrente entra pelo terminal negativo e sai pelo positivo (ganha energia).\nRecetor: a corrente entra pelo terminal positivo e sai pelo negativo (perde energia).\nAo percorrer a malha, se se encontra primeiro o terminal negativo, a tensão entra com sinal negativo."
+    },
+    {
+     "enunciado": "Calcule a corrente em cada uma das resistências.",
+     "cotacao": 10,
+     "resolucao": "Em paralelo todas as resistências têm a tensão da fonte (E).\nI1 = E / R1 = 6 / 12 = 0,5 A\nI2 = E / R2 = 6 / 4 = 1,5 A\nI3 = E / R3 = 6 / 2 = 3 A"
+    },
+    {
+     "enunciado": "Usando a 1ª lei de Kirchhoff, calcule a corrente total It fornecida pela fonte.",
+     "cotacao": 10,
+     "resolucao": "Lei dos nós: a corrente que chega ao nó é igual à soma das que saem.\nIt = 0,5 + 1,5 + 3 = 5 A"
+    },
+    {
+     "enunciado": "Calcule a resistência equivalente do circuito.",
+     "cotacao": 10,
+     "resolucao": "Req = E / It = 6 / 5 = 1,2 Ω\n(ou 1/Req = 1/12 + 1/4 + 1/2)"
+    }
+   ]
+  },
+  {
+   "id": "c-paralelo-2",
+   "grupo": "Grupo 1 · Circuitos",
+   "tipo": "aberta",
+   "tema": "Circuito em paralelo",
+   "enunciado": "Considere o circuito da figura, alimentado por uma fonte ideal.",
+   "imagem": "/estudo/img/setr/paralelo-2.svg",
+   "alineas": [
+    {
+     "enunciado": "Indique como se identificam geradores e recetores ao aplicar a 2ª lei de Kirchhoff.",
+     "cotacao": 10,
+     "resolucao": "No símbolo, a barra comprida é o polo positivo e a curta o negativo.\nGerador: a corrente entra pelo terminal negativo e sai pelo positivo (ganha energia).\nRecetor: a corrente entra pelo terminal positivo e sai pelo negativo (perde energia).\nAo percorrer a malha, se se encontra primeiro o terminal negativo, a tensão entra com sinal negativo."
+    },
+    {
+     "enunciado": "Calcule a corrente em cada uma das resistências.",
+     "cotacao": 10,
+     "resolucao": "Em paralelo todas as resistências têm a tensão da fonte (E).\nI1 = E / R1 = 30 / 12 = 2,5 A\nI2 = E / R2 = 30 / 10 = 3 A"
+    },
+    {
+     "enunciado": "Usando a 1ª lei de Kirchhoff, calcule a corrente total It fornecida pela fonte.",
+     "cotacao": 10,
+     "resolucao": "Lei dos nós: a corrente que chega ao nó é igual à soma das que saem.\nIt = 2,5 + 3 = 5,5 A"
+    },
+    {
+     "enunciado": "Calcule a resistência equivalente do circuito.",
+     "cotacao": 10,
+     "resolucao": "Req = E / It = 30 / 5,5 = 5,455 Ω\n(ou 1/Req = 1/12 + 1/10)"
+    }
+   ]
+  },
+  {
+   "id": "c-paralelo-3",
+   "grupo": "Grupo 1 · Circuitos",
+   "tipo": "aberta",
+   "tema": "Circuito em paralelo",
+   "enunciado": "Considere o circuito da figura, alimentado por uma fonte ideal.",
+   "imagem": "/estudo/img/setr/paralelo-3.svg",
+   "alineas": [
+    {
+     "enunciado": "Enuncie a 1ª lei de Kirchhoff (lei dos nós) e o princípio em que se baseia.",
+     "cotacao": 10,
+     "resolucao": "Num nó, a soma das correntes que chegam é igual à soma das correntes que saem (Σ I = 0 no nó).\nResulta do princípio da conservação da carga elétrica."
+    },
+    {
+     "enunciado": "Calcule a corrente em cada uma das resistências.",
+     "cotacao": 10,
+     "resolucao": "Em paralelo todas as resistências têm a tensão da fonte (E).\nI1 = E / R1 = 24 / 2 = 12 A\nI2 = E / R2 = 24 / 12 = 2 A\nI3 = E / R3 = 24 / 3 = 8 A"
+    },
+    {
+     "enunciado": "Usando a 1ª lei de Kirchhoff, calcule a corrente total It fornecida pela fonte.",
+     "cotacao": 10,
+     "resolucao": "Lei dos nós: a corrente que chega ao nó é igual à soma das que saem.\nIt = 12 + 2 + 8 = 22 A"
+    },
+    {
+     "enunciado": "Calcule a resistência equivalente do circuito.",
+     "cotacao": 10,
+     "resolucao": "Req = E / It = 24 / 22 = 1,091 Ω\n(ou 1/Req = 1/2 + 1/12 + 1/3)"
+    }
+   ]
+  },
+  {
+   "id": "c-paralelo-4",
+   "grupo": "Grupo 1 · Circuitos",
+   "tipo": "aberta",
+   "tema": "Circuito em paralelo",
+   "enunciado": "Considere o circuito da figura, alimentado por uma fonte ideal.",
+   "imagem": "/estudo/img/setr/paralelo-4.svg",
+   "alineas": [
+    {
+     "enunciado": "Enuncie a 1ª lei de Kirchhoff (lei dos nós) e o princípio em que se baseia.",
+     "cotacao": 10,
+     "resolucao": "Num nó, a soma das correntes que chegam é igual à soma das correntes que saem (Σ I = 0 no nó).\nResulta do princípio da conservação da carga elétrica."
+    },
+    {
+     "enunciado": "Calcule a corrente em cada uma das resistências.",
+     "cotacao": 10,
+     "resolucao": "Em paralelo todas as resistências têm a tensão da fonte (E).\nI1 = E / R1 = 12 / 6 = 2 A\nI2 = E / R2 = 12 / 1 = 12 A"
+    },
+    {
+     "enunciado": "Usando a 1ª lei de Kirchhoff, calcule a corrente total It fornecida pela fonte.",
+     "cotacao": 10,
+     "resolucao": "Lei dos nós: a corrente que chega ao nó é igual à soma das que saem.\nIt = 2 + 12 = 14 A"
+    },
+    {
+     "enunciado": "Calcule a resistência equivalente do circuito.",
+     "cotacao": 10,
+     "resolucao": "Req = E / It = 12 / 14 = 0,857 Ω\n(ou 1/Req = 1/6 + 1/1)"
+    }
+   ]
+  },
+  {
+   "id": "c-paralelo-5",
+   "grupo": "Grupo 1 · Circuitos",
+   "tipo": "aberta",
+   "tema": "Circuito em paralelo",
+   "enunciado": "Considere o circuito da figura, alimentado por uma fonte ideal.",
+   "imagem": "/estudo/img/setr/paralelo-5.svg",
+   "alineas": [
+    {
+     "enunciado": "Indique como se identificam geradores e recetores ao aplicar a 2ª lei de Kirchhoff.",
+     "cotacao": 10,
+     "resolucao": "No símbolo, a barra comprida é o polo positivo e a curta o negativo.\nGerador: a corrente entra pelo terminal negativo e sai pelo positivo (ganha energia).\nRecetor: a corrente entra pelo terminal positivo e sai pelo negativo (perde energia).\nAo percorrer a malha, se se encontra primeiro o terminal negativo, a tensão entra com sinal negativo."
+    },
+    {
+     "enunciado": "Calcule a corrente em cada uma das resistências.",
+     "cotacao": 10,
+     "resolucao": "Em paralelo todas as resistências têm a tensão da fonte (E).\nI1 = E / R1 = 12 / 4 = 3 A\nI2 = E / R2 = 12 / 6 = 2 A"
+    },
+    {
+     "enunciado": "Usando a 1ª lei de Kirchhoff, calcule a corrente total It fornecida pela fonte.",
+     "cotacao": 10,
+     "resolucao": "Lei dos nós: a corrente que chega ao nó é igual à soma das que saem.\nIt = 3 + 2 = 5 A"
+    },
+    {
+     "enunciado": "Calcule a resistência equivalente do circuito.",
+     "cotacao": 10,
+     "resolucao": "Req = E / It = 12 / 5 = 2,4 Ω\n(ou 1/Req = 1/4 + 1/6)"
+    }
+   ]
+  },
+  {
+   "id": "c-malhas-0",
+   "grupo": "Grupo 1 · Circuitos",
+   "tipo": "aberta",
+   "tema": "Leis de Kirchhoff",
+   "enunciado": "Considere o circuito da figura, com dois geradores ideais. Os sentidos das correntes estão arbitrados na figura.",
+   "imagem": "/estudo/img/setr/malhas-0.svg",
+   "alineas": [
+    {
+     "enunciado": "Indique como se identificam geradores e recetores ao aplicar a 2ª lei de Kirchhoff.",
+     "cotacao": 10,
+     "resolucao": "No símbolo, a barra comprida é o polo positivo e a curta o negativo.\nGerador: a corrente entra pelo terminal negativo e sai pelo positivo (ganha energia).\nRecetor: a corrente entra pelo terminal positivo e sai pelo negativo (perde energia).\nAo percorrer a malha, se se encontra primeiro o terminal negativo, a tensão entra com sinal negativo."
+    },
+    {
+     "enunciado": "Aplicando as leis de Kirchhoff, calcule i1, i2 e i3.",
+     "cotacao": 20,
+     "resolucao": "1ª lei no nó A: i3 = i1 + i2\n2ª lei, malha da esquerda (sentido horário): −E1 + R1·i1 + R3·i3 = 0 → 30 = 6·i1 + 3·(i1 + i2) → 30 = 9·i1 + 3·i2\n2ª lei, malha da direita (sentido anti-horário): −E2 + R2·i2 + R3·i3 = 0 → 26 = 2·i2 + 3·(i1 + i2) → 26 = 3·i1 + 5·i2\nResolvendo o sistema (por exemplo pela regra de Cramer, det = 9·5 − 3·3 = 36):\ni1 = (30·5 − 3·26) / 36 = 2 A\ni2 = (9·26 − 3·30) / 36 = 4 A\ni3 = i1 + i2 = 6 A\nValores positivos: os sentidos arbitrados estão certos (um valor negativo indicaria o sentido contrário)."
+    },
+    {
+     "enunciado": "Calcule a potência dissipada em R3.",
+     "cotacao": 10,
+     "resolucao": "P = R3 × i3² = 3 × 6² = 108 W"
+    }
+   ]
+  },
+  {
+   "id": "c-malhas-1",
+   "grupo": "Grupo 1 · Circuitos",
+   "tipo": "aberta",
+   "tema": "Leis de Kirchhoff",
+   "enunciado": "Considere o circuito da figura, com dois geradores ideais. Os sentidos das correntes estão arbitrados na figura.",
+   "imagem": "/estudo/img/setr/malhas-1.svg",
+   "alineas": [
+    {
+     "enunciado": "Defina nó, ramo e malha de um circuito elétrico.",
+     "cotacao": 10,
+     "resolucao": "Nó: ponto onde o circuito ramifica (há mais do que um caminho para a corrente).\nRamo: trecho entre dois nós consecutivos; ao longo de um ramo a corrente é constante.\nMalha: caminho fechado que começa num nó e volta ao mesmo nó; a soma dos potenciais numa malha é zero."
+    },
+    {
+     "enunciado": "Aplicando as leis de Kirchhoff, calcule i1, i2 e i3.",
+     "cotacao": 20,
+     "resolucao": "1ª lei no nó A: i3 = i1 + i2\n2ª lei, malha da esquerda (sentido horário): −E1 + R1·i1 + R3·i3 = 0 → 13 = 4·i1 + 1·(i1 + i2) → 13 = 5·i1 + 1·i2\n2ª lei, malha da direita (sentido anti-horário): −E2 + R2·i2 + R3·i3 = 0 → 11 = 2·i2 + 1·(i1 + i2) → 11 = 1·i1 + 3·i2\nResolvendo o sistema (por exemplo pela regra de Cramer, det = 5·3 − 1·1 = 14):\ni1 = (13·3 − 1·11) / 14 = 2 A\ni2 = (5·11 − 1·13) / 14 = 3 A\ni3 = i1 + i2 = 5 A\nValores positivos: os sentidos arbitrados estão certos (um valor negativo indicaria o sentido contrário)."
+    },
+    {
+     "enunciado": "Calcule a potência dissipada em R3.",
+     "cotacao": 10,
+     "resolucao": "P = R3 × i3² = 1 × 5² = 25 W"
+    }
+   ]
+  },
+  {
+   "id": "c-malhas-2",
+   "grupo": "Grupo 1 · Circuitos",
+   "tipo": "aberta",
+   "tema": "Leis de Kirchhoff",
+   "enunciado": "Considere o circuito da figura, com dois geradores ideais. Os sentidos das correntes estão arbitrados na figura.",
+   "imagem": "/estudo/img/setr/malhas-2.svg",
+   "alineas": [
+    {
+     "enunciado": "Enuncie a 2ª lei de Kirchhoff (lei das malhas) e o princípio em que se baseia.",
+     "cotacao": 10,
+     "resolucao": "A soma dos potenciais elétricos (tensões) ao longo de uma malha fechada é zero (Σ V = 0).\nResulta da conservação da energia: toda a energia fornecida à malha é consumida pelos elementos dessa malha."
+    },
+    {
+     "enunciado": "Aplicando as leis de Kirchhoff, calcule i1, i2 e i3.",
+     "cotacao": 20,
+     "resolucao": "1ª lei no nó A: i3 = i1 + i2\n2ª lei, malha da esquerda (sentido horário): −E1 + R1·i1 + R3·i3 = 0 → 11 = 4·i1 + 1·(i1 + i2) → 11 = 5·i1 + 1·i2\n2ª lei, malha da direita (sentido anti-horário): −E2 + R2·i2 + R3·i3 = 0 → 7 = 4·i2 + 1·(i1 + i2) → 7 = 1·i1 + 5·i2\nResolvendo o sistema (por exemplo pela regra de Cramer, det = 5·5 − 1·1 = 24):\ni1 = (11·5 − 1·7) / 24 = 2 A\ni2 = (5·7 − 1·11) / 24 = 1 A\ni3 = i1 + i2 = 3 A\nValores positivos: os sentidos arbitrados estão certos (um valor negativo indicaria o sentido contrário)."
+    },
+    {
+     "enunciado": "Calcule a potência dissipada em R3.",
+     "cotacao": 10,
+     "resolucao": "P = R3 × i3² = 1 × 3² = 9 W"
+    }
+   ]
+  },
+  {
+   "id": "c-malhas-3",
+   "grupo": "Grupo 1 · Circuitos",
+   "tipo": "aberta",
+   "tema": "Leis de Kirchhoff",
+   "enunciado": "Considere o circuito da figura, com dois geradores ideais. Os sentidos das correntes estão arbitrados na figura.",
+   "imagem": "/estudo/img/setr/malhas-3.svg",
+   "alineas": [
+    {
+     "enunciado": "Indique quantos nós, ramos e malhas tem o circuito.",
+     "cotacao": 10,
+     "resolucao": "Nós: 2 (A e B), onde o circuito ramifica.\nRamos: 3 (esquerdo com E1 e R1, central com R3, direito com E2 e R2).\nMalhas: 3 (a da esquerda, a da direita e a exterior)."
+    },
+    {
+     "enunciado": "Aplicando as leis de Kirchhoff, calcule i1, i2 e i3.",
+     "cotacao": 20,
+     "resolucao": "1ª lei no nó A: i3 = i1 + i2\n2ª lei, malha da esquerda (sentido horário): −E1 + R1·i1 + R3·i3 = 0 → 21 = 3·i1 + 2·(i1 + i2) → 21 = 5·i1 + 2·i2\n2ª lei, malha da direita (sentido anti-horário): −E2 + R2·i2 + R3·i3 = 0 → 24 = 4·i2 + 2·(i1 + i2) → 24 = 2·i1 + 6·i2\nResolvendo o sistema (por exemplo pela regra de Cramer, det = 5·6 − 2·2 = 26):\ni1 = (21·6 − 2·24) / 26 = 3 A\ni2 = (5·24 − 2·21) / 26 = 3 A\ni3 = i1 + i2 = 6 A\nValores positivos: os sentidos arbitrados estão certos (um valor negativo indicaria o sentido contrário)."
+    },
+    {
+     "enunciado": "Calcule a potência dissipada em R3.",
+     "cotacao": 10,
+     "resolucao": "P = R3 × i3² = 2 × 6² = 72 W"
+    }
+   ]
+  },
+  {
+   "id": "c-malhas-4",
+   "grupo": "Grupo 1 · Circuitos",
+   "tipo": "aberta",
+   "tema": "Leis de Kirchhoff",
+   "enunciado": "Considere o circuito da figura, com dois geradores ideais. Os sentidos das correntes estão arbitrados na figura.",
+   "imagem": "/estudo/img/setr/malhas-4.svg",
+   "alineas": [
+    {
+     "enunciado": "Indique quantos nós, ramos e malhas tem o circuito.",
+     "cotacao": 10,
+     "resolucao": "Nós: 2 (A e B), onde o circuito ramifica.\nRamos: 3 (esquerdo com E1 e R1, central com R3, direito com E2 e R2).\nMalhas: 3 (a da esquerda, a da direita e a exterior)."
+    },
+    {
+     "enunciado": "Aplicando as leis de Kirchhoff, calcule i1, i2 e i3.",
+     "cotacao": 20,
+     "resolucao": "1ª lei no nó A: i3 = i1 + i2\n2ª lei, malha da esquerda (sentido horário): −E1 + R1·i1 + R3·i3 = 0 → 12 = 3·i1 + 3·(i1 + i2) → 12 = 6·i1 + 3·i2\n2ª lei, malha da direita (sentido anti-horário): −E2 + R2·i2 + R3·i3 = 0 → 21 = 6·i2 + 3·(i1 + i2) → 21 = 3·i1 + 9·i2\nResolvendo o sistema (por exemplo pela regra de Cramer, det = 6·9 − 3·3 = 45):\ni1 = (12·9 − 3·21) / 45 = 1 A\ni2 = (6·21 − 3·12) / 45 = 2 A\ni3 = i1 + i2 = 3 A\nValores positivos: os sentidos arbitrados estão certos (um valor negativo indicaria o sentido contrário)."
+    },
+    {
+     "enunciado": "Calcule a potência dissipada em R3.",
+     "cotacao": 10,
+     "resolucao": "P = R3 × i3² = 3 × 3² = 27 W"
+    }
+   ]
+  },
+  {
+   "id": "c-malhas-5",
+   "grupo": "Grupo 1 · Circuitos",
+   "tipo": "aberta",
+   "tema": "Leis de Kirchhoff",
+   "enunciado": "Considere o circuito da figura, com dois geradores ideais. Os sentidos das correntes estão arbitrados na figura.",
+   "imagem": "/estudo/img/setr/malhas-5.svg",
+   "alineas": [
+    {
+     "enunciado": "Defina nó, ramo e malha de um circuito elétrico.",
+     "cotacao": 10,
+     "resolucao": "Nó: ponto onde o circuito ramifica (há mais do que um caminho para a corrente).\nRamo: trecho entre dois nós consecutivos; ao longo de um ramo a corrente é constante.\nMalha: caminho fechado que começa num nó e volta ao mesmo nó; a soma dos potenciais numa malha é zero."
+    },
+    {
+     "enunciado": "Aplicando as leis de Kirchhoff, calcule i1, i2 e i3.",
+     "cotacao": 20,
+     "resolucao": "1ª lei no nó A: i3 = i1 + i2\n2ª lei, malha da esquerda (sentido horário): −E1 + R1·i1 + R3·i3 = 0 → 19 = 2·i1 + 5·(i1 + i2) → 19 = 7·i1 + 5·i2\n2ª lei, malha da direita (sentido anti-horário): −E2 + R2·i2 + R3·i3 = 0 → 18 = 3·i2 + 5·(i1 + i2) → 18 = 5·i1 + 8·i2\nResolvendo o sistema (por exemplo pela regra de Cramer, det = 7·8 − 5·5 = 31):\ni1 = (19·8 − 5·18) / 31 = 2 A\ni2 = (7·18 − 5·19) / 31 = 1 A\ni3 = i1 + i2 = 3 A\nValores positivos: os sentidos arbitrados estão certos (um valor negativo indicaria o sentido contrário)."
+    },
+    {
+     "enunciado": "Calcule a potência dissipada em R3.",
+     "cotacao": 10,
+     "resolucao": "P = R3 × i3² = 5 × 3² = 45 W"
+    }
+   ]
+  },
+  {
+   "id": "c-malhas-6",
+   "grupo": "Grupo 1 · Circuitos",
+   "tipo": "aberta",
+   "tema": "Leis de Kirchhoff",
+   "enunciado": "Considere o circuito da figura, com dois geradores ideais. Os sentidos das correntes estão arbitrados na figura.",
+   "imagem": "/estudo/img/setr/malhas-6.svg",
+   "alineas": [
+    {
+     "enunciado": "Indique quantos nós, ramos e malhas tem o circuito.",
+     "cotacao": 10,
+     "resolucao": "Nós: 2 (A e B), onde o circuito ramifica.\nRamos: 3 (esquerdo com E1 e R1, central com R3, direito com E2 e R2).\nMalhas: 3 (a da esquerda, a da direita e a exterior)."
+    },
+    {
+     "enunciado": "Aplicando as leis de Kirchhoff, calcule i1, i2 e i3.",
+     "cotacao": 20,
+     "resolucao": "1ª lei no nó A: i3 = i1 + i2\n2ª lei, malha da esquerda (sentido horário): −E1 + R1·i1 + R3·i3 = 0 → 23 = 4·i1 + 5·(i1 + i2) → 23 = 9·i1 + 5·i2\n2ª lei, malha da direita (sentido anti-horário): −E2 + R2·i2 + R3·i3 = 0 → 21 = 6·i2 + 5·(i1 + i2) → 21 = 5·i1 + 11·i2\nResolvendo o sistema (por exemplo pela regra de Cramer, det = 9·11 − 5·5 = 74):\ni1 = (23·11 − 5·21) / 74 = 2 A\ni2 = (9·21 − 5·23) / 74 = 1 A\ni3 = i1 + i2 = 3 A\nValores positivos: os sentidos arbitrados estão certos (um valor negativo indicaria o sentido contrário)."
+    },
+    {
+     "enunciado": "Calcule a potência dissipada em R3.",
+     "cotacao": 10,
+     "resolucao": "P = R3 × i3² = 5 × 3² = 45 W"
+    }
+   ]
+  },
+  {
+   "id": "c-malhas-7",
+   "grupo": "Grupo 1 · Circuitos",
+   "tipo": "aberta",
+   "tema": "Leis de Kirchhoff",
+   "enunciado": "Considere o circuito da figura, com dois geradores ideais. Os sentidos das correntes estão arbitrados na figura.",
+   "imagem": "/estudo/img/setr/malhas-7.svg",
+   "alineas": [
+    {
+     "enunciado": "Indique quantos nós, ramos e malhas tem o circuito.",
+     "cotacao": 10,
+     "resolucao": "Nós: 2 (A e B), onde o circuito ramifica.\nRamos: 3 (esquerdo com E1 e R1, central com R3, direito com E2 e R2).\nMalhas: 3 (a da esquerda, a da direita e a exterior)."
+    },
+    {
+     "enunciado": "Aplicando as leis de Kirchhoff, calcule i1, i2 e i3.",
+     "cotacao": 20,
+     "resolucao": "1ª lei no nó A: i3 = i1 + i2\n2ª lei, malha da esquerda (sentido horário): −E1 + R1·i1 + R3·i3 = 0 → 24 = 4·i1 + 2·(i1 + i2) → 24 = 6·i1 + 2·i2\n2ª lei, malha da direita (sentido anti-horário): −E2 + R2·i2 + R3·i3 = 0 → 21 = 3·i2 + 2·(i1 + i2) → 21 = 2·i1 + 5·i2\nResolvendo o sistema (por exemplo pela regra de Cramer, det = 6·5 − 2·2 = 26):\ni1 = (24·5 − 2·21) / 26 = 3 A\ni2 = (6·21 − 2·24) / 26 = 3 A\ni3 = i1 + i2 = 6 A\nValores positivos: os sentidos arbitrados estão certos (um valor negativo indicaria o sentido contrário)."
+    },
+    {
+     "enunciado": "Calcule a potência dissipada em R3.",
+     "cotacao": 10,
+     "resolucao": "P = R3 × i3² = 2 × 6² = 72 W"
+    }
+   ]
+  },
+  {
+   "id": "c-malhas-8",
+   "grupo": "Grupo 1 · Circuitos",
+   "tipo": "aberta",
+   "tema": "Leis de Kirchhoff",
+   "enunciado": "Considere o circuito da figura, com dois geradores ideais. Os sentidos das correntes estão arbitrados na figura.",
+   "imagem": "/estudo/img/setr/malhas-8.svg",
+   "alineas": [
+    {
+     "enunciado": "Defina nó, ramo e malha de um circuito elétrico.",
+     "cotacao": 10,
+     "resolucao": "Nó: ponto onde o circuito ramifica (há mais do que um caminho para a corrente).\nRamo: trecho entre dois nós consecutivos; ao longo de um ramo a corrente é constante.\nMalha: caminho fechado que começa num nó e volta ao mesmo nó; a soma dos potenciais numa malha é zero."
+    },
+    {
+     "enunciado": "Aplicando as leis de Kirchhoff, calcule i1, i2 e i3.",
+     "cotacao": 20,
+     "resolucao": "1ª lei no nó A: i3 = i1 + i2\n2ª lei, malha da esquerda (sentido horário): −E1 + R1·i1 + R3·i3 = 0 → 33 = 8·i1 + 5·(i1 + i2) → 33 = 13·i1 + 5·i2\n2ª lei, malha da direita (sentido anti-horário): −E2 + R2·i2 + R3·i3 = 0 → 41 = 4·i2 + 5·(i1 + i2) → 41 = 5·i1 + 9·i2\nResolvendo o sistema (por exemplo pela regra de Cramer, det = 13·9 − 5·5 = 92):\ni1 = (33·9 − 5·41) / 92 = 1 A\ni2 = (13·41 − 5·33) / 92 = 4 A\ni3 = i1 + i2 = 5 A\nValores positivos: os sentidos arbitrados estão certos (um valor negativo indicaria o sentido contrário)."
+    },
+    {
+     "enunciado": "Calcule a potência dissipada em R3.",
+     "cotacao": 10,
+     "resolucao": "P = R3 × i3² = 5 × 5² = 125 W"
+    }
+   ]
+  },
+  {
+   "id": "c-malhas-9",
+   "grupo": "Grupo 1 · Circuitos",
+   "tipo": "aberta",
+   "tema": "Leis de Kirchhoff",
+   "enunciado": "Considere o circuito da figura, com dois geradores ideais. Os sentidos das correntes estão arbitrados na figura.",
+   "imagem": "/estudo/img/setr/malhas-9.svg",
+   "alineas": [
+    {
+     "enunciado": "O que é um circuito RLC? Qual o efeito da resistência no circuito?",
+     "cotacao": 10,
+     "resolucao": "Circuito com uma resistência (R), uma bobine/indutor (L) e um condensador (C), ligados em série ou em paralelo.\nForma um oscilador harmónico para a corrente e ressoa como um circuito LC.\nA resistência aumenta o amortecimento (declínio das oscilações) e reduz a frequência de ressonância de pico. Na prática há sempre alguma resistência."
+    },
+    {
+     "enunciado": "Aplicando as leis de Kirchhoff, calcule i1, i2 e i3.",
+     "cotacao": 20,
+     "resolucao": "1ª lei no nó A: i3 = i1 + i2\n2ª lei, malha da esquerda (sentido horário): −E1 + R1·i1 + R3·i3 = 0 → 31 = 5·i1 + 4·(i1 + i2) → 31 = 9·i1 + 4·i2\n2ª lei, malha da direita (sentido anti-horário): −E2 + R2·i2 + R3·i3 = 0 → 17 = 1·i2 + 4·(i1 + i2) → 17 = 4·i1 + 5·i2\nResolvendo o sistema (por exemplo pela regra de Cramer, det = 9·5 − 4·4 = 29):\ni1 = (31·5 − 4·17) / 29 = 3 A\ni2 = (9·17 − 4·31) / 29 = 1 A\ni3 = i1 + i2 = 4 A\nValores positivos: os sentidos arbitrados estão certos (um valor negativo indicaria o sentido contrário)."
+    },
+    {
+     "enunciado": "Calcule a potência dissipada em R3.",
+     "cotacao": 10,
+     "resolucao": "P = R3 × i3² = 4 × 4² = 64 W"
+    }
+   ]
+  },
+  {
+   "id": "a-instr",
+   "grupo": "Grupo 2 · Escolha as corretas",
+   "tipo": "afirmacoes",
+   "tema": "Conjunto de instruções e CPUs",
+   "enunciado": "Conjunto de instruções e CPUs.",
+   "instrucao": "Escolha as respostas corretas. Cada resposta correta vale 1 valor e cada resposta incorreta desconta 0,5 valores. Selecionar todas implica a anulação da questão.",
+   "mostrar": 5,
+   "certas": 2,
+   "afirmacoes": [
+    {
+     "v": true,
+     "texto": "Na arquitetura de Harvard são permitidos dois fetches de memória simultâneos, uma vez que a memória de dados e a memória de instruções são separadas.",
+     "porque": "Memórias separadas, com barramentos duplicados, permitem ir buscar instrução e dado ao mesmo tempo."
+    },
+    {
+     "v": true,
+     "texto": "Na arquitetura de von Neumann, instruções e dados estão guardados na mesma memória e o CPU faz o fetch das instruções a partir dela.",
+     "porque": "É a arquitetura clássica: uma só memória para dados e instruções."
+    },
+    {
+     "v": true,
+     "texto": "A maioria dos DSPs utiliza a arquitetura de Harvard, porque oferece maior largura de banda de memória e uma largura de banda mais previsível.",
+     "porque": "Está nos slides de Instruction Set (von Neumann vs. Harvard)."
+    },
+    {
+     "v": true,
+     "texto": "A arquitetura de Harvard não pode utilizar código adaptativo (código que se altera a si próprio).",
+     "porque": "O programa está numa memória separada dos dados, por isso não se pode reescrever como dado."
+    },
+    {
+     "v": true,
+     "texto": "A arquitetura de Harvard obriga à duplicação de barramentos e o acesso às memórias exige sincronização.",
+     "porque": "Memória de dados e memória de programa têm cada uma o seu barramento."
+    },
+    {
+     "v": true,
+     "texto": "Nos processadores RISC o acesso à memória é feito apenas através de instruções load/store e as instruções são pipelinable.",
+     "porque": "São as duas características de RISC nos slides."
+    },
+    {
+     "v": true,
+     "texto": "Os processadores CISC caracterizam-se por um elevado número de modos de endereçamento e de operações.",
+     "porque": "CISC = Complex Instruction Set Computer."
+    },
+    {
+     "v": true,
+     "texto": "Na linguagem assembly escreve-se uma instrução por linha, as etiquetas (labels) ficam habitualmente na 1ª coluna e os comentários começam com «;».",
+     "porque": "Características básicas da linguagem assembly."
+    },
+    {
+     "v": true,
+     "texto": "As pseudo-operações do assembly, como definir constantes ou reservar memória, não correspondem diretamente a instruções e não geram código executável.",
+     "porque": "São diretivas para o assembler (ex.: EQU, WORD, PLACE)."
+    },
+    {
+     "v": true,
+     "texto": "O modelo de programação do ARM tem 16 registos de uso geral (r0 a r15), em que r15 é o PC, e um registo de estado, o CPSR.",
+     "porque": "r0 a r15, com r15 = PC, mais o CPSR."
+    },
+    {
+     "v": true,
+     "texto": "O CPSR (Current Program Status Register) é atualizado automaticamente em todas as operações aritméticas, lógicas e de deslocamento, através dos bits N, Z, C e V.",
+     "porque": "N negativo, Z zero, C carry, V overflow."
+    },
+    {
+     "v": true,
+     "texto": "No ARM, a operação -1 + 1 = 0 coloca as flags NZCV a 0110.",
+     "porque": "Resultado zero (Z=1) e há transporte para fora do bit 31 (C=1); não é negativo nem overflow."
+    },
+    {
+     "v": true,
+     "texto": "As instruções de comparação do ARM (CMP, CMN, TST, TEQ) apenas alteram os bits NZCV do CPSR.",
+     "porque": "Não guardam o resultado em nenhum registo."
+    },
+    {
+     "v": true,
+     "texto": "No ARM, a instrução BL copia o PC corrente para r14 e o retorno da sub-rotina faz-se com MOV r15,r14.",
+     "porque": "r14 é o link register."
+    },
+    {
+     "v": true,
+     "texto": "No ARM uma word tem 32 bits e o processador pode ser configurado no arranque para little-endian ou big-endian.",
+     "porque": "Word 0 no endereço 0, word 1 no endereço 4, etc."
+    },
+    {
+     "v": true,
+     "texto": "A instrução LDR r0,[r1],#16 (post-indexing) carrega r0 a partir do endereço em r1 e só depois soma 16 a r1.",
+     "porque": "Post-indexing: primeiro o acesso, depois o incremento."
+    },
+    {
+     "v": true,
+     "texto": "Nas interrupções, as prioridades determinam que interrupção acede primeiro ao CPU e os vetores determinam que código é chamado; os dois mecanismos são ortogonais.",
+     "porque": "A maioria dos CPUs fornece os dois."
+    },
+    {
+     "v": true,
+     "texto": "Com masking, as interrupções de prioridade inferior à da interrupção atual não são reconhecidas enquanto esta não estiver completa.",
+     "porque": "Definição de masking nos slides de CPUs (1)."
+    },
+    {
+     "v": true,
+     "texto": "A Non-maskable interrupt (NMI) tem a prioridade mais alta, nunca é mascarada e é muitas vezes usada para power-down.",
+     "porque": "NMI = nunca mascarada."
+    },
+    {
+     "v": true,
+     "texto": "O ARM7 suporta 2 tipos de interrupções, Fast interrupt requests (FIQs) e Interrupt requests (IRQs), e a FIQ tem prioridade sobre a IRQ.",
+     "porque": "FIQ para tratamento rápido e de baixa latência."
+    },
+    {
+     "v": true,
+     "texto": "No pior caso, a latência de resposta a uma interrupção no ARM é de 27 ciclos: 2 para sincronizar o pedido, até 20 para completar a instrução, 3 para abortar dados e 2 para entrar no handler.",
+     "porque": "2 + 20 + 3 + 2 = 27."
+    },
+    {
+     "v": true,
+     "texto": "Quando ocorre uma interrupção, o ARM salva o PC, copia o CPSR para o SPSR e força o PC para o vetor da interrupção.",
+     "porque": "O handler depois restaura o PC e o CPSR a partir do SPSR."
+    },
+    {
+     "v": true,
+     "texto": "Na sequência de interrupção, o CPU reconhece o pedido (ACK), o dispositivo envia o vetor, o CPU chama o handler, o software processa o pedido e o CPU restaura o estado do programa foreground.",
+     "porque": "É a sequência dos slides."
+    },
+    {
+     "v": true,
+     "texto": "Uma exceção é um erro detetado internamente; é síncrona com as instruções mas imprevisível.",
+     "porque": "O mecanismo de exceções está por cima do das interrupções."
+    },
+    {
+     "v": true,
+     "texto": "Uma trap é uma interrupção de software gerada por uma instrução; no ARM é feita com a instrução SWI, que entra no modo supervisor.",
+     "porque": "SWI = software interrupt."
+    },
+    {
+     "v": true,
+     "texto": "Nas operações de cache, há um cache hit quando a localização requerida está na cache e um cache miss quando não está; um cache miss pode ser compulsório (endereço nunca acedido).",
+     "porque": "Compulsório (cold) = primeiro acesso a um bloco."
+    },
+    {
+     "v": true,
+     "texto": "Um cache miss de capacidade acontece quando o working set é maior do que a cache e pode ser reduzido com caches maiores.",
+     "porque": "Resulta da capacidade finita da cache."
+    },
+    {
+     "v": true,
+     "texto": "Um cache miss de conflito (collision miss) acontece quando várias localizações do working set mapeiam para a mesma entrada da cache.",
+     "porque": "Normalmente induzido pela política de gestão da cache."
+    },
+    {
+     "v": true,
+     "texto": "O pipeline do ARM7 possui 3 estágios, fetch, decode e execute, permitindo que várias instruções sejam tratadas simultaneamente em diferentes estágios do ciclo.",
+     "porque": "fetch da memória, decode do código e operandos, execute."
+    },
+    {
+     "v": true,
+     "texto": "O pipelining aumenta o throughput sem reduzir a latência de cada instrução.",
+     "porque": "Mais instruções por unidade de tempo, mas cada uma demora o mesmo."
+    },
+    {
+     "v": true,
+     "texto": "Branches (saltos) e atrasos do sistema de memória podem causar pipeline bubbles, que reduzem a utilização do pipeline.",
+     "porque": "Ex.: BLT ocupa 1 ciclo no melhor caso e 3 no pior."
+    },
+    {
+     "v": true,
+     "texto": "Os elementos da performance do CPU são o tempo de ciclo, o pipeline e o sistema de memória.",
+     "porque": "Objetivo do teste: «Elementos da performance do CPU»."
+    },
+    {
+     "v": true,
+     "texto": "A MMU (Memory Management Unit) traduz endereços lógicos em endereços físicos e permite memória virtual.",
+     "porque": "Page fault = pedido de uma localização que não está em memória."
+    },
+    {
+     "v": true,
+     "texto": "Um co-processador é uma unidade de funcionamento invocada por uma instrução; o ARM permite até 16 co-processadores.",
+     "porque": "Ex.: co-processador de vírgula flutuante."
+    },
+    {
+     "v": true,
+     "texto": "A maioria dos CPUs usa I/O em memória mapeada (instruções load/store normais), enquanto o Intel x86 também fornece instruções próprias in e out.",
+     "porque": "As instruções de I/O não impedem o uso de memória mapeada."
+    },
+    {
+     "v": false,
+     "texto": "Na arquitetura de computador de von Neumann são permitidos dois fetches de memória simultâneos uma vez que a memória de dados e a memória de instruções são separadas.",
+     "porque": "Isso é a arquitetura de Harvard. Em von Neumann a memória é a mesma."
+    },
+    {
+     "v": false,
+     "texto": "O modelo de programação do ARM contém 32 registos (r0 a r31) e um registo especial, o CPSR.",
+     "porque": "O ARM tem 16 registos, r0 a r15."
+    },
+    {
+     "v": false,
+     "texto": "O modelo de programação do ARM contém 16 registos (r0 a r15) e, adicionalmente, um registo especial de 32 bits designado por NZCV.",
+     "porque": "O registo chama-se CPSR. N, Z, C e V são as flags (bits) dentro dele."
+    },
+    {
+     "v": false,
+     "texto": "Ao nível de prioridades de interrupções, a Non-maskable interrupt (NMI) é um tipo de interrupção com prioridade inferior à interrupção em curso e não é reconhecida pelo CPU enquanto a interrupção corrente não estiver completa.",
+     "porque": "A NMI tem a prioridade mais alta e nunca é mascarada. O que está descrito é o masking das interrupções de prioridade inferior."
+    },
+    {
+     "v": false,
+     "texto": "Nas operações de cache, um cache hit pode ocorrer compulsoriamente, se o endereço ainda não foi acedido anteriormente.",
+     "porque": "O que é compulsório é o cache miss: o primeiro acesso falha sempre."
+    },
+    {
+     "v": false,
+     "texto": "O pipeline do ARM7 possui um pipe de 3 estágios, fetch, run e idle.",
+     "porque": "Os estágios são fetch, decode e execute. Run e idle são modos de potência (StrongARM)."
+    },
+    {
+     "v": false,
+     "texto": "O pipeline do ARM7 possui 5 estágios: fetch, decode, execute, memory e write-back.",
+     "porque": "O ARM7 tem 3 estágios."
+    },
+    {
+     "v": false,
+     "texto": "Os processadores RISC caracterizam-se por um elevado número de modos de endereçamento e de operações.",
+     "porque": "Isso é CISC. RISC usa load/store e instruções simples, pipelinable."
+    },
+    {
+     "v": false,
+     "texto": "Nos processadores CISC o acesso à memória é feito exclusivamente por instruções load/store.",
+     "porque": "Load/store é característica de RISC."
+    },
+    {
+     "v": false,
+     "texto": "No ARM7, as IRQs têm prioridade sobre as FIQs.",
+     "porque": "É ao contrário: a FIQ tem prioridade sobre a IRQ."
+    },
+    {
+     "v": false,
+     "texto": "O pipelining reduz a latência de cada instrução, mas não altera o throughput.",
+     "porque": "É ao contrário: aumenta o throughput sem reduzir a latência."
+    },
+    {
+     "v": false,
+     "texto": "Um cache miss de capacidade é inevitável no primeiro acesso a um bloco de dados.",
+     "porque": "Isso é o miss compulsório (cold)."
+    },
+    {
+     "v": false,
+     "texto": "Um cache miss de capacidade acontece quando várias localizações do working set mapeiam para a mesma entrada da cache.",
+     "porque": "Isso é o miss de conflito. O de capacidade é o working set ser maior do que a cache."
+    },
+    {
+     "v": false,
+     "texto": "As exceções são assíncronas e são geradas por dispositivos externos.",
+     "porque": "Uma exceção é um erro detetado internamente e é síncrona com as instruções."
+    },
+    {
+     "v": false,
+     "texto": "A arquitetura de Harvard usa um único barramento partilhado para dados e instruções.",
+     "porque": "Obriga à duplicação de barramentos."
+    },
+    {
+     "v": false,
+     "texto": "A instrução CMP r0,r1 guarda o resultado de r0 - r1 em r0.",
+     "porque": "CMP só altera as flags NZCV do CPSR."
+    },
+    {
+     "v": false,
+     "texto": "No pior caso, a latência de resposta a uma interrupção no ARM é de 20 ciclos.",
+     "porque": "São 27 ciclos. Os 20 são só para completar a instrução em curso."
+    },
+    {
+     "v": false,
+     "texto": "Nas instruções do ARM, um deslocamento lógico (logical shift) preenche com «1» e um aritmético preenche com «0».",
+     "porque": "Nos slides: logical shift preenche com 0, arithmetic shift com 1."
+    },
+    {
+     "v": false,
+     "texto": "A instrução ADD r0,r1,r2 calcula r0 + r1 e guarda o resultado em r2.",
+     "porque": "Calcula r1 + r2 e guarda em r0 (o destino é o primeiro registo)."
+    },
+    {
+     "v": false,
+     "texto": "A instrução LDR r0,[r1],#16 carrega r0 a partir do endereço r1+16.",
+     "porque": "É post-indexing: lê de r1 e só depois faz r1 = r1+16. A pré-indexada seria LDR r0,[r1,#16]."
+    },
+    {
+     "v": false,
+     "texto": "Os vetores de interrupção determinam qual das interrupções acede ao CPU mais rapidamente.",
+     "porque": "Isso são as prioridades. Os vetores dizem que código (handler) é chamado."
+    },
+    {
+     "v": false,
+     "texto": "No ARM uma word tem 16 bits e o processador funciona apenas em little-endian.",
+     "porque": "A word tem 32 bits e o endianness configura-se no arranque."
+    },
+    {
+     "v": false,
+     "texto": "A MMU traduz endereços físicos em endereços lógicos.",
+     "porque": "Traduz endereços lógicos (do CPU) em físicos (da memória principal)."
+    },
+    {
+     "v": false,
+     "texto": "Um co-processador surge no barramento do CPU como um elemento de processamento (PE) controlado por registos.",
+     "porque": "Isso é um acelerador. O co-processador executa instruções despachadas pelo CPU."
+    }
+   ]
+  },
+  {
+   "id": "a-perf",
+   "grupo": "Grupo 2 · Escolha as corretas",
+   "tipo": "afirmacoes",
+   "tema": "Análise da performance de programas e multiprocessadores",
+   "enunciado": "Análise da performance de programas e multiprocessadores.",
+   "instrucao": "Escolha as respostas corretas. Cada resposta correta vale 1 valor e cada resposta incorreta desconta 0,5 valores. Selecionar todas implica a anulação da questão.",
+   "mostrar": 5,
+   "certas": 2,
+   "afirmacoes": [
+    {
+     "v": true,
+     "texto": "Para a satisfação das restrições temporais em sistemas de tempo real, a métrica a considerar é o tempo de execução no pior caso.",
+     "porque": "Médio: aplicações; pior caso: restrições temporais; melhor caso: imprevisibilidade entre tarefas."
+    },
+    {
+     "v": true,
+     "texto": "O cálculo do tempo de execução de um programa consiste no path do programa + o tempo de execução de cada instrução (instruction timing). Os loops são bons alvos para otimização.",
+     "porque": "Fórmula básica: tempo = program path + instruction timing."
+    },
+    {
+     "v": true,
+     "texto": "A performance de um programa não é igual à performance do CPU: o pipeline e a cache são «janelas» no programa, que deve ser analisado na globalidade.",
+     "porque": "Slides de Análise e Desenvolvimento de Programas."
+    },
+    {
+     "v": true,
+     "texto": "A performance de um programa varia com os dados de entrada (diferentes paths), com os efeitos da cache e com o tempo de cada instrução.",
+     "porque": "Complexidade da performance do programa."
+    },
+    {
+     "v": true,
+     "texto": "Medir a performance num CPU real com um timer exige alterar o programa para controlar o timer.",
+     "porque": "Alternativas: simular o CPU ou usar um analisador lógico."
+    },
+    {
+     "v": true,
+     "texto": "Um simulador cycle-accurate modela os registos internos do CPU e permite temporização precisa do ciclo de relógio.",
+     "porque": "Tem de conhecer o modo de funcionamento do CPU."
+    },
+    {
+     "v": true,
+     "texto": "Movimento de código, eliminação de variáveis de indução e redução da «strength» são otimizações básicas de loops.",
+     "porque": "Os loops são bons alvos de otimização."
+    },
+    {
+     "v": true,
+     "texto": "A redução da «strength» troca operações dispendiosas por equivalentes mais baratas, por exemplo x*2 por x<<1.",
+     "porque": "Também se chama redução de força."
+    },
+    {
+     "v": true,
+     "texto": "Array padding (alterar a dimensão de um array) e mover um dos arrays são soluções para conflitos de arrays na cache.",
+     "porque": "Os loops usam muitos dados, por isso os conflitos na cache são comuns."
+    },
+    {
+     "v": true,
+     "texto": "Duas das estratégias estudadas para validação e teste do programa são: clear box, que examina o código fonte para determinar se funciona, e black box, que usa testes random e de regressão.",
+     "porque": "Clear (white) box analisa o código; black box não."
+    },
+    {
+     "v": true,
+     "texto": "No teste de branches devem exercer-se os ramos verdadeiro e falso de cada condição e cada condição individual pelo menos uma vez.",
+     "porque": "Como não se testam todos os paths, escolhem-se testes que façam cada if ir pelos dois lados."
+    },
+    {
+     "v": true,
+     "texto": "Os testes de regressão usam testes de versões anteriores e bugs já encontrados, e podem ser testes clear-box de versões anteriores.",
+     "porque": "Vetores de teste do black-box."
+    },
+    {
+     "v": true,
+     "texto": "Os testes random de black-box consideram a distribuição dos dados com base na especificação do software.",
+     "porque": "Vetores de teste do black-box."
+    },
+    {
+     "v": true,
+     "texto": "A injeção de erros mede a qualidade dos testes: adicionam-se bugs conhecidos e vê-se a percentagem que é detetada.",
+     "porque": "Teste exaustivo é impraticável."
+    },
+    {
+     "v": true,
+     "texto": "Na conceção de SETR, a utilização de sistemas multiprocessadores melhora o desempenho no processamento de I/O em tempo real, pode consumir menos energia e melhorar o desempenho no streaming de dados (multimédia).",
+     "porque": "Vantagens dos multiprocessadores (slides 08)."
+    },
+    {
+     "v": true,
+     "texto": "Os multiprocessadores têm melhor relação custo/performance, porque o custo de um CPU é uma função não linear da sua performance.",
+     "porque": "Um CPU muito rápido é desproporcionalmente caro."
+    },
+    {
+     "v": true,
+     "texto": "O uso de processadores especializados ou de lógica customizada poupa energia, ao contrário dos uniprocessadores de desktop.",
+     "porque": "Porquê multiprocessadores (3)."
+    },
+    {
+     "v": true,
+     "texto": "Um acelerador é um elemento de processamento (PE) que surge no barramento do CPU e é controlado por registos.",
+     "porque": "Ao contrário do co-processador, que executa instruções."
+    },
+    {
+     "v": true,
+     "texto": "Um acelerador pode provocar problemas de caching: o CPU pode ler da cache um valor que o acelerador já alterou na memória principal; uma solução é a atualização da cache.",
+     "porque": "Sincronização: CPU lê S, acelerador escreve S, CPU volta a ler S da cache."
+    },
+    {
+     "v": true,
+     "texto": "O tempo total de execução de um acelerador é taccel = tin + tx + tout (entrada de dados, computação e saída de dados).",
+     "porque": "Fórmula dos slides 08."
+    },
+    {
+     "v": true,
+     "texto": "Para um loop executado n vezes, o speedup do acelerador é S = n(tCPU - taccel).",
+     "porque": "Se S for negativo, a aceleração não compensa."
+    },
+    {
+     "v": true,
+     "texto": "Antes de projetar um acelerador deve verificar-se quão rápido ele é na função core e qual o overhead da transferência de dados.",
+     "porque": "Etapas de conceção de sistemas acelerados."
+    },
+    {
+     "v": true,
+     "texto": "Um acelerador pode ser implementado num IC application-specific, numa FPGA ou num componente standard, como um processador gráfico.",
+     "porque": "Implementações de acelerador."
+    },
+    {
+     "v": true,
+     "texto": "Num sistema single-threaded (blocking) o CPU espera pelo acelerador; num sistema multithreaded (non-blocking) o CPU continua a trabalhar.",
+     "porque": "No multithreaded o CPU tem de ter trabalho útil para fazer."
+    },
+    {
+     "v": true,
+     "texto": "Na análise do tempo de execução, em single-threaded soma-se o tempo de todos os processos e em multi-threaded considera-se o path de execução mais longo.",
+     "porque": "Análise do tempo de execução (slides 08)."
+    },
+    {
+     "v": true,
+     "texto": "O tempo de vida da bateria depende do consumo de energia, enquanto o calor depende da potência.",
+     "porque": "Potência = energia por unidade de tempo."
+    },
+    {
+     "v": true,
+     "texto": "Pela lei de Joule, a potência dissipada em calor num condutor é P = R·I².",
+     "porque": "Slides de otimização de energia."
+    },
+    {
+     "v": true,
+     "texto": "Das operações estudadas, a transferência de memória é a que mais energia gasta (33 ciclos) e a soma a que menos gasta (1 ciclo).",
+     "porque": "Energia relativa por operação."
+    },
+    {
+     "v": true,
+     "texto": "Uma cache muito pequena gasta energia em acessos à memória externa e uma cache muito grande gasta demasiada energia na própria cache.",
+     "porque": "Comportamento da cache e energia."
+    },
+    {
+     "v": true,
+     "texto": "Reduzir a tensão da fonte, baixar a frequência de relógio e desativar unidades que não estão em uso são estratégias de redução de potência do CPU.",
+     "porque": "Estratégias de redução de potência."
+    },
+    {
+     "v": true,
+     "texto": "Na gestão de potência dinâmica, as decisões dependem da atividade do CPU, por exemplo desativar unidades de funções.",
+     "porque": "A estática não depende da atividade (ex.: utilizador ativa power-down)."
+    },
+    {
+     "v": true,
+     "texto": "Ativar o modo power-down consome tempo e energia, por isso deve verificar-se se compensa.",
+     "porque": "Os estados de potência podem ser modelados com uma máquina de estados."
+    },
+    {
+     "v": true,
+     "texto": "Evitar function inlining ajuda a reduzir o tamanho do código.",
+     "porque": "Inlining copia o corpo da função para cada chamada."
+    },
+    {
+     "v": true,
+     "texto": "Para loops eficientes: não usar chamadas de funções, manter o corpo pequeno e usar unsigned integer para o contador.",
+     "porque": "Regras gerais de loops eficientes."
+    },
+    {
+     "v": false,
+     "texto": "Para medição da performance de programas de sistemas em tempo real, é imperativo considerar o tempo de execução no melhor caso, uma vez que é uma métrica para satisfação das restrições temporais.",
+     "porque": "A métrica para as restrições temporais é o pior caso."
+    },
+    {
+     "v": false,
+     "texto": "O cálculo do tempo de execução de um programa consiste no path do programa + o tempo de execução de cada instrução. As instruções condicionais «if» são bons alvos para otimização do tempo de execução.",
+     "porque": "A fórmula está certa, mas os bons alvos de otimização são os loops."
+    },
+    {
+     "v": false,
+     "texto": "Duas das estratégias estudadas para validação e teste do programa são: black box, que consiste em examinar o código fonte para determinar se funciona, e clear box, técnica que considera testes random e testes de regressão.",
+     "porque": "Estão trocadas: clear box examina o código, black box usa random e regressão."
+    },
+    {
+     "v": false,
+     "texto": "Um acelerador é um elemento de processamento (PE) que surge no barramento do CPU, contudo pode provocar problemas de caching. Normalmente, aumentar a capacidade da cache soluciona este problema.",
+     "porque": "A solução indicada é a atualização da cache, não uma cache maior."
+    },
+    {
+     "v": false,
+     "texto": "Num sistema multithreaded (non-blocking) o CPU fica à espera do acelerador.",
+     "porque": "Isso é single-threaded (blocking)."
+    },
+    {
+     "v": false,
+     "texto": "Na análise do tempo de execução single-threaded considera-se apenas o path de execução mais longo.",
+     "porque": "Isso é em multi-threaded. Em single-threaded somam-se todos os processos."
+    },
+    {
+     "v": false,
+     "texto": "O tempo total de execução de um acelerador é taccel = tin + tout, porque o tempo de computação já está incluído no CPU.",
+     "porque": "taccel = tin + tx + tout: falta a computação acelerada tx."
+    },
+    {
+     "v": false,
+     "texto": "O speedup de um acelerador num loop executado n vezes é S = n(taccel - tCPU).",
+     "porque": "É S = n(tCPU - taccel)."
+    },
+    {
+     "v": false,
+     "texto": "O custo de um CPU cresce linearmente com a sua performance, por isso usar vários processadores nunca compensa.",
+     "porque": "O custo é uma função não linear da performance; é por isso que os multiprocessadores compensam."
+    },
+    {
+     "v": false,
+     "texto": "Na gestão de potência estática, as decisões dependem da atividade do CPU.",
+     "porque": "Isso é a dinâmica. A estática não depende da atividade."
+    },
+    {
+     "v": false,
+     "texto": "O function inlining reduz o tamanho do código e o consumo de energia.",
+     "porque": "Aumenta o tamanho do código (o corpo é copiado) e consome mais energia."
+    },
+    {
+     "v": false,
+     "texto": "Das operações estudadas, a soma é a que gasta mais energia por operação.",
+     "porque": "É a que gasta menos (1). A transferência de memória gasta mais (33)."
+    },
+    {
+     "v": false,
+     "texto": "Quanto maior a cache, menos energia o sistema gasta, sem exceção.",
+     "porque": "Uma cache muito grande gasta demasiada energia."
+    },
+    {
+     "v": false,
+     "texto": "O calor gerado depende do consumo de energia, e o tempo de vida da bateria depende da potência.",
+     "porque": "Está trocado: calor depende da potência, bateria depende da energia."
+    },
+    {
+     "v": false,
+     "texto": "O teste exaustivo de um programa é praticável e é a forma habitual de garantir que não há bugs.",
+     "porque": "O teste exaustivo é impraticável; há sempre bugs que escapam."
+    },
+    {
+     "v": false,
+     "texto": "Medir a performance num CPU real com um timer não obriga a alterar o programa.",
+     "porque": "Obriga: o programa tem de controlar o timer."
+    },
+    {
+     "v": false,
+     "texto": "Para a satisfação das restrições temporais, a métrica a usar é o tempo de execução do caso médio.",
+     "porque": "O caso médio é usado na programação de aplicações; as restrições temporais usam o pior caso."
+    },
+    {
+     "v": false,
+     "texto": "Os testes de regressão consideram a distribuição dos dados com base na especificação do software.",
+     "porque": "Isso são os testes random. Os de regressão usam testes de versões anteriores e bugs."
+    },
+    {
+     "v": false,
+     "texto": "Pela lei de Joule, a potência dissipada em calor é P = R·I.",
+     "porque": "É P = R·I² (corrente ao quadrado)."
+    },
+    {
+     "v": false,
+     "texto": "Num acelerador, o CPU despacha instruções para ele executar, tal como num co-processador.",
+     "porque": "O acelerador é controlado por registos no barramento; quem executa instruções é o co-processador."
+    }
+   ]
+  },
+  {
+   "id": "a-concecao",
+   "grupo": "Grupo 2 · Escolha as corretas",
+   "tipo": "afirmacoes",
+   "tema": "Conceitos e técnicas de conceção de SETR",
+   "enunciado": "Conceitos e técnicas de conceção de SETR.",
+   "instrucao": "Escolha as respostas corretas. Cada resposta correta vale 1 valor e cada resposta incorreta desconta 0,5 valores. Selecionar todas implica a anulação da questão.",
+   "mostrar": 5,
+   "certas": 2,
+   "afirmacoes": [
+    {
+     "v": true,
+     "texto": "Um sistema de computação embebido é qualquer dispositivo que inclui um computador programável mas que não é um computador de propósito geral.",
+     "porque": "Definição dos slides de Introdução."
+    },
+    {
+     "v": true,
+     "texto": "Um sistema embebido tira partido das características da aplicação para otimizar o projeto e não necessita de todas as características de propósito geral.",
+     "porque": "Definição de sistema embebido."
+    },
+    {
+     "v": true,
+     "texto": "Em Sistemas Embebidos em Tempo Real, as operações com restrições temporais podem classificar-se como hard real time, quando o não cumprimento das restrições causa a falha da ação do sistema.",
+     "porque": "Ex.: sistema de controlo de voo."
+    },
+    {
+     "v": true,
+     "texto": "Em soft real time, o não cumprimento das restrições temporais causa redução da performance, como num sistema multimédia.",
+     "porque": "Hard = falha; soft = perde qualidade."
+    },
+    {
+     "v": true,
+     "texto": "Muitos sistemas embebidos são multi-rate: têm de lidar com operações de taxas muito variáveis.",
+     "porque": "Operação em tempo real."
+    },
+    {
+     "v": true,
+     "texto": "As características dos sistemas embebidos incluem funcionalidade sofisticada, operação em tempo real, baixo custo de fabrico e baixo consumo.",
+     "porque": "Também: projetados para deadlines reduzidos por equipas pequenas."
+    },
+    {
+     "v": true,
+     "texto": "Os sistemas embebidos são frequentemente desenvolvidos por equipas de poucos elementos, com janelas de mercado de 6 meses e pouco espaço para falhas.",
+     "porque": "Equipas de projeto (slides de Introdução)."
+    },
+    {
+     "v": true,
+     "texto": "A utilização de lógica customizada na conceção de SETR (ex.: FPGAs) requer menos energia que os microprocessadores; contudo, os microprocessadores são mais rápidos, uma vez que são fortemente pipelined e utilizam tecnologia VLSI agressiva.",
+     "porque": "É o paradoxo da performance."
+    },
+    {
+     "v": true,
+     "texto": "Os microprocessadores usam muito mais lógica para implementar uma função do que a lógica customizada, mas são tipicamente mais rápidos.",
+     "porque": "Fortemente pipelined, grandes equipas, VLSI agressiva."
+    },
+    {
+     "v": true,
+     "texto": "Os microprocessadores simplificam o desenvolvimento de famílias de produtos, porque usam a mesma lógica para diferentes funções.",
+     "porque": "Porque utilizar microprocessadores."
+    },
+    {
+     "v": true,
+     "texto": "Os sistemas heterogéneos usam lógica customizada para funções bem definidas e CPUs com software para tudo o resto.",
+     "porque": "Slide de Energia."
+    },
+    {
+     "v": true,
+     "texto": "Em sistemas de tempo real, performance significa cumprir as restrições temporais: terminar depois do deadline pode ser igual a não executar.",
+     "porque": "Na computação de propósito geral, performance é o throughput médio."
+    },
+    {
+     "v": true,
+     "texto": "Os níveis de abstração na conceção de sistemas embebidos são: requisitos, especificação, arquitetura, design de componentes e integração no sistema.",
+     "porque": "Por esta ordem, do mais abstrato ao mais detalhado."
+    },
+    {
+     "v": true,
+     "texto": "A conceção top-down começa na descrição mais abstrata e chega à mais detalhada; na realidade usam-se as técnicas top-down e bottom-up.",
+     "porque": "Bottom-up parte de componentes pequenos."
+    },
+    {
+     "v": true,
+     "texto": "Os objetivos de conceção incluem performance, funcionalidade e interface com o utilizador, custo de fabrico, consumo de energia e outros requisitos físicos.",
+     "porque": "Objetivos de conceção."
+    },
+    {
+     "v": true,
+     "texto": "Os requisitos funcionais descrevem o output como uma função do input.",
+     "porque": "O que o sistema faz."
+    },
+    {
+     "v": true,
+     "texto": "O tempo necessário para processar o output, o tamanho, o peso, o consumo de energia e a fiabilidade são requisitos não funcionais.",
+     "porque": "Requisitos não funcionais."
+    },
+    {
+     "v": true,
+     "texto": "Os requisitos são uma descrição em linguagem corrente das necessidades e expetativas do utilizador e podem ser obtidos por contacto com clientes, com o marketing ou através de protótipos.",
+     "porque": "Slides de Requisitos."
+    },
+    {
+     "v": true,
+     "texto": "A especificação é uma descrição mais precisa do sistema, não deve implicar uma arquitetura particular e pode ser executável ou em forma matemática.",
+     "porque": "Pode incluir elementos funcionais e não funcionais."
+    },
+    {
+     "v": true,
+     "texto": "No desenvolvimento da arquitetura definem-se os componentes de hardware e de software, tendo em conta as especificações funcionais e não funcionais.",
+     "porque": "Ex.: diagrama de blocos do GPS."
+    },
+    {
+     "v": true,
+     "texto": "Na integração do sistema surgem normalmente vários bugs, por isso deve existir um plano para os detetar e testar a máxima funcionalidade o mais cedo possível.",
+     "porque": "Integração do sistema."
+    },
+    {
+     "v": true,
+     "texto": "A performance de um sistema embebido deve ser analisada a vários níveis de abstração: CPU, plataforma, programa, tarefas e multiprocessadores.",
+     "porque": "Caracterização da performance."
+    },
+    {
+     "v": true,
+     "texto": "O ambiente de desenvolvimento de SETR é normalmente diferente da arquitetura da plataforma de destino; um compilador cruzado gera código para a arquitetura target a partir de um ambiente genérico (host).",
+     "porque": "Host = onde se programa; target = onde corre."
+    },
+    {
+     "v": true,
+     "texto": "Um microcontrolador inclui dispositivos de I/O e memória integrada; um DSP é um microprocessador otimizado para processamento de sinais digitais.",
+     "porque": "Variedades de microprocessadores."
+    },
+    {
+     "v": true,
+     "texto": "Uma plataforma de computação embebida é a arquitetura de hardware mais o software associado.",
+     "porque": "Muitas plataformas integram vários microprocessadores."
+    },
+    {
+     "v": true,
+     "texto": "Num fluxo de conceção hierárquico, os sistemas embebidos desenvolvem-se sobre vários níveis de abstração: arquitetura do sistema, sistemas de hardware e software, e componentes de hardware e software.",
+     "porque": "Teste anterior (técnicas de design)."
+    },
+    {
+     "v": true,
+     "texto": "No modelo em espiral, o sistema é construído várias vezes e em cada volta passa-se por requisitos, construção e teste.",
+     "porque": "Modelos de desenvolvimento (técnicas de design, testes anteriores)."
+    },
+    {
+     "v": true,
+     "texto": "No modelo de refinamento sucessivo, o sistema é construído várias vezes: o primeiro funciona como protótipo grosseiro e os seguintes vão sendo refinados.",
+     "porque": "Modelos de desenvolvimento."
+    },
+    {
+     "v": false,
+     "texto": "Em Sistemas Embebidos em Tempo Real, as operações com restrições temporais podem classificar-se como soft real time quando o não cumprimento das restrições causa a falha da ação do sistema.",
+     "porque": "Falha da ação é hard real time. Soft real time só reduz a performance."
+    },
+    {
+     "v": false,
+     "texto": "Em hard real time, o não cumprimento das restrições temporais apenas reduz a performance, como num sistema multimédia.",
+     "porque": "Isso é soft real time. Hard = falha (ex.: controlo de voo)."
+    },
+    {
+     "v": false,
+     "texto": "Os projetos de SETR normalmente são desenvolvidos por equipas multidisciplinares complexas formadas por muitos elementos, com janelas de mercado até 1 ano e sem grande margem para falhas.",
+     "porque": "Nos slides: equipas de poucos elementos e janela de mercado de 6 meses."
+    },
+    {
+     "v": false,
+     "texto": "A lógica customizada requer mais energia do que os microprocessadores, e estes são mais lentos.",
+     "porque": "É ao contrário: a lógica customizada gasta menos energia e os microprocessadores são mais rápidos."
+    },
+    {
+     "v": false,
+     "texto": "Os requisitos funcionais indicam o que o sistema deve fazer; o tempo necessário para processar um input e a fiabilidade do sistema são 2 exemplos de requisitos deste tipo.",
+     "porque": "Tempo de processamento e fiabilidade são requisitos não funcionais."
+    },
+    {
+     "v": false,
+     "texto": "A especificação deve implicar uma arquitetura particular do sistema.",
+     "porque": "Não deve implicar uma arquitetura; serve de input para a definir."
+    },
+    {
+     "v": false,
+     "texto": "A conceção top-down começa com componentes pequenos até atingir um sistema de grandes dimensões.",
+     "porque": "Isso é bottom-up."
+    },
+    {
+     "v": false,
+     "texto": "Em sistemas de tempo real, performance significa throughput médio.",
+     "porque": "Isso é na computação de propósito geral. Em tempo real é cumprir as restrições."
+    },
+    {
+     "v": false,
+     "texto": "Um sistema embebido necessita de todas as características de um computador de propósito geral.",
+     "porque": "Não necessita: tira partido das características da aplicação."
+    },
+    {
+     "v": false,
+     "texto": "A ordem dos níveis de abstração é: arquitetura, requisitos, especificação, integração e design de componentes.",
+     "porque": "A ordem é requisitos, especificação, arquitetura, design de componentes, integração."
+    },
+    {
+     "v": false,
+     "texto": "Na integração do sistema raramente surgem bugs, porque os componentes já foram testados.",
+     "porque": "Nesta fase normalmente surgem vários bugs."
+    },
+    {
+     "v": false,
+     "texto": "O custo de fabrico e o consumo de energia são requisitos funcionais.",
+     "porque": "São requisitos não funcionais."
+    },
+    {
+     "v": false,
+     "texto": "A dimensão típica das words nos sistemas embebidos é de 64 ou 128 bits.",
+     "porque": "É de 8, 16 ou 32 bits."
+    },
+    {
+     "v": false,
+     "texto": "Dos vários modelos de desenvolvimento, o modelo de refinamento sucessivo assume que o sistema é construído em várias etapas, cada uma composta por 3 fases: requisitos, conceção e teste.",
+     "porque": "A descrição de voltas com requisitos, construção e teste é a do modelo em espiral."
+    },
+    {
+     "v": false,
+     "texto": "A junção de equipas funcionais da mesma área disciplinar e a partilha incremental de informação entre equipas são duas técnicas fulcrais de engenharia concorrente.",
+     "porque": "As equipas são multidisciplinares (cross-functional), não da mesma área."
+    },
+    {
+     "v": false,
+     "texto": "O ambiente de desenvolvimento de SETR é normalmente igual à plataforma de destino, por isso não é preciso um compilador cruzado.",
+     "porque": "Normalmente é diferente, daí o compilador cruzado (host para target)."
+    }
+   ]
+  },
+  {
+   "id": "vf-eng-concorrente",
+   "grupo": "Grupo 3 · Verdadeiro ou falso",
+   "tipo": "vf",
+   "tema": "Engenharia concorrente",
+   "enunciado": "A engenharia concorrente mostra que a operação em diferentes tarefas simultaneamente permite reduzir o tempo de conceção dos sistemas embebidos. Escolha se as seguintes técnicas de engenharia concorrente são verdadeiras ou falsas.",
+   "rotulos": [
+    "Verdadeiro",
+    "Falso"
+   ],
+   "mostrar": 6,
+   "itens": [
+    {
+     "texto": "Cruzar equipas funcionais (multidisciplinares)",
+     "r": 0,
+     "porque": "Equipas com membros de várias disciplinas."
+    },
+    {
+     "texto": "Realização do produto de forma concorrente (vários componentes de uma só vez)",
+     "r": 0,
+     "porque": "Fazer várias coisas ao mesmo tempo, como projetar subsistemas em simultâneo, é o centro da engenharia concorrente."
+    },
+    {
+     "texto": "Envolvimento dos fornecedores (maior capacidade de resposta)",
+     "r": 0,
+     "porque": "Envolvimento cedo e contínuo dos fornecedores."
+    },
+    {
+     "texto": "Partilha incremental de informação entre equipas",
+     "r": 0,
+     "porque": "A informação é partilhada à medida que fica disponível."
+    },
+    {
+     "texto": "Gestão integrada do produto (alguém é responsável pelo projeto todo)",
+     "r": 0,
+     "porque": "A gestão integrada garante que há um responsável pelo projeto inteiro."
+    },
+    {
+     "texto": "Focalização no cliente desde cedo e de forma contínua",
+     "r": 0,
+     "porque": "Early and continual customer focus."
+    },
+    {
+     "texto": "Gestão integrada do produto (todos os elementos são independentes, não tem de haver um responsável)",
+     "r": 1,
+     "porque": "Tem de haver um responsável pelo projeto inteiro."
+    },
+    {
+     "texto": "Manter a informação em sigilo (sem partilha de informação)",
+     "r": 1,
+     "porque": "É o oposto: partilha incremental de informação."
+    },
+    {
+     "texto": "Juntar apenas equipas da mesma área disciplinar",
+     "r": 1,
+     "porque": "As equipas são multidisciplinares."
+    },
+    {
+     "texto": "Envolver os fornecedores só no fim do projeto",
+     "r": 1,
+     "porque": "O envolvimento é cedo e contínuo."
+    },
+    {
+     "texto": "Desenvolver os subsistemas um de cada vez, em sequência",
+     "r": 1,
+     "porque": "A ideia é fazer em paralelo para reduzir o tempo."
+    }
+   ]
+  },
+  {
+   "id": "vf-requisitos",
+   "grupo": "Grupo 3 · Verdadeiro ou falso",
+   "tipo": "vf",
+   "tema": "Requisitos",
+   "enunciado": "Classifique cada requisito do sistema como funcional ou não funcional.",
+   "rotulos": [
+    "Funcional",
+    "Não funcional"
+   ],
+   "mostrar": 6,
+   "itens": [
+    {
+     "texto": "Mostrar a latitude e a longitude atuais no ecrã",
+     "r": 0,
+     "porque": "É uma função: output em função do input."
+    },
+    {
+     "texto": "Calcular o percurso entre dois pontos",
+     "r": 0,
+     "porque": "É o que o sistema faz."
+    },
+    {
+     "texto": "Acender um LED quando a temperatura passa os 30 °C",
+     "r": 0,
+     "porque": "Output em função do input."
+    },
+    {
+     "texto": "Contar os lugares livres de um parque a partir dos sensores",
+     "r": 0,
+     "porque": "Função do sistema."
+    },
+    {
+     "texto": "Ter três resoluções de mapa",
+     "r": 0,
+     "porque": "Função do sistema."
+    },
+    {
+     "texto": "Atualizar o ecrã em menos de 0,25 s",
+     "r": 1,
+     "porque": "Tempo de processamento é não funcional."
+    },
+    {
+     "texto": "Autonomia de 8 horas com 4 pilhas AA",
+     "r": 1,
+     "porque": "Consumo de energia."
+    },
+    {
+     "texto": "Custo de fabrico inferior a 30 €",
+     "r": 1,
+     "porque": "Custo."
+    },
+    {
+     "texto": "Pesar menos de 400 g",
+     "r": 1,
+     "porque": "Tamanho/peso."
+    },
+    {
+     "texto": "Funcionar sem falhas durante 1000 horas",
+     "r": 1,
+     "porque": "Fiabilidade."
+    },
+    {
+     "texto": "Caber numa mão",
+     "r": 1,
+     "porque": "Dimensão."
+    }
+   ]
+  },
+  {
+   "id": "vf-tempo-real",
+   "grupo": "Grupo 3 · Verdadeiro ou falso",
+   "tipo": "vf",
+   "tema": "Tempo real",
+   "enunciado": "Classifique cada sistema quanto às restrições temporais.",
+   "rotulos": [
+    "Hard real time",
+    "Soft real time"
+   ],
+   "mostrar": 5,
+   "itens": [
+    {
+     "texto": "Controlo de voo de um avião",
+     "r": 0,
+     "porque": "Falhar o deadline causa falha da ação."
+    },
+    {
+     "texto": "Disparo do airbag",
+     "r": 0,
+     "porque": "Um atraso torna a ação inútil ou perigosa."
+    },
+    {
+     "texto": "ABS (travagem antibloqueio)",
+     "r": 0,
+     "porque": "Falhar o deadline é falha do sistema."
+    },
+    {
+     "texto": "Pacemaker",
+     "r": 0,
+     "porque": "Falhar é crítico."
+    },
+    {
+     "texto": "Leitor de vídeo em streaming",
+     "r": 1,
+     "porque": "Atrasos só reduzem a qualidade."
+    },
+    {
+     "texto": "Sistema multimédia de um carro",
+     "r": 1,
+     "porque": "Exemplo dos slides de soft real time."
+    },
+    {
+     "texto": "Videochamada",
+     "r": 1,
+     "porque": "Perde-se qualidade, não há falha."
+    },
+    {
+     "texto": "Atualização do mapa de um GPS",
+     "r": 1,
+     "porque": "Um atraso degrada a experiência."
+    }
+   ]
+  },
+  {
+   "id": "vf-risc-cisc",
+   "grupo": "Grupo 3 · Verdadeiro ou falso",
+   "tipo": "vf",
+   "tema": "RISC vs. CISC",
+   "enunciado": "Indique se cada característica é de RISC ou de CISC.",
+   "rotulos": [
+    "RISC",
+    "CISC"
+   ],
+   "mostrar": 4,
+   "itens": [
+    {
+     "texto": "Acesso à memória apenas via load/store",
+     "r": 0,
+     "porque": ""
+    },
+    {
+     "texto": "Instruções pipelinable",
+     "r": 0,
+     "porque": ""
+    },
+    {
+     "texto": "A maioria das instruções opera num só ciclo (ex.: ARM)",
+     "r": 0,
+     "porque": "O ARM é RISC: Advanced RISC Machine."
+    },
+    {
+     "texto": "Elevado número de modos de endereçamento",
+     "r": 1,
+     "porque": ""
+    },
+    {
+     "texto": "Elevado número de operações",
+     "r": 1,
+     "porque": ""
+    },
+    {
+     "texto": "Intel x86",
+     "r": 1,
+     "porque": "Exemplo clássico de CISC."
+    }
+   ]
+  },
+  {
+   "id": "vf-vn-harvard",
+   "grupo": "Grupo 3 · Verdadeiro ou falso",
+   "tipo": "vf",
+   "tema": "von Neumann vs. Harvard",
+   "enunciado": "Indique a que arquitetura se refere cada afirmação.",
+   "rotulos": [
+    "von Neumann",
+    "Harvard"
+   ],
+   "mostrar": 4,
+   "itens": [
+    {
+     "texto": "Instruções e dados na mesma memória",
+     "r": 0,
+     "porque": ""
+    },
+    {
+     "texto": "Um só conjunto de barramentos para dados e instruções",
+     "r": 0,
+     "porque": ""
+    },
+    {
+     "texto": "Permite dois fetches de memória simultâneos",
+     "r": 1,
+     "porque": "Memórias separadas."
+    },
+    {
+     "texto": "Obriga à duplicação de barramentos",
+     "r": 1,
+     "porque": ""
+    },
+    {
+     "texto": "Não pode utilizar código adaptativo",
+     "r": 1,
+     "porque": ""
+    },
+    {
+     "texto": "Usada pela maioria dos DSPs",
+     "r": 1,
+     "porque": "Mais largura de banda e mais previsível."
+    }
+   ]
+  },
+  {
+   "id": "vf-misses",
+   "grupo": "Grupo 3 · Verdadeiro ou falso",
+   "tipo": "vf",
+   "tema": "Caches",
+   "enunciado": "Classifique cada situação quanto ao tipo de cache miss.",
+   "rotulos": [
+    "Compulsório",
+    "Capacidade",
+    "Conflito"
+   ],
+   "mostrar": 4,
+   "itens": [
+    {
+     "texto": "Primeiro acesso a um bloco que nunca foi lido",
+     "r": 0,
+     "porque": "Cold miss, inevitável."
+    },
+    {
+     "texto": "Arranque de um programa: as primeiras instruções falham sempre",
+     "r": 0,
+     "porque": "Ainda não estão na cache."
+    },
+    {
+     "texto": "O working set do programa é maior do que a cache",
+     "r": 1,
+     "porque": "Capacidade finita da cache."
+    },
+    {
+     "texto": "Desaparece se usarmos uma cache maior",
+     "r": 1,
+     "porque": "Miss de capacidade."
+    },
+    {
+     "texto": "Dois arrays usados no mesmo loop mapeiam para o mesmo bloco da cache",
+     "r": 2,
+     "porque": "Collision miss."
+    },
+    {
+     "texto": "Resolve-se com array padding ou movendo um dos arrays",
+     "r": 2,
+     "porque": "Miss de conflito."
+    }
+   ]
+  },
+  {
+   "id": "vf-testes",
+   "grupo": "Grupo 3 · Verdadeiro ou falso",
+   "tipo": "vf",
+   "tema": "Validação e teste",
+   "enunciado": "Indique a que estratégia de teste corresponde cada afirmação.",
+   "rotulos": [
+    "Clear box",
+    "Black box"
+   ],
+   "mostrar": 4,
+   "itens": [
+    {
+     "texto": "Examina o código fonte para determinar se funciona",
+     "r": 0,
+     "porque": "Clear (white) box."
+    },
+    {
+     "texto": "Escolhe testes para executar cada instrução e cada branch pelo menos uma vez",
+     "r": 0,
+     "porque": "Baseado nos paths do código."
+    },
+    {
+     "texto": "Usa controlabilidade, execução e observabilidade sobre um path",
+     "r": 0,
+     "porque": "Procedimento do clear box."
+    },
+    {
+     "texto": "Testes random com base na especificação",
+     "r": 1,
+     "porque": ""
+    },
+    {
+     "texto": "Testes de regressão",
+     "r": 1,
+     "porque": ""
+    },
+    {
+     "texto": "Não analisa o código fonte",
+     "r": 1,
+     "porque": ""
+    }
+   ]
+  },
+  {
+   "id": "vf-acel-coproc",
+   "grupo": "Grupo 3 · Verdadeiro ou falso",
+   "tipo": "vf",
+   "tema": "Multiprocessadores",
+   "enunciado": "Indique se cada afirmação se refere a um acelerador ou a um co-processador.",
+   "rotulos": [
+    "Acelerador",
+    "Co-processador"
+   ],
+   "mostrar": 4,
+   "itens": [
+    {
+     "texto": "Surge como um dispositivo (PE) no barramento",
+     "r": 0,
+     "porque": ""
+    },
+    {
+     "texto": "É controlado por registos",
+     "r": 0,
+     "porque": ""
+    },
+    {
+     "texto": "Pode ser uma FPGA ou um processador gráfico",
+     "r": 0,
+     "porque": "Implementações de acelerador."
+    },
+    {
+     "texto": "Executa instruções despachadas pelo CPU",
+     "r": 1,
+     "porque": ""
+    },
+    {
+     "texto": "O ARM permite até 16",
+     "r": 1,
+     "porque": "O ARM permite até 16 co-processadores."
+    },
+    {
+     "texto": "Ex.: unidade de vírgula flutuante invocada por uma instrução",
+     "r": 1,
+     "porque": ""
+    }
+   ]
+  },
+  {
+   "id": "vf-potencia",
+   "grupo": "Grupo 3 · Verdadeiro ou falso",
+   "tipo": "vf",
+   "tema": "Energia e potência",
+   "enunciado": "Classifique cada exemplo de gestão de potência.",
+   "rotulos": [
+    "Estática",
+    "Dinâmica"
+   ],
+   "mostrar": 4,
+   "itens": [
+    {
+     "texto": "O utilizador ativa o modo power-down",
+     "r": 0,
+     "porque": "Não depende da atividade do CPU."
+    },
+    {
+     "texto": "Desligar o ecrã com um botão",
+     "r": 0,
+     "porque": "Decisão externa à atividade do CPU."
+    },
+    {
+     "texto": "Desativar unidades de funções que não estão a ser usadas",
+     "r": 1,
+     "porque": "Baseada na atividade do CPU."
+    },
+    {
+     "texto": "Baixar a frequência quando o CPU está pouco ocupado",
+     "r": 1,
+     "porque": "Baseada na atividade do CPU."
+    }
+   ]
+  },
+  {
+   "id": "asm-0",
+   "grupo": "Grupo 4 · Assembly ARM",
+   "tipo": "aberta",
+   "tema": "Assembly ARM",
+   "enunciado": "Considerando a arquitetura das instruções do ARM, escreva em código assembly comentado a seguinte atribuição em C:\n\n<b>x = (a * b) + c;</b>",
+   "resolucao": "<div style=\"font-family:ui-monospace,Menlo,Consolas,monospace;font-size:13px\">ADR r4,a                ; endereço de a\nLDR r0,[r4]             ; r0 = a\nADR r4,b                ; endereço de b\nLDR r1,[r4]             ; r1 = b\nMUL r2,r0,r1            ; r2 = a*b\nADR r4,c                ; endereço de c\nLDR r3,[r4]             ; r3 = c\nADD r2,r2,r3            ; r2 = a*b + c\nADR r4,x                ; endereço de x\nSTR r2,[r4]             ; x = r2</div>\nCritérios: carregar cada variável (ADR + LDR), fazer as operações nos registos, guardar o resultado (ADR + STR) e comentar cada linha com «;». Outros registos também servem."
+  },
+  {
+   "id": "asm-1",
+   "grupo": "Grupo 4 · Assembly ARM",
+   "tipo": "aberta",
+   "tema": "Assembly ARM",
+   "enunciado": "Considerando a arquitetura das instruções do ARM, escreva em código assembly comentado a seguinte atribuição em C:\n\n<b>y = (a | 14) & (1 >> b);</b>",
+   "resolucao": "<div style=\"font-family:ui-monospace,Menlo,Consolas,monospace;font-size:13px\">ADR r4,a                ; endereço de a\nLDR r0,[r4]             ; r0 = a\nORR r0,r0,#14           ; r0 = a | 14\nADR r4,b                ; endereço de b\nLDR r1,[r4]             ; r1 = b\nMOV r2,#1               ; r2 = 1\nMOV r2,r2,LSR r1        ; r2 = 1 >> b\nAND r0,r0,r2            ; r0 = (a|14) & (1>>b)\nADR r4,y                ; endereço de y\nSTR r0,[r4]             ; y = r0</div>\nCritérios: carregar cada variável (ADR + LDR), fazer as operações nos registos, guardar o resultado (ADR + STR) e comentar cada linha com «;». Outros registos também servem."
+  },
+  {
+   "id": "asm-2",
+   "grupo": "Grupo 4 · Assembly ARM",
+   "tipo": "aberta",
+   "tema": "Assembly ARM",
+   "enunciado": "Considerando a arquitetura das instruções do ARM, escreva em código assembly comentado a seguinte atribuição em C:\n\n<b>if (a < b) z = 3; else z = 2;</b>",
+   "resolucao": "<div style=\"font-family:ui-monospace,Menlo,Consolas,monospace;font-size:13px\">ADR r4,a                ; endereço de a\nLDR r0,[r4]             ; r0 = a\nADR r4,b                ; endereço de b\nLDR r1,[r4]             ; r1 = b\nCMP r0,r1               ; compara a com b\nBGE senao               ; se a >= b salta para o else\nMOV r2,#3               ; bloco verdadeiro: z = 3\nB fim                   ; salta por cima do else\nsenao MOV r2,#2         ; bloco falso: z = 2\nfim ADR r4,z            ; endereço de z\nSTR r2,[r4]             ; z = r2\n\nAlternativa com execução condicional (todas as instruções ARM podem ser condicionais):\nCMP r0,r1\nMOVLT r2,#3             ; se a < b\nMOVGE r2,#2             ; se a >= b</div>\nCritérios: carregar cada variável (ADR + LDR), fazer as operações nos registos, guardar o resultado (ADR + STR) e comentar cada linha com «;». Outros registos também servem."
+  },
+  {
+   "id": "asm-3",
+   "grupo": "Grupo 4 · Assembly ARM",
+   "tipo": "aberta",
+   "tema": "Assembly ARM",
+   "enunciado": "Considerando a arquitetura das instruções do ARM, escreva em código assembly comentado a seguinte atribuição em C:\n\n<b>X = (a << 2) & (b * c);</b>",
+   "resolucao": "<div style=\"font-family:ui-monospace,Menlo,Consolas,monospace;font-size:13px\">ADR r4,a                ; endereço de a\nLDR r0,[r4]             ; r0 = a\nMOV r0,r0,LSL #2        ; r0 = a << 2\nADR r4,b                ; endereço de b\nLDR r1,[r4]             ; r1 = b\nADR r4,c                ; endereço de c\nLDR r2,[r4]             ; r2 = c\nMUL r3,r1,r2            ; r3 = b*c\nAND r0,r0,r3            ; r0 = (a<<2) & (b*c)\nADR r4,x                ; endereço de x\nSTR r0,[r4]             ; x = r0</div>\nCritérios: carregar cada variável (ADR + LDR), fazer as operações nos registos, guardar o resultado (ADR + STR) e comentar cada linha com «;». Outros registos também servem."
+  },
+  {
+   "id": "asm-4",
+   "grupo": "Grupo 4 · Assembly ARM",
+   "tipo": "aberta",
+   "tema": "Assembly ARM",
+   "enunciado": "Considerando a arquitetura das instruções do ARM, escreva em código assembly comentado a seguinte atribuição em C:\n\n<b>x = (a + b) - c;</b>",
+   "resolucao": "<div style=\"font-family:ui-monospace,Menlo,Consolas,monospace;font-size:13px\">ADR r4,a                ; endereço de a\nLDR r0,[r4]             ; r0 = a\nADR r4,b                ; endereço de b\nLDR r1,[r4]             ; r1 = b\nADD r3,r0,r1            ; r3 = a+b\nADR r4,c                ; endereço de c\nLDR r2,[r4]             ; r2 = c\nSUB r3,r3,r2            ; r3 = (a+b) - c\nADR r4,x                ; endereço de x\nSTR r3,[r4]             ; x = r3</div>\nCritérios: carregar cada variável (ADR + LDR), fazer as operações nos registos, guardar o resultado (ADR + STR) e comentar cada linha com «;». Outros registos também servem."
+  },
+  {
+   "id": "asm-5",
+   "grupo": "Grupo 4 · Assembly ARM",
+   "tipo": "aberta",
+   "tema": "Assembly ARM",
+   "enunciado": "Considerando a arquitetura das instruções do ARM, escreva em código assembly comentado a seguinte atribuição em C:\n\n<b>y = a * (b + c);</b>",
+   "resolucao": "<div style=\"font-family:ui-monospace,Menlo,Consolas,monospace;font-size:13px\">ADR r4,b                ; endereço de b\nLDR r0,[r4]             ; r0 = b\nADR r4,c                ; endereço de c\nLDR r1,[r4]             ; r1 = c\nADD r2,r0,r1            ; r2 = b+c\nADR r4,a                ; endereço de a\nLDR r0,[r4]             ; r0 = a\nMUL r2,r2,r0            ; r2 = (b+c)*a\nADR r4,y                ; endereço de y\nSTR r2,[r4]             ; y = r2</div>\nCritérios: carregar cada variável (ADR + LDR), fazer as operações nos registos, guardar o resultado (ADR + STR) e comentar cada linha com «;». Outros registos também servem."
+  },
+  {
+   "id": "asm-6",
+   "grupo": "Grupo 4 · Assembly ARM",
+   "tipo": "aberta",
+   "tema": "Assembly ARM",
+   "enunciado": "Considerando a arquitetura das instruções do ARM, escreva em código assembly comentado a seguinte atribuição em C:\n\n<b>z = (a << 2) | (b & 15);</b>",
+   "resolucao": "<div style=\"font-family:ui-monospace,Menlo,Consolas,monospace;font-size:13px\">ADR r4,a                ; endereço de a\nLDR r0,[r4]             ; r0 = a\nMOV r0,r0,LSL #2        ; r0 = a << 2\nADR r4,b                ; endereço de b\nLDR r1,[r4]             ; r1 = b\nAND r1,r1,#15           ; r1 = b & 15\nORR r1,r0,r1            ; r1 = (a<<2) | (b&15)\nADR r4,z                ; endereço de z\nSTR r1,[r4]             ; z = r1</div>\nCritérios: carregar cada variável (ADR + LDR), fazer as operações nos registos, guardar o resultado (ADR + STR) e comentar cada linha com «;». Outros registos também servem."
+  },
+  {
+   "id": "asm-7",
+   "grupo": "Grupo 4 · Assembly ARM",
+   "tipo": "aberta",
+   "tema": "Assembly ARM",
+   "enunciado": "Considerando a arquitetura das instruções do ARM, escreva em código assembly comentado a seguinte atribuição em C:\n\n<b>x = (a - b) * c;</b>",
+   "resolucao": "<div style=\"font-family:ui-monospace,Menlo,Consolas,monospace;font-size:13px\">ADR r4,a                ; endereço de a\nLDR r0,[r4]             ; r0 = a\nADR r4,b                ; endereço de b\nLDR r1,[r4]             ; r1 = b\nSUB r2,r0,r1            ; r2 = a-b\nADR r4,c                ; endereço de c\nLDR r3,[r4]             ; r3 = c\nMUL r2,r2,r3            ; r2 = (a-b)*c\nADR r4,x                ; endereço de x\nSTR r2,[r4]             ; x = r2</div>\nCritérios: carregar cada variável (ADR + LDR), fazer as operações nos registos, guardar o resultado (ADR + STR) e comentar cada linha com «;». Outros registos também servem."
+  },
+  {
+   "id": "asm-8",
+   "grupo": "Grupo 4 · Assembly ARM",
+   "tipo": "aberta",
+   "tema": "Assembly ARM",
+   "enunciado": "Considerando a arquitetura das instruções do ARM, escreva em código assembly comentado a seguinte atribuição em C:\n\n<b>y = (a >> 1) + (b & 7);</b>",
+   "resolucao": "<div style=\"font-family:ui-monospace,Menlo,Consolas,monospace;font-size:13px\">ADR r4,a                ; endereço de a\nLDR r0,[r4]             ; r0 = a\nMOV r0,r0,LSR #1        ; r0 = a >> 1 (ASR se a for com sinal)\nADR r4,b                ; endereço de b\nLDR r1,[r4]             ; r1 = b\nAND r1,r1,#7            ; r1 = b & 7\nADD r0,r0,r1            ; r0 = (a>>1) + (b&7)\nADR r4,y                ; endereço de y\nSTR r0,[r4]             ; y = r0</div>\nCritérios: carregar cada variável (ADR + LDR), fazer as operações nos registos, guardar o resultado (ADR + STR) e comentar cada linha com «;». Outros registos também servem."
+  },
+  {
+   "id": "asm-9",
+   "grupo": "Grupo 4 · Assembly ARM",
+   "tipo": "aberta",
+   "tema": "Assembly ARM",
+   "enunciado": "Considerando a arquitetura das instruções do ARM, escreva em código assembly comentado a seguinte atribuição em C:\n\n<b>z = (a | b) ^ c;</b>",
+   "resolucao": "<div style=\"font-family:ui-monospace,Menlo,Consolas,monospace;font-size:13px\">ADR r4,a                ; endereço de a\nLDR r0,[r4]             ; r0 = a\nADR r4,b                ; endereço de b\nLDR r1,[r4]             ; r1 = b\nORR r0,r0,r1            ; r0 = a | b\nADR r4,c                ; endereço de c\nLDR r2,[r4]             ; r2 = c\nEOR r0,r0,r2            ; r0 = (a|b) ^ c  (EOR = ou exclusivo)\nADR r4,z                ; endereço de z\nSTR r0,[r4]             ; z = r0</div>\nCritérios: carregar cada variável (ADR + LDR), fazer as operações nos registos, guardar o resultado (ADR + STR) e comentar cada linha com «;». Outros registos também servem."
+  },
+  {
+   "id": "asm-10",
+   "grupo": "Grupo 4 · Assembly ARM",
+   "tipo": "aberta",
+   "tema": "Assembly ARM",
+   "enunciado": "Considerando a arquitetura das instruções do ARM, escreva em código assembly comentado a seguinte atribuição em C:\n\n<b>if (a == b) x = a + 1; else x = b - 1;</b>",
+   "resolucao": "<div style=\"font-family:ui-monospace,Menlo,Consolas,monospace;font-size:13px\">ADR r4,a                ; endereço de a\nLDR r0,[r4]             ; r0 = a\nADR r4,b                ; endereço de b\nLDR r1,[r4]             ; r1 = b\nCMP r0,r1               ; compara a com b\nBNE senao               ; se a != b vai para o else\nADD r2,r0,#1            ; x = a + 1\nB fim\nsenao SUB r2,r1,#1      ; x = b - 1\nfim ADR r4,x            ; endereço de x\nSTR r2,[r4]             ; x = r2</div>\nCritérios: carregar cada variável (ADR + LDR), fazer as operações nos registos, guardar o resultado (ADR + STR) e comentar cada linha com «;». Outros registos também servem."
+  },
+  {
+   "id": "asm-11",
+   "grupo": "Grupo 4 · Assembly ARM",
+   "tipo": "aberta",
+   "tema": "Assembly ARM",
+   "enunciado": "Considerando a arquitetura das instruções do ARM, escreva em código assembly comentado a seguinte atribuição em C:\n\n<b>if (a > b) y = a - b; else y = b - a;</b>",
+   "resolucao": "<div style=\"font-family:ui-monospace,Menlo,Consolas,monospace;font-size:13px\">ADR r4,a                ; endereço de a\nLDR r0,[r4]             ; r0 = a\nADR r4,b                ; endereço de b\nLDR r1,[r4]             ; r1 = b\nCMP r0,r1               ; compara a com b\nBLE senao               ; se a <= b vai para o else\nSUB r2,r0,r1            ; y = a - b\nB fim\nsenao SUB r2,r1,r0      ; y = b - a\nfim ADR r4,y            ; endereço de y\nSTR r2,[r4]             ; y = r2</div>\nCritérios: carregar cada variável (ADR + LDR), fazer as operações nos registos, guardar o resultado (ADR + STR) e comentar cada linha com «;». Outros registos também servem."
+  },
+  {
+   "id": "asm-12",
+   "grupo": "Grupo 4 · Assembly ARM",
+   "tipo": "aberta",
+   "tema": "Assembly ARM",
+   "enunciado": "Considerando a arquitetura das instruções do ARM, escreva em código assembly comentado a seguinte atribuição em C:\n\n<b>x = (a * 4) + (b * c);</b>",
+   "resolucao": "<div style=\"font-family:ui-monospace,Menlo,Consolas,monospace;font-size:13px\">ADR r4,a                ; endereço de a\nLDR r0,[r4]             ; r0 = a\nMOV r0,r0,LSL #2        ; r0 = a*4 (redução de força: *4 = <<2)\nADR r4,b                ; endereço de b\nLDR r1,[r4]             ; r1 = b\nADR r4,c                ; endereço de c\nLDR r2,[r4]             ; r2 = c\nMUL r3,r1,r2            ; r3 = b*c\nADD r0,r0,r3            ; r0 = a*4 + b*c\nADR r4,x                ; endereço de x\nSTR r0,[r4]             ; x = r0</div>\nCritérios: carregar cada variável (ADR + LDR), fazer as operações nos registos, guardar o resultado (ADR + STR) e comentar cada linha com «;». Outros registos também servem."
+  },
+  {
+   "id": "asm-13",
+   "grupo": "Grupo 4 · Assembly ARM",
+   "tipo": "aberta",
+   "tema": "Assembly ARM",
+   "enunciado": "Considerando a arquitetura das instruções do ARM, escreva em código assembly comentado a seguinte atribuição em C:\n\n<b>z = ~a & b;</b>",
+   "resolucao": "<div style=\"font-family:ui-monospace,Menlo,Consolas,monospace;font-size:13px\">ADR r4,a                ; endereço de a\nLDR r0,[r4]             ; r0 = a\nMVN r0,r0               ; r0 = ~a (move negado)\nADR r4,b                ; endereço de b\nLDR r1,[r4]             ; r1 = b\nAND r0,r0,r1            ; r0 = ~a & b\nADR r4,z                ; endereço de z\nSTR r0,[r4]             ; z = r0\n\nAlternativa: BIC r0,r1,r0; bit clear: r0 = b AND NOT a</div>\nCritérios: carregar cada variável (ADR + LDR), fazer as operações nos registos, guardar o resultado (ADR + STR) e comentar cada linha com «;». Outros registos também servem."
+  },
+  {
+   "id": "asm-14",
+   "grupo": "Grupo 4 · Assembly ARM",
+   "tipo": "aberta",
+   "tema": "Assembly ARM",
+   "enunciado": "Considerando a arquitetura das instruções do ARM, escreva em código assembly comentado a seguinte atribuição em C:\n\n<b>for (i = 0, s = 0; i < 10; i++) s = s + i;</b>",
+   "resolucao": "<div style=\"font-family:ui-monospace,Menlo,Consolas,monospace;font-size:13px\">MOV r0,#0               ; r0 = i = 0\nMOV r1,#0               ; r1 = s = 0\nciclo CMP r0,#10        ; teste do loop: i < 10?\nBGE fim                 ; se i >= 10 sai\nADD r1,r1,r0            ; s = s + i\nADD r0,r0,#1            ; i++\nB ciclo                 ; volta ao teste\nfim ADR r4,s            ; endereço de s\nSTR r1,[r4]             ; s = r1</div>\nCritérios: carregar cada variável (ADR + LDR), fazer as operações nos registos, guardar o resultado (ADR + STR) e comentar cada linha com «;». Outros registos também servem."
+  },
+  {
+   "id": "asm-15",
+   "grupo": "Grupo 4 · Assembly ARM",
+   "tipo": "aberta",
+   "tema": "Assembly ARM",
+   "enunciado": "Considerando a arquitetura das instruções do ARM, escreva em código assembly comentado a seguinte atribuição em C:\n\n<b>y = (a & 255) | (b << 8);</b>",
+   "resolucao": "<div style=\"font-family:ui-monospace,Menlo,Consolas,monospace;font-size:13px\">ADR r4,a                ; endereço de a\nLDR r0,[r4]             ; r0 = a\nAND r0,r0,#255          ; r0 = a & 0xFF\nADR r4,b                ; endereço de b\nLDR r1,[r4]             ; r1 = b\nORR r0,r0,r1,LSL #8     ; r0 = r0 | (b << 8), deslocamento no 2º operando\nADR r4,y                ; endereço de y\nSTR r0,[r4]             ; y = r0</div>\nCritérios: carregar cada variável (ADR + LDR), fazer as operações nos registos, guardar o resultado (ADR + STR) e comentar cada linha com «;». Outros registos também servem."
+  },
+  {
+   "id": "asm-16",
+   "grupo": "Grupo 4 · Assembly ARM",
+   "tipo": "aberta",
+   "tema": "Assembly ARM",
+   "enunciado": "Considerando a arquitetura das instruções do ARM, escreva em código assembly comentado a seguinte atribuição em C:\n\n<b>x = a - (b << 1) + c;</b>",
+   "resolucao": "<div style=\"font-family:ui-monospace,Menlo,Consolas,monospace;font-size:13px\">ADR r4,a                ; endereço de a\nLDR r0,[r4]             ; r0 = a\nADR r4,b                ; endereço de b\nLDR r1,[r4]             ; r1 = b\nSUB r0,r0,r1,LSL #1     ; r0 = a - (b<<1)\nADR r4,c                ; endereço de c\nLDR r2,[r4]             ; r2 = c\nADD r0,r0,r2            ; r0 = a - (b<<1) + c\nADR r4,x                ; endereço de x\nSTR r0,[r4]             ; x = r0</div>\nCritérios: carregar cada variável (ADR + LDR), fazer as operações nos registos, guardar o resultado (ADR + STR) e comentar cada linha com «;». Outros registos também servem."
+  },
+  {
+   "id": "asm-17",
+   "grupo": "Grupo 4 · Assembly ARM",
+   "tipo": "aberta",
+   "tema": "Assembly ARM",
+   "enunciado": "Considerando a arquitetura das instruções do ARM, escreva em código assembly comentado a seguinte atribuição em C:\n\n<b>if (a != 0) x = b; else x = c;</b>",
+   "resolucao": "<div style=\"font-family:ui-monospace,Menlo,Consolas,monospace;font-size:13px\">ADR r4,a                ; endereço de a\nLDR r0,[r4]             ; r0 = a\nCMP r0,#0               ; a == 0?\nBEQ senao               ; se a == 0 vai para o else\nADR r4,b                ; endereço de b\nLDR r1,[r4]             ; r1 = b\nB fim\nsenao ADR r4,c          ; endereço de c\nLDR r1,[r4]             ; r1 = c\nfim ADR r4,x            ; endereço de x\nSTR r1,[r4]             ; x = r1</div>\nCritérios: carregar cada variável (ADR + LDR), fazer as operações nos registos, guardar o resultado (ADR + STR) e comentar cada linha com «;». Outros registos também servem."
+  },
+  {
+   "id": "k-cache-0",
+   "grupo": "Grupo 5 · Cálculos",
+   "tipo": "aberta",
+   "tema": "Performance do sistema de memória",
+   "enunciado": "Responda às seguintes questões sobre o tempo médio de acesso à memória. Apresente as fórmulas.",
+   "alineas": [
+    {
+     "enunciado": "Determine o tempo médio de acesso à memória (tav em ns), com uma taxa de cache hit de 60%, tcache = 4 ns e tmain = 70 ns.",
+     "cotacao": 12,
+     "resolucao": "tav = h·tcache + (1 − h)·tmain\ntav = 0,6 × 4 + (1 − 0,6) × 70\n    = 2,4 + 28 = 30,4 ns"
+    },
+    {
+     "enunciado": "Calcule o tempo médio de acesso a uma memória multinível com taxa de cache hit L1 de 30%, taxa de cache hit L2 de 50%, tcache L1 = 2 ns, tcache L2 = 10 ns e tmain = 70 ns.",
+     "cotacao": 13,
+     "resolucao": "tav = h1·tL1 + h2·tL2 + (1 − h1 − h2)·tmain\ntav = 0,3 × 2 + 0,5 × 10 + (1 − 0,3 − 0,5) × 70\n    = 0,6 + 5 + 0,2 × 70\n    = 19,6 ns"
+    }
+   ]
+  },
+  {
+   "id": "k-cache-1",
+   "grupo": "Grupo 5 · Cálculos",
+   "tipo": "aberta",
+   "tema": "Performance do sistema de memória",
+   "enunciado": "Responda às seguintes questões sobre o tempo médio de acesso à memória. Apresente as fórmulas.",
+   "alineas": [
+    {
+     "enunciado": "Determine o tempo médio de acesso à memória (tav em ns), com uma taxa de cache hit de 80%, tcache = 3 ns e tmain = 100 ns.",
+     "cotacao": 12,
+     "resolucao": "tav = h·tcache + (1 − h)·tmain\ntav = 0,8 × 3 + (1 − 0,8) × 100\n    = 2,4 + 20 = 22,4 ns"
+    },
+    {
+     "enunciado": "Calcule o tempo médio de acesso a uma memória multinível com taxa de cache hit L1 de 20%, taxa de cache hit L2 de 40%, tcache L1 = 2 ns, tcache L2 = 10 ns e tmain = 110 ns.",
+     "cotacao": 13,
+     "resolucao": "tav = h1·tL1 + h2·tL2 + (1 − h1 − h2)·tmain\ntav = 0,2 × 2 + 0,4 × 10 + (1 − 0,2 − 0,4) × 110\n    = 0,4 + 4 + 0,4 × 110\n    = 48,4 ns"
+    }
+   ]
+  },
+  {
+   "id": "k-cache-2",
+   "grupo": "Grupo 5 · Cálculos",
+   "tipo": "aberta",
+   "tema": "Performance do sistema de memória",
+   "enunciado": "Responda às seguintes questões sobre o tempo médio de acesso à memória. Apresente as fórmulas.",
+   "alineas": [
+    {
+     "enunciado": "Determine o tempo médio de acesso à memória (tav em ns), com uma taxa de cache hit de 90%, tcache = 2 ns e tmain = 50 ns.",
+     "cotacao": 12,
+     "resolucao": "tav = h·tcache + (1 − h)·tmain\ntav = 0,9 × 2 + (1 − 0,9) × 50\n    = 1,8 + 5 = 6,8 ns"
+    },
+    {
+     "enunciado": "Calcule o tempo médio de acesso a uma memória multinível com taxa de cache hit L1 de 40%, taxa de cache hit L2 de 50%, tcache L1 = 4 ns, tcache L2 = 15 ns e tmain = 100 ns.",
+     "cotacao": 13,
+     "resolucao": "tav = h1·tL1 + h2·tL2 + (1 − h1 − h2)·tmain\ntav = 0,4 × 4 + 0,5 × 15 + (1 − 0,4 − 0,5) × 100\n    = 1,6 + 7,5 + 0,1 × 100\n    = 19,1 ns"
+    }
+   ]
+  },
+  {
+   "id": "k-cache-3",
+   "grupo": "Grupo 5 · Cálculos",
+   "tipo": "aberta",
+   "tema": "Performance do sistema de memória",
+   "enunciado": "Responda às seguintes questões sobre o tempo médio de acesso à memória. Apresente as fórmulas.",
+   "alineas": [
+    {
+     "enunciado": "Determine o tempo médio de acesso à memória (tav em ns), com uma taxa de cache hit de 60%, tcache = 4 ns e tmain = 120 ns.",
+     "cotacao": 12,
+     "resolucao": "tav = h·tcache + (1 − h)·tmain\ntav = 0,6 × 4 + (1 − 0,6) × 120\n    = 2,4 + 48 = 50,4 ns"
+    },
+    {
+     "enunciado": "Calcule o tempo médio de acesso a uma memória multinível com taxa de cache hit L1 de 20%, taxa de cache hit L2 de 20%, tcache L1 = 3 ns, tcache L2 = 15 ns e tmain = 20 ns.",
+     "cotacao": 13,
+     "resolucao": "tav = h1·tL1 + h2·tL2 + (1 − h1 − h2)·tmain\ntav = 0,2 × 3 + 0,2 × 15 + (1 − 0,2 − 0,2) × 20\n    = 0,6 + 3 + 0,6 × 20\n    = 15,6 ns"
+    }
+   ]
+  },
+  {
+   "id": "k-cache-4",
+   "grupo": "Grupo 5 · Cálculos",
+   "tipo": "aberta",
+   "tema": "Performance do sistema de memória",
+   "enunciado": "Responda às seguintes questões sobre o tempo médio de acesso à memória. Apresente as fórmulas.",
+   "alineas": [
+    {
+     "enunciado": "Determine o tempo médio de acesso à memória (tav em ns), com uma taxa de cache hit de 70%, tcache = 10 ns e tmain = 70 ns.",
+     "cotacao": 12,
+     "resolucao": "tav = h·tcache + (1 − h)·tmain\ntav = 0,7 × 10 + (1 − 0,7) × 70\n    = 7 + 21 = 28 ns"
+    },
+    {
+     "enunciado": "Calcule o tempo médio de acesso a uma memória multinível com taxa de cache hit L1 de 10%, taxa de cache hit L2 de 50%, tcache L1 = 2 ns, tcache L2 = 10 ns e tmain = 60 ns.",
+     "cotacao": 13,
+     "resolucao": "tav = h1·tL1 + h2·tL2 + (1 − h1 − h2)·tmain\ntav = 0,1 × 2 + 0,5 × 10 + (1 − 0,1 − 0,5) × 60\n    = 0,2 + 5 + 0,4 × 60\n    = 29,2 ns"
+    }
+   ]
+  },
+  {
+   "id": "k-cache-5",
+   "grupo": "Grupo 5 · Cálculos",
+   "tipo": "aberta",
+   "tema": "Performance do sistema de memória",
+   "enunciado": "Responda às seguintes questões sobre o tempo médio de acesso à memória. Apresente as fórmulas.",
+   "alineas": [
+    {
+     "enunciado": "Determine o tempo médio de acesso à memória (tav em ns), com uma taxa de cache hit de 35%, tcache = 2 ns e tmain = 80 ns.",
+     "cotacao": 12,
+     "resolucao": "tav = h·tcache + (1 − h)·tmain\ntav = 0,35 × 2 + (1 − 0,35) × 80\n    = 0,7 + 52 = 52,7 ns"
+    },
+    {
+     "enunciado": "Calcule o tempo médio de acesso a uma memória multinível com taxa de cache hit L1 de 40%, taxa de cache hit L2 de 50%, tcache L1 = 2 ns, tcache L2 = 12 ns e tmain = 60 ns.",
+     "cotacao": 13,
+     "resolucao": "tav = h1·tL1 + h2·tL2 + (1 − h1 − h2)·tmain\ntav = 0,4 × 2 + 0,5 × 12 + (1 − 0,4 − 0,5) × 60\n    = 0,8 + 6 + 0,1 × 60\n    = 12,8 ns"
+    }
+   ]
+  },
+  {
+   "id": "k-cache-6",
+   "grupo": "Grupo 5 · Cálculos",
+   "tipo": "aberta",
+   "tema": "Performance do sistema de memória",
+   "enunciado": "Responda às seguintes questões sobre o tempo médio de acesso à memória. Apresente as fórmulas.",
+   "alineas": [
+    {
+     "enunciado": "Determine o tempo médio de acesso à memória (tav em ns), com uma taxa de cache hit de 60%, tcache = 10 ns e tmain = 60 ns.",
+     "cotacao": 12,
+     "resolucao": "tav = h·tcache + (1 − h)·tmain\ntav = 0,6 × 10 + (1 − 0,6) × 60\n    = 6 + 24 = 30 ns"
+    },
+    {
+     "enunciado": "Calcule o tempo médio de acesso a uma memória multinível com taxa de cache hit L1 de 50%, taxa de cache hit L2 de 20%, tcache L1 = 4 ns, tcache L2 = 12 ns e tmain = 70 ns.",
+     "cotacao": 13,
+     "resolucao": "tav = h1·tL1 + h2·tL2 + (1 − h1 − h2)·tmain\ntav = 0,5 × 4 + 0,2 × 12 + (1 − 0,5 − 0,2) × 70\n    = 2 + 2,4 + 0,3 × 70\n    = 25,4 ns"
+    }
+   ]
+  },
+  {
+   "id": "k-cache-7",
+   "grupo": "Grupo 5 · Cálculos",
+   "tipo": "aberta",
+   "tema": "Performance do sistema de memória",
+   "enunciado": "Responda às seguintes questões sobre o tempo médio de acesso à memória. Apresente as fórmulas.",
+   "alineas": [
+    {
+     "enunciado": "Determine o tempo médio de acesso à memória (tav em ns), com uma taxa de cache hit de 90%, tcache = 2 ns e tmain = 70 ns.",
+     "cotacao": 12,
+     "resolucao": "tav = h·tcache + (1 − h)·tmain\ntav = 0,9 × 2 + (1 − 0,9) × 70\n    = 1,8 + 7 = 8,8 ns"
+    },
+    {
+     "enunciado": "Calcule o tempo médio de acesso a uma memória multinível com taxa de cache hit L1 de 20%, taxa de cache hit L2 de 50%, tcache L1 = 2 ns, tcache L2 = 20 ns e tmain = 70 ns.",
+     "cotacao": 13,
+     "resolucao": "tav = h1·tL1 + h2·tL2 + (1 − h1 − h2)·tmain\ntav = 0,2 × 2 + 0,5 × 20 + (1 − 0,2 − 0,5) × 70\n    = 0,4 + 10 + 0,3 × 70\n    = 31,4 ns"
+    }
+   ]
+  },
+  {
+   "id": "k-miss-0",
+   "grupo": "Grupo 5 · Cálculos",
+   "tipo": "aberta",
+   "tema": "Caches multinível",
+   "enunciado": "Calcule o tempo médio (tav em nanossegundos) de acesso a uma memória multinível, com:\nTaxa de cache hit L1 de 20%;\nTaxa de cache miss 60%;\ntcache L1 = 3 ns; tcache L2 = 15 ns; tmain = 80 ns.",
+   "alineas": [
+    {
+     "enunciado": "Tav = ?",
+     "cotacao": 15,
+     "resolucao": "Como no exercício resolvido nos slides (cache miss L2 de 60% → h2 = 40%): h2 = 1 − 0,6 = 0,4.\ntav = h1·tL1 + h2·tL2 + (1 − h1 − h2)·tmain\ntav = 0,2 × 3 + 0,4 × 15 + (1 − 0,2 − 0,4) × 80\n    = 0,6 + 6 + 32 = 38,6 ns\nAtenção: se o enunciado der diretamente a taxa de hit L2, usa-se esse valor como h2."
+    },
+    {
+     "enunciado": "Indique e explique os três tipos de cache miss.",
+     "cotacao": 10,
+     "resolucao": "Compulsório (cold): a localização nunca foi acedida; o primeiro acesso falha sempre.\nCapacidade: o working set é maior do que a cache; reduz-se com caches maiores.\nConflito (collision): várias localizações do working set mapeiam para a mesma entrada da cache."
+    }
+   ]
+  },
+  {
+   "id": "k-miss-1",
+   "grupo": "Grupo 5 · Cálculos",
+   "tipo": "aberta",
+   "tema": "Caches multinível",
+   "enunciado": "Calcule o tempo médio (tav em nanossegundos) de acesso a uma memória multinível, com:\nTaxa de cache hit L1 de 10%;\nTaxa de cache miss 50%;\ntcache L1 = 2 ns; tcache L2 = 20 ns; tmain = 60 ns.",
+   "alineas": [
+    {
+     "enunciado": "Tav = ?",
+     "cotacao": 15,
+     "resolucao": "Como no exercício resolvido nos slides (cache miss L2 de 60% → h2 = 40%): h2 = 1 − 0,5 = 0,5.\ntav = h1·tL1 + h2·tL2 + (1 − h1 − h2)·tmain\ntav = 0,1 × 2 + 0,5 × 20 + (1 − 0,1 − 0,5) × 60\n    = 0,2 + 10 + 24 = 34,2 ns\nAtenção: se o enunciado der diretamente a taxa de hit L2, usa-se esse valor como h2."
+    },
+    {
+     "enunciado": "Defina cache hit, cache miss e working set.",
+     "cotacao": 10,
+     "resolucao": "Cache hit: a localização requerida está na cache.\nCache miss: a localização requerida não está na cache.\nWorking set: conjunto de localizações usadas por um programa num intervalo de tempo."
+    }
+   ]
+  },
+  {
+   "id": "k-miss-2",
+   "grupo": "Grupo 5 · Cálculos",
+   "tipo": "aberta",
+   "tema": "Caches multinível",
+   "enunciado": "Calcule o tempo médio (tav em nanossegundos) de acesso a uma memória multinível, com:\nTaxa de cache hit L1 de 10%;\nTaxa de cache miss 40%;\ntcache L1 = 4 ns; tcache L2 = 20 ns; tmain = 120 ns.",
+   "alineas": [
+    {
+     "enunciado": "Tav = ?",
+     "cotacao": 15,
+     "resolucao": "Como no exercício resolvido nos slides (cache miss L2 de 60% → h2 = 40%): h2 = 1 − 0,4 = 0,6.\ntav = h1·tL1 + h2·tL2 + (1 − h1 − h2)·tmain\ntav = 0,1 × 4 + 0,6 × 20 + (1 − 0,1 − 0,6) × 120\n    = 0,4 + 12 + 36 = 48,4 ns\nAtenção: se o enunciado der diretamente a taxa de hit L2, usa-se esse valor como h2."
+    },
+    {
+     "enunciado": "Defina cache hit, cache miss e working set.",
+     "cotacao": 10,
+     "resolucao": "Cache hit: a localização requerida está na cache.\nCache miss: a localização requerida não está na cache.\nWorking set: conjunto de localizações usadas por um programa num intervalo de tempo."
+    }
+   ]
+  },
+  {
+   "id": "k-miss-3",
+   "grupo": "Grupo 5 · Cálculos",
+   "tipo": "aberta",
+   "tema": "Caches multinível",
+   "enunciado": "Calcule o tempo médio (tav em nanossegundos) de acesso a uma memória multinível, com:\nTaxa de cache hit L1 de 10%;\nTaxa de cache miss 40%;\ntcache L1 = 4 ns; tcache L2 = 20 ns; tmain = 120 ns.",
+   "alineas": [
+    {
+     "enunciado": "Tav = ?",
+     "cotacao": 15,
+     "resolucao": "Como no exercício resolvido nos slides (cache miss L2 de 60% → h2 = 40%): h2 = 1 − 0,4 = 0,6.\ntav = h1·tL1 + h2·tL2 + (1 − h1 − h2)·tmain\ntav = 0,1 × 4 + 0,6 × 20 + (1 − 0,1 − 0,6) × 120\n    = 0,4 + 12 + 36 = 48,4 ns\nAtenção: se o enunciado der diretamente a taxa de hit L2, usa-se esse valor como h2."
+    },
+    {
+     "enunciado": "Indique e explique os três tipos de cache miss.",
+     "cotacao": 10,
+     "resolucao": "Compulsório (cold): a localização nunca foi acedida; o primeiro acesso falha sempre.\nCapacidade: o working set é maior do que a cache; reduz-se com caches maiores.\nConflito (collision): várias localizações do working set mapeiam para a mesma entrada da cache."
+    }
+   ]
+  },
+  {
+   "id": "k-miss-4",
+   "grupo": "Grupo 5 · Cálculos",
+   "tipo": "aberta",
+   "tema": "Caches multinível",
+   "enunciado": "Calcule o tempo médio (tav em nanossegundos) de acesso a uma memória multinível, com:\nTaxa de cache hit L1 de 10%;\nTaxa de cache miss 70%;\ntcache L1 = 3 ns; tcache L2 = 10 ns; tmain = 70 ns.",
+   "alineas": [
+    {
+     "enunciado": "Tav = ?",
+     "cotacao": 15,
+     "resolucao": "Como no exercício resolvido nos slides (cache miss L2 de 60% → h2 = 40%): h2 = 1 − 0,7 = 0,3.\ntav = h1·tL1 + h2·tL2 + (1 − h1 − h2)·tmain\ntav = 0,1 × 3 + 0,3 × 10 + (1 − 0,1 − 0,3) × 70\n    = 0,3 + 3 + 42 = 45,3 ns\nAtenção: se o enunciado der diretamente a taxa de hit L2, usa-se esse valor como h2."
+    },
+    {
+     "enunciado": "Defina cache hit, cache miss e working set.",
+     "cotacao": 10,
+     "resolucao": "Cache hit: a localização requerida está na cache.\nCache miss: a localização requerida não está na cache.\nWorking set: conjunto de localizações usadas por um programa num intervalo de tempo."
+    }
+   ]
+  },
+  {
+   "id": "k-lat-0",
+   "grupo": "Grupo 5 · Cálculos",
+   "tipo": "aberta",
+   "tema": "Interrupções do ARM",
+   "enunciado": "No que concerne à latência das interrupções do ARM, no pior caso de latência, existe um número mínimo de ciclos do relógio necessário para dar resposta a um pedido de interrupção:",
+   "alineas": [
+    {
+     "enunciado": "Número de ciclos para sincronizar o pedido externo; para completar a instrução em curso; para abortar dados; para entrar no estado de handling da interrupção; total no pior caso.",
+     "cotacao": 15,
+     "resolucao": "Sincronizar o pedido externo: 2 ciclos\nCompletar a instrução em curso: até 20 ciclos\nAbortar dados: 3 ciclos\nEntrar no estado de handling: 2 ciclos\nTotal no pior caso: 2 + 20 + 3 + 2 = 27 ciclos"
+    },
+    {
+     "enunciado": "Qual a diferença entre FIQ e IRQ no ARM7?",
+     "cotacao": 10,
+     "resolucao": "FIQ (fast interrupt request): para eventos que têm de ser tratados à medida que ocorrem; tratamento rápido e de baixa latência.\nIRQ (interrupt request): interrupções mais gerais; pausa o programa e corre o handler.\nA FIQ tem prioridade sobre a IRQ."
+    }
+   ]
+  },
+  {
+   "id": "k-lat-1",
+   "grupo": "Grupo 5 · Cálculos",
+   "tipo": "aberta",
+   "tema": "Interrupções do ARM",
+   "enunciado": "No que concerne à latência das interrupções do ARM, no pior caso de latência, existe um número mínimo de ciclos do relógio necessário para dar resposta a um pedido de interrupção:",
+   "alineas": [
+    {
+     "enunciado": "Número de ciclos para sincronizar o pedido externo; para completar a instrução em curso; para abortar dados; para entrar no estado de handling da interrupção; total no pior caso.",
+     "cotacao": 15,
+     "resolucao": "Sincronizar o pedido externo: 2 ciclos\nCompletar a instrução em curso: até 20 ciclos\nAbortar dados: 3 ciclos\nEntrar no estado de handling: 2 ciclos\nTotal no pior caso: 2 + 20 + 3 + 2 = 27 ciclos"
+    },
+    {
+     "enunciado": "Descreva o procedimento de interrupção do ARM: ações do CPU e responsabilidades do handler.",
+     "cotacao": 10,
+     "resolucao": "CPU: salva o PC, copia o CPSR para o SPSR, força os bits do CPSR para registar a interrupção e força o PC para o vetor.\nHandler: restaura o PC correto, restaura o CPSR a partir do SPSR e limpa as flags de interrupt disable."
+    }
+   ]
+  },
+  {
+   "id": "k-lat-2",
+   "grupo": "Grupo 5 · Cálculos",
+   "tipo": "aberta",
+   "tema": "Interrupções do ARM",
+   "enunciado": "No que concerne à latência das interrupções do ARM, no pior caso de latência, existe um número mínimo de ciclos do relógio necessário para dar resposta a um pedido de interrupção:",
+   "alineas": [
+    {
+     "enunciado": "Número de ciclos para sincronizar o pedido externo; para completar a instrução em curso; para abortar dados; para entrar no estado de handling da interrupção; total no pior caso.",
+     "cotacao": 15,
+     "resolucao": "Sincronizar o pedido externo: 2 ciclos\nCompletar a instrução em curso: até 20 ciclos\nAbortar dados: 3 ciclos\nEntrar no estado de handling: 2 ciclos\nTotal no pior caso: 2 + 20 + 3 + 2 = 27 ciclos"
+    },
+    {
+     "enunciado": "Descreva a sequência de interrupção.",
+     "cotacao": 10,
+     "resolucao": "1. O CPU reconhece o pedido (ACK).\n2. O dispositivo envia o vetor.\n3. O CPU chama o handler.\n4. O software processa o pedido.\n5. O CPU restaura o estado do programa foreground."
+    }
+   ]
+  },
+  {
+   "id": "k-lat-3",
+   "grupo": "Grupo 5 · Cálculos",
+   "tipo": "aberta",
+   "tema": "Interrupções do ARM",
+   "enunciado": "No que concerne à latência das interrupções do ARM, no pior caso de latência, existe um número mínimo de ciclos do relógio necessário para dar resposta a um pedido de interrupção:",
+   "alineas": [
+    {
+     "enunciado": "Número de ciclos para sincronizar o pedido externo; para completar a instrução em curso; para abortar dados; para entrar no estado de handling da interrupção; total no pior caso.",
+     "cotacao": 15,
+     "resolucao": "Sincronizar o pedido externo: 2 ciclos\nCompletar a instrução em curso: até 20 ciclos\nAbortar dados: 3 ciclos\nEntrar no estado de handling: 2 ciclos\nTotal no pior caso: 2 + 20 + 3 + 2 = 27 ciclos"
+    },
+    {
+     "enunciado": "Indique as fontes de sobrecarga (overhead) de uma interrupção.",
+     "cotacao": 10,
+     "resolucao": "Tempo de execução do handler; sobrecarga do próprio mecanismo de interrupção; save e restore dos registos; penalizações do pipeline; penalizações da cache."
+    }
+   ]
+  },
+  {
+   "id": "k-acel-0",
+   "grupo": "Grupo 5 · Cálculos",
+   "tipo": "aberta",
+   "tema": "Sistemas aceleradores",
+   "enunciado": "Numa dada função com um loop de 200 ciclos, o tempo de execução do CPU foi de 700 ns. O sistema acelerado teve um tempo de execução de 3 ns, de leitura de 1 ns e de escrita de 1 ns por ciclo.",
+   "alineas": [
+    {
+     "enunciado": "Calcule o tempo de execução do acelerador (por ciclo e total).",
+     "cotacao": 10,
+     "resolucao": "taccel = tin + tx + tout = 1 + 3 + 1 = 5 ns por ciclo\nTotal: 200 × 5 = 1000 ns\nCPU por ciclo: 700 / 200 = 3,5 ns"
+    },
+    {
+     "enunciado": "Calcule o speedup S do acelerador.",
+     "cotacao": 8,
+     "resolucao": "S = n·(tCPU − taccel) = 200 × (3,5 − 5) = -300 ns"
+    },
+    {
+     "enunciado": "A aceleração foi vantajosa? Que outros fatores devem ser considerados?",
+     "cotacao": 7,
+     "resolucao": "Não: o acelerador (1000 ns) demora mais do que o CPU (700 ns), S < 0.\nMesmo com vantagem, ela pode ser relativa: é preciso considerar o custo de implementação do acelerador, o consumo energético, o tempo de transferência de dados e a sincronização com o CPU mestre."
+    }
+   ]
+  },
+  {
+   "id": "k-acel-1",
+   "grupo": "Grupo 5 · Cálculos",
+   "tipo": "aberta",
+   "tema": "Sistemas aceleradores",
+   "enunciado": "Numa dada função com um loop de 500 ciclos, o tempo de execução do CPU foi de 1750 ns. O sistema acelerado teve um tempo de execução de 1 ns, de leitura de 2 ns e de escrita de 2 ns por ciclo.",
+   "alineas": [
+    {
+     "enunciado": "Calcule o tempo de execução do acelerador (por ciclo e total).",
+     "cotacao": 10,
+     "resolucao": "taccel = tin + tx + tout = 2 + 1 + 2 = 5 ns por ciclo\nTotal: 500 × 5 = 2500 ns\nCPU por ciclo: 1750 / 500 = 3,5 ns"
+    },
+    {
+     "enunciado": "Calcule o speedup S do acelerador.",
+     "cotacao": 8,
+     "resolucao": "S = n·(tCPU − taccel) = 500 × (3,5 − 5) = -750 ns"
+    },
+    {
+     "enunciado": "A aceleração foi vantajosa? Que outros fatores devem ser considerados?",
+     "cotacao": 7,
+     "resolucao": "Não: o acelerador (2500 ns) demora mais do que o CPU (1750 ns), S < 0.\nMesmo com vantagem, ela pode ser relativa: é preciso considerar o custo de implementação do acelerador, o consumo energético, o tempo de transferência de dados e a sincronização com o CPU mestre."
+    }
+   ]
+  },
+  {
+   "id": "k-acel-2",
+   "grupo": "Grupo 5 · Cálculos",
+   "tipo": "aberta",
+   "tema": "Sistemas aceleradores",
+   "enunciado": "Numa dada função com um loop de 500 ciclos, o tempo normal de execução do CPU foi de 2,5 ns por ciclo. O sistema acelerado teve um tempo de execução de 2 ns, de leitura de 1 ns e de escrita de 1 ns por ciclo.",
+   "alineas": [
+    {
+     "enunciado": "Calcule o tempo de execução do acelerador (por ciclo e total).",
+     "cotacao": 10,
+     "resolucao": "taccel = tin + tx + tout = 1 + 2 + 1 = 4 ns por ciclo\nTotal: 500 × 4 = 2000 ns\nCPU total: 500 × 2,5 = 1250 ns"
+    },
+    {
+     "enunciado": "Calcule o speedup S do acelerador.",
+     "cotacao": 8,
+     "resolucao": "S = n·(tCPU − taccel) = 500 × (2,5 − 4) = -750 ns"
+    },
+    {
+     "enunciado": "A aceleração foi vantajosa? Que outros fatores devem ser considerados?",
+     "cotacao": 7,
+     "resolucao": "Não: o acelerador (2000 ns) demora mais do que o CPU (1250 ns), S < 0.\nMesmo com vantagem, ela pode ser relativa: é preciso considerar o custo de implementação do acelerador, o consumo energético, o tempo de transferência de dados e a sincronização com o CPU mestre."
+    }
+   ]
+  },
+  {
+   "id": "k-acel-3",
+   "grupo": "Grupo 5 · Cálculos",
+   "tipo": "aberta",
+   "tema": "Sistemas aceleradores",
+   "enunciado": "Numa dada função com um loop de 200 ciclos, o tempo de execução do CPU foi de 600 ns. O sistema acelerado teve um tempo de execução de 1 ns, de leitura de 2 ns e de escrita de 1 ns por ciclo.",
+   "alineas": [
+    {
+     "enunciado": "Calcule o tempo de execução do acelerador (por ciclo e total).",
+     "cotacao": 10,
+     "resolucao": "taccel = tin + tx + tout = 2 + 1 + 1 = 4 ns por ciclo\nTotal: 200 × 4 = 800 ns\nCPU por ciclo: 600 / 200 = 3 ns"
+    },
+    {
+     "enunciado": "Calcule o speedup S do acelerador.",
+     "cotacao": 8,
+     "resolucao": "S = n·(tCPU − taccel) = 200 × (3 − 4) = -200 ns"
+    },
+    {
+     "enunciado": "A aceleração foi vantajosa? Que outros fatores devem ser considerados?",
+     "cotacao": 7,
+     "resolucao": "Não: o acelerador (800 ns) demora mais do que o CPU (600 ns), S < 0.\nMesmo com vantagem, ela pode ser relativa: é preciso considerar o custo de implementação do acelerador, o consumo energético, o tempo de transferência de dados e a sincronização com o CPU mestre."
+    }
+   ]
+  },
+  {
+   "id": "k-acel-4",
+   "grupo": "Grupo 5 · Cálculos",
+   "tipo": "aberta",
+   "tema": "Sistemas aceleradores",
+   "enunciado": "Numa dada função com um loop de 200 ciclos, o tempo normal de execução do CPU foi de 9 ns por ciclo. O sistema acelerado teve um tempo de execução de 3 ns, de leitura de 1 ns e de escrita de 3 ns por ciclo.",
+   "alineas": [
+    {
+     "enunciado": "Calcule o tempo de execução do acelerador (por ciclo e total).",
+     "cotacao": 10,
+     "resolucao": "taccel = tin + tx + tout = 1 + 3 + 3 = 7 ns por ciclo\nTotal: 200 × 7 = 1400 ns\nCPU total: 200 × 9 = 1800 ns"
+    },
+    {
+     "enunciado": "Calcule o speedup S do acelerador.",
+     "cotacao": 8,
+     "resolucao": "S = n·(tCPU − taccel) = 200 × (9 − 7) = 400 ns"
+    },
+    {
+     "enunciado": "A aceleração foi vantajosa? Que outros fatores devem ser considerados?",
+     "cotacao": 7,
+     "resolucao": "Sim: o acelerador (1400 ns) é mais rápido do que o CPU (1800 ns), S > 0.\nMesmo com vantagem, ela pode ser relativa: é preciso considerar o custo de implementação do acelerador, o consumo energético, o tempo de transferência de dados e a sincronização com o CPU mestre."
+    }
+   ]
+  },
+  {
+   "id": "k-acel-5",
+   "grupo": "Grupo 5 · Cálculos",
+   "tipo": "aberta",
+   "tema": "Sistemas aceleradores",
+   "enunciado": "Numa dada função com um loop de 500 ciclos, o tempo de execução do CPU foi de 3500 ns. O sistema acelerado teve um tempo de execução de 2 ns, de leitura de 1 ns e de escrita de 2 ns por ciclo.",
+   "alineas": [
+    {
+     "enunciado": "Calcule o tempo de execução do acelerador (por ciclo e total).",
+     "cotacao": 10,
+     "resolucao": "taccel = tin + tx + tout = 1 + 2 + 2 = 5 ns por ciclo\nTotal: 500 × 5 = 2500 ns\nCPU por ciclo: 3500 / 500 = 7 ns"
+    },
+    {
+     "enunciado": "Calcule o speedup S do acelerador.",
+     "cotacao": 8,
+     "resolucao": "S = n·(tCPU − taccel) = 500 × (7 − 5) = 1000 ns"
+    },
+    {
+     "enunciado": "A aceleração foi vantajosa? Que outros fatores devem ser considerados?",
+     "cotacao": 7,
+     "resolucao": "Sim: o acelerador (2500 ns) é mais rápido do que o CPU (3500 ns), S > 0.\nMesmo com vantagem, ela pode ser relativa: é preciso considerar o custo de implementação do acelerador, o consumo energético, o tempo de transferência de dados e a sincronização com o CPU mestre."
+    }
+   ]
+  },
+  {
+   "id": "k-acel-6",
+   "grupo": "Grupo 5 · Cálculos",
+   "tipo": "aberta",
+   "tema": "Sistemas aceleradores",
+   "enunciado": "Numa dada função com um loop de 500 ciclos, o tempo de execução do CPU foi de 2250 ns. O sistema acelerado teve um tempo de execução de 3 ns, de leitura de 1 ns e de escrita de 1 ns por ciclo.",
+   "alineas": [
+    {
+     "enunciado": "Calcule o tempo de execução do acelerador (por ciclo e total).",
+     "cotacao": 10,
+     "resolucao": "taccel = tin + tx + tout = 1 + 3 + 1 = 5 ns por ciclo\nTotal: 500 × 5 = 2500 ns\nCPU por ciclo: 2250 / 500 = 4,5 ns"
+    },
+    {
+     "enunciado": "Calcule o speedup S do acelerador.",
+     "cotacao": 8,
+     "resolucao": "S = n·(tCPU − taccel) = 500 × (4,5 − 5) = -250 ns"
+    },
+    {
+     "enunciado": "A aceleração foi vantajosa? Que outros fatores devem ser considerados?",
+     "cotacao": 7,
+     "resolucao": "Não: o acelerador (2500 ns) demora mais do que o CPU (2250 ns), S < 0.\nMesmo com vantagem, ela pode ser relativa: é preciso considerar o custo de implementação do acelerador, o consumo energético, o tempo de transferência de dados e a sincronização com o CPU mestre."
+    }
+   ]
+  },
+  {
+   "id": "k-acel-7",
+   "grupo": "Grupo 5 · Cálculos",
+   "tipo": "aberta",
+   "tema": "Sistemas aceleradores",
+   "enunciado": "Numa dada função com um loop de 1000 ciclos, o tempo de execução do CPU foi de 4000 ns. O sistema acelerado teve um tempo de execução de 3 ns, de leitura de 1 ns e de escrita de 1 ns por ciclo.",
+   "alineas": [
+    {
+     "enunciado": "Calcule o tempo de execução do acelerador (por ciclo e total).",
+     "cotacao": 10,
+     "resolucao": "taccel = tin + tx + tout = 1 + 3 + 1 = 5 ns por ciclo\nTotal: 1000 × 5 = 5000 ns\nCPU por ciclo: 4000 / 1000 = 4 ns"
+    },
+    {
+     "enunciado": "Calcule o speedup S do acelerador.",
+     "cotacao": 8,
+     "resolucao": "S = n·(tCPU − taccel) = 1000 × (4 − 5) = -1000 ns"
+    },
+    {
+     "enunciado": "A aceleração foi vantajosa? Que outros fatores devem ser considerados?",
+     "cotacao": 7,
+     "resolucao": "Não: o acelerador (5000 ns) demora mais do que o CPU (4000 ns), S < 0.\nMesmo com vantagem, ela pode ser relativa: é preciso considerar o custo de implementação do acelerador, o consumo energético, o tempo de transferência de dados e a sincronização com o CPU mestre."
+    }
+   ]
+  },
+  {
+   "id": "k-fir-0",
+   "grupo": "Grupo 5 · Cálculos",
+   "tipo": "aberta",
+   "tema": "Tempo de execução (filtro FIR)",
+   "enunciado": "Considere o código ARM do filtro FIR, for (i=0; i&lt;N; i++) f = f + c[i]*x[i];, com N = 25.\nBlocos: inicialização 7 instruções / 7 ciclos; corpo 4 / 4; atualização 2 / 2; teste 2 instruções / 2 a 4 ciclos (BLT ocupa 1 ciclo no melhor caso e 3 no pior).",
+   "alineas": [
+    {
+     "enunciado": "Escreva a expressão de tloop e calcule o número de ciclos no pior caso.",
+     "cotacao": 15,
+     "resolucao": "tloop = tinit + N·(tbody + tupdate) + (N − 1)·ttest,worst + ttest,best\ntloop = 7 + 25×(4 + 2) + (25 − 1)×4 + 2\n      = 7 + 150 + 96 + 2 = 255 ciclos"
+    },
+    {
+     "enunciado": "Com um relógio de 25 MHz, quanto tempo demora o loop nesse caso?",
+     "cotacao": 10,
+     "resolucao": "Período = 1 / 25 MHz = 40 ns\nt = 255 × 40 = 10200 ns\n(No melhor caso, com o teste sempre em 2 ciclos: 7 + 150 + 48 + 2 = 207 ciclos.)"
+    }
+   ]
+  },
+  {
+   "id": "k-fir-1",
+   "grupo": "Grupo 5 · Cálculos",
+   "tipo": "aberta",
+   "tema": "Tempo de execução (filtro FIR)",
+   "enunciado": "Considere o código ARM do filtro FIR, for (i=0; i&lt;N; i++) f = f + c[i]*x[i];, com N = 100.\nBlocos: inicialização 7 instruções / 7 ciclos; corpo 4 / 4; atualização 2 / 2; teste 2 instruções / 2 a 4 ciclos (BLT ocupa 1 ciclo no melhor caso e 3 no pior).",
+   "alineas": [
+    {
+     "enunciado": "Escreva a expressão de tloop e calcule o número de ciclos no pior caso.",
+     "cotacao": 15,
+     "resolucao": "tloop = tinit + N·(tbody + tupdate) + (N − 1)·ttest,worst + ttest,best\ntloop = 7 + 100×(4 + 2) + (100 − 1)×4 + 2\n      = 7 + 600 + 396 + 2 = 1005 ciclos"
+    },
+    {
+     "enunciado": "Com um relógio de 25 MHz, quanto tempo demora o loop nesse caso?",
+     "cotacao": 10,
+     "resolucao": "Período = 1 / 25 MHz = 40 ns\nt = 1005 × 40 = 40200 ns\n(No melhor caso, com o teste sempre em 2 ciclos: 7 + 600 + 198 + 2 = 807 ciclos.)"
+    }
+   ]
+  },
+  {
+   "id": "k-fir-2",
+   "grupo": "Grupo 5 · Cálculos",
+   "tipo": "aberta",
+   "tema": "Tempo de execução (filtro FIR)",
+   "enunciado": "Considere o código ARM do filtro FIR, for (i=0; i&lt;N; i++) f = f + c[i]*x[i];, com N = 20.\nBlocos: inicialização 7 instruções / 7 ciclos; corpo 4 / 4; atualização 2 / 2; teste 2 instruções / 2 a 4 ciclos (BLT ocupa 1 ciclo no melhor caso e 3 no pior).",
+   "alineas": [
+    {
+     "enunciado": "Escreva a expressão de tloop e calcule o número de ciclos no pior caso.",
+     "cotacao": 15,
+     "resolucao": "tloop = tinit + N·(tbody + tupdate) + (N − 1)·ttest,worst + ttest,best\ntloop = 7 + 20×(4 + 2) + (20 − 1)×4 + 2\n      = 7 + 120 + 76 + 2 = 205 ciclos"
+    },
+    {
+     "enunciado": "Com um relógio de 50 MHz, quanto tempo demora o loop nesse caso?",
+     "cotacao": 10,
+     "resolucao": "Período = 1 / 50 MHz = 20 ns\nt = 205 × 20 = 4100 ns\n(No melhor caso, com o teste sempre em 2 ciclos: 7 + 120 + 38 + 2 = 167 ciclos.)"
+    }
+   ]
+  },
+  {
+   "id": "k-fir-3",
+   "grupo": "Grupo 5 · Cálculos",
+   "tipo": "aberta",
+   "tema": "Tempo de execução (filtro FIR)",
+   "enunciado": "Considere o código ARM do filtro FIR, for (i=0; i&lt;N; i++) f = f + c[i]*x[i];, com N = 25.\nBlocos: inicialização 7 instruções / 7 ciclos; corpo 4 / 4; atualização 2 / 2; teste 2 instruções / 2 a 4 ciclos (BLT ocupa 1 ciclo no melhor caso e 3 no pior).",
+   "alineas": [
+    {
+     "enunciado": "Escreva a expressão de tloop e calcule o número de ciclos no pior caso.",
+     "cotacao": 15,
+     "resolucao": "tloop = tinit + N·(tbody + tupdate) + (N − 1)·ttest,worst + ttest,best\ntloop = 7 + 25×(4 + 2) + (25 − 1)×4 + 2\n      = 7 + 150 + 96 + 2 = 255 ciclos"
+    },
+    {
+     "enunciado": "Com um relógio de 50 MHz, quanto tempo demora o loop nesse caso?",
+     "cotacao": 10,
+     "resolucao": "Período = 1 / 50 MHz = 20 ns\nt = 255 × 20 = 5100 ns\n(No melhor caso, com o teste sempre em 2 ciclos: 7 + 150 + 48 + 2 = 207 ciclos.)"
+    }
+   ]
+  },
+  {
+   "id": "k-fir-4",
+   "grupo": "Grupo 5 · Cálculos",
+   "tipo": "aberta",
+   "tema": "Tempo de execução (filtro FIR)",
+   "enunciado": "Considere o código ARM do filtro FIR, for (i=0; i&lt;N; i++) f = f + c[i]*x[i];, com N = 50.\nBlocos: inicialização 7 instruções / 7 ciclos; corpo 4 / 4; atualização 2 / 2; teste 2 instruções / 2 a 4 ciclos (BLT ocupa 1 ciclo no melhor caso e 3 no pior).",
+   "alineas": [
+    {
+     "enunciado": "Escreva a expressão de tloop e calcule o número de ciclos no pior caso.",
+     "cotacao": 15,
+     "resolucao": "tloop = tinit + N·(tbody + tupdate) + (N − 1)·ttest,worst + ttest,best\ntloop = 7 + 50×(4 + 2) + (50 − 1)×4 + 2\n      = 7 + 300 + 196 + 2 = 505 ciclos"
+    },
+    {
+     "enunciado": "Com um relógio de 50 MHz, quanto tempo demora o loop nesse caso?",
+     "cotacao": 10,
+     "resolucao": "Período = 1 / 50 MHz = 20 ns\nt = 505 × 20 = 10100 ns\n(No melhor caso, com o teste sempre em 2 ciclos: 7 + 300 + 98 + 2 = 407 ciclos.)"
+    }
+   ]
+  },
+  {
+   "id": "k-flags-0",
+   "grupo": "Grupo 5 · Cálculos",
+   "tipo": "aberta",
+   "tema": "Flags NZCV do CPSR",
+   "enunciado": "Todas as operações aritméticas, lógicas e de deslocamento do ARM definem os bits N, Z, C e V do CPSR. Considere registos de 32 bits.",
+   "alineas": [
+    {
+     "enunciado": "ADDS r0,r1,r2 com r1 = 0x7FFFFFFF (2147483647) e r2 = 0x00000001 (1). Indique o resultado e as flags NZCV.",
+     "cotacao": 8,
+     "resolucao": "r0 = 0x80000000 (-2147483648)\nN = 1 (bit 31 do resultado), Z = 0 (resultado é zero?), C = 0 (transporte para fora do bit 31), V = 1 (overflow com sinal: duas parcelas com o mesmo sinal e resultado com sinal diferente)\nNZCV = 1001"
+    },
+    {
+     "enunciado": "ADDS r0,r1,r2 com r1 = 0xFFFFFFFF (-1) e r2 = 0x00000001 (1). Indique o resultado e as flags NZCV.",
+     "cotacao": 8,
+     "resolucao": "r0 = 0x00000000 (0)\nN = 0 (bit 31 do resultado), Z = 1 (resultado é zero?), C = 1 (transporte para fora do bit 31), V = 0 (overflow com sinal: duas parcelas com o mesmo sinal e resultado com sinal diferente)\nNZCV = 0110"
+    },
+    {
+     "enunciado": "ADDS r0,r1,r2 com r1 = 0x40000000 (1073741824) e r2 = 0x40000000 (1073741824). Indique o resultado e as flags NZCV.",
+     "cotacao": 9,
+     "resolucao": "r0 = 0x80000000 (-2147483648)\nN = 1 (bit 31 do resultado), Z = 0 (resultado é zero?), C = 0 (transporte para fora do bit 31), V = 1 (overflow com sinal: duas parcelas com o mesmo sinal e resultado com sinal diferente)\nNZCV = 1001"
+    }
+   ]
+  },
+  {
+   "id": "k-flags-1",
+   "grupo": "Grupo 5 · Cálculos",
+   "tipo": "aberta",
+   "tema": "Flags NZCV do CPSR",
+   "enunciado": "Todas as operações aritméticas, lógicas e de deslocamento do ARM definem os bits N, Z, C e V do CPSR. Considere registos de 32 bits.",
+   "alineas": [
+    {
+     "enunciado": "ADDS r0,r1,r2 com r1 = 0xFFFFFFFF (-1) e r2 = 0x00000001 (1). Indique o resultado e as flags NZCV.",
+     "cotacao": 8,
+     "resolucao": "r0 = 0x00000000 (0)\nN = 0 (bit 31 do resultado), Z = 1 (resultado é zero?), C = 1 (transporte para fora do bit 31), V = 0 (overflow com sinal: duas parcelas com o mesmo sinal e resultado com sinal diferente)\nNZCV = 0110"
+    },
+    {
+     "enunciado": "ADDS r0,r1,r2 com r1 = 0xFFFFFFFF (-1) e r2 = 0xFFFFFFFF (-1). Indique o resultado e as flags NZCV.",
+     "cotacao": 8,
+     "resolucao": "r0 = 0xFFFFFFFE (-2)\nN = 1 (bit 31 do resultado), Z = 0 (resultado é zero?), C = 1 (transporte para fora do bit 31), V = 0 (overflow com sinal: duas parcelas com o mesmo sinal e resultado com sinal diferente)\nNZCV = 1010"
+    },
+    {
+     "enunciado": "ADDS r0,r1,r2 com r1 = 0xFFFFFFFB (-5) e r2 = 0x00000002 (2). Indique o resultado e as flags NZCV.",
+     "cotacao": 9,
+     "resolucao": "r0 = 0xFFFFFFFD (-3)\nN = 1 (bit 31 do resultado), Z = 0 (resultado é zero?), C = 0 (transporte para fora do bit 31), V = 0 (overflow com sinal: duas parcelas com o mesmo sinal e resultado com sinal diferente)\nNZCV = 1000"
+    }
+   ]
+  },
+  {
+   "id": "k-flags-2",
+   "grupo": "Grupo 5 · Cálculos",
+   "tipo": "aberta",
+   "tema": "Flags NZCV do CPSR",
+   "enunciado": "Todas as operações aritméticas, lógicas e de deslocamento do ARM definem os bits N, Z, C e V do CPSR. Considere registos de 32 bits.",
+   "alineas": [
+    {
+     "enunciado": "ADDS r0,r1,r2 com r1 = 0x7FFFFFFF (2147483647) e r2 = 0x00000001 (1). Indique o resultado e as flags NZCV.",
+     "cotacao": 8,
+     "resolucao": "r0 = 0x80000000 (-2147483648)\nN = 1 (bit 31 do resultado), Z = 0 (resultado é zero?), C = 0 (transporte para fora do bit 31), V = 1 (overflow com sinal: duas parcelas com o mesmo sinal e resultado com sinal diferente)\nNZCV = 1001"
+    },
+    {
+     "enunciado": "ADDS r0,r1,r2 com r1 = 0x00000005 (5) e r2 = 0x00000003 (3). Indique o resultado e as flags NZCV.",
+     "cotacao": 8,
+     "resolucao": "r0 = 0x00000008 (8)\nN = 0 (bit 31 do resultado), Z = 0 (resultado é zero?), C = 0 (transporte para fora do bit 31), V = 0 (overflow com sinal: duas parcelas com o mesmo sinal e resultado com sinal diferente)\nNZCV = 0000"
+    },
+    {
+     "enunciado": "ADDS r0,r1,r2 com r1 = 0x0000000A (10) e r2 = 0xFFFFFFFD (-3). Indique o resultado e as flags NZCV.",
+     "cotacao": 9,
+     "resolucao": "r0 = 0x00000007 (7)\nN = 0 (bit 31 do resultado), Z = 0 (resultado é zero?), C = 1 (transporte para fora do bit 31), V = 0 (overflow com sinal: duas parcelas com o mesmo sinal e resultado com sinal diferente)\nNZCV = 0010"
+    }
+   ]
+  },
+  {
+   "id": "k-flags-3",
+   "grupo": "Grupo 5 · Cálculos",
+   "tipo": "aberta",
+   "tema": "Flags NZCV do CPSR",
+   "enunciado": "Todas as operações aritméticas, lógicas e de deslocamento do ARM definem os bits N, Z, C e V do CPSR. Considere registos de 32 bits.",
+   "alineas": [
+    {
+     "enunciado": "ADDS r0,r1,r2 com r1 = 0xFFFFFFFF (-1) e r2 = 0xFFFFFFFF (-1). Indique o resultado e as flags NZCV.",
+     "cotacao": 8,
+     "resolucao": "r0 = 0xFFFFFFFE (-2)\nN = 1 (bit 31 do resultado), Z = 0 (resultado é zero?), C = 1 (transporte para fora do bit 31), V = 0 (overflow com sinal: duas parcelas com o mesmo sinal e resultado com sinal diferente)\nNZCV = 1010"
+    },
+    {
+     "enunciado": "ADDS r0,r1,r2 com r1 = 0x7FFFFFFF (2147483647) e r2 = 0x00000001 (1). Indique o resultado e as flags NZCV.",
+     "cotacao": 8,
+     "resolucao": "r0 = 0x80000000 (-2147483648)\nN = 1 (bit 31 do resultado), Z = 0 (resultado é zero?), C = 0 (transporte para fora do bit 31), V = 1 (overflow com sinal: duas parcelas com o mesmo sinal e resultado com sinal diferente)\nNZCV = 1001"
+    },
+    {
+     "enunciado": "ADDS r0,r1,r2 com r1 = 0x00000005 (5) e r2 = 0x00000003 (3). Indique o resultado e as flags NZCV.",
+     "cotacao": 9,
+     "resolucao": "r0 = 0x00000008 (8)\nN = 0 (bit 31 do resultado), Z = 0 (resultado é zero?), C = 0 (transporte para fora do bit 31), V = 0 (overflow com sinal: duas parcelas com o mesmo sinal e resultado com sinal diferente)\nNZCV = 0000"
+    }
+   ]
+  },
+  {
+   "id": "mc-0",
+   "grupo": "Conceitos",
+   "tipo": "escolha",
+   "tema": "Conceitos",
+   "enunciado": "Um resistor óhmico de 10 Ω é atravessado por uma corrente de 1,0 A. Qual a tensão aos seus terminais?",
+   "opcoes": [
+    "10 V",
+    "5 V",
+    "20 V",
+    "0,1 V"
+   ],
+   "correta": 0,
+   "explicacao": "E = R × I = 10 × 1 = 10 V."
+  },
+  {
+   "id": "mc-1",
+   "grupo": "Conceitos",
+   "tipo": "escolha",
+   "tema": "Conceitos",
+   "enunciado": "A diferença de potencial num resistor óhmico é 1,5 V quando passa 1,5 mA. Qual a resistência?",
+   "opcoes": [
+    "1×10³ Ω",
+    "1×10⁻³ Ω",
+    "1 Ω",
+    "2,25×10³ Ω"
+   ],
+   "correta": 0,
+   "explicacao": "R = E / I = 1,5 / 1,5×10⁻³ = 1000 Ω. Atenção ao mA = 10⁻³ A."
+  },
+  {
+   "id": "mc-2",
+   "grupo": "Conceitos",
+   "tipo": "escolha",
+   "tema": "Conceitos",
+   "enunciado": "Numa lâmpada ligada a 12 V com resistência de 6 Ω, qual a corrente?",
+   "opcoes": [
+    "2 A",
+    "72 A",
+    "0,5 A",
+    "18 A"
+   ],
+   "correta": 0,
+   "explicacao": "I = E / R = 12 / 6 = 2 A."
+  },
+  {
+   "id": "mc-3",
+   "grupo": "Conceitos",
+   "tipo": "escolha",
+   "tema": "Conceitos",
+   "enunciado": "Uma corrente de 5 A atravessa uma resistência de 8 Ω. Qual a tensão?",
+   "opcoes": [
+    "40 V",
+    "1,6 V",
+    "13 V",
+    "0,625 V"
+   ],
+   "correta": 0,
+   "explicacao": "E = I × R = 5 × 8 = 40 V."
+  },
+  {
+   "id": "mc-4",
+   "grupo": "Conceitos",
+   "tipo": "escolha",
+   "tema": "Conceitos",
+   "enunciado": "Se a corrente medida num circuito DC é mais baixa do que o normal, isso pode significar que...",
+   "opcoes": [
+    "a tensão diminuiu ou a resistência aumentou",
+    "a tensão aumentou ou a resistência diminuiu",
+    "a resistência e a tensão aumentaram na mesma proporção",
+    "o circuito está em curto-circuito"
+   ],
+   "correta": 0,
+   "explicacao": "I = E/R: menos tensão ou mais resistência (ligações soltas, corrosão)."
+  },
+  {
+   "id": "mc-5",
+   "grupo": "Conceitos",
+   "tipo": "escolha",
+   "tema": "Conceitos",
+   "enunciado": "A 1ª lei de Kirchhoff (lei dos nós) resulta do princípio da conservação...",
+   "opcoes": [
+    "da carga elétrica",
+    "da energia",
+    "da massa",
+    "da potência"
+   ],
+   "correta": 0,
+   "explicacao": "A 2ª lei (malhas) resulta da conservação da energia."
+  },
+  {
+   "id": "mc-6",
+   "grupo": "Conceitos",
+   "tipo": "escolha",
+   "tema": "Conceitos",
+   "enunciado": "A 2ª lei de Kirchhoff (lei das malhas) diz que...",
+   "opcoes": [
+    "a soma dos potenciais ao longo de uma malha fechada é zero",
+    "a soma das correntes num nó é zero",
+    "a corrente é igual em todos os ramos",
+    "a resistência equivalente é a soma das resistências"
+   ],
+   "correta": 0,
+   "explicacao": "Conservação da energia."
+  },
+  {
+   "id": "mc-7",
+   "grupo": "Conceitos",
+   "tipo": "escolha",
+   "tema": "Conceitos",
+   "enunciado": "Ao longo de um ramo de um circuito, a corrente elétrica é...",
+   "opcoes": [
+    "sempre constante",
+    "sempre nula",
+    "igual à soma das correntes dos nós",
+    "inversamente proporcional ao número de malhas"
+   ],
+   "correta": 0,
+   "explicacao": "Ramo: trecho entre dois nós consecutivos."
+  },
+  {
+   "id": "mc-8",
+   "grupo": "Conceitos",
+   "tipo": "escolha",
+   "tema": "Conceitos",
+   "enunciado": "Num circuito RLC, a introdução da resistência...",
+   "opcoes": [
+    "aumenta o amortecimento e reduz a frequência de ressonância de pico",
+    "elimina as oscilações por completo",
+    "aumenta a frequência de ressonância",
+    "transforma o circuito num LC ideal"
+   ],
+   "correta": 0,
+   "explicacao": "Slides de Circuitos RLC."
+  },
+  {
+   "id": "mc-9",
+   "grupo": "Conceitos",
+   "tipo": "escolha",
+   "tema": "Conceitos",
+   "enunciado": "A indutância de uma bobine mede-se em...",
+   "opcoes": [
+    "henries (H)",
+    "farads (F)",
+    "ohms (Ω)",
+    "webers (Wb)"
+   ],
+   "correta": 0,
+   "explicacao": "Capacitância em farads; indutância em henries."
+  },
+  {
+   "id": "mc-10",
+   "grupo": "Conceitos",
+   "tipo": "escolha",
+   "tema": "Conceitos",
+   "enunciado": "Qual a definição de sistema de computação embebido?",
+   "opcoes": [
+    "Dispositivo que inclui um computador programável mas que não é um computador de propósito geral",
+    "Qualquer computador portátil",
+    "Um computador de propósito geral com sistema operativo de tempo real",
+    "Um circuito sem processador"
+   ],
+   "correta": 0,
+   "explicacao": "Definição dos slides."
+  },
+  {
+   "id": "mc-11",
+   "grupo": "Conceitos",
+   "tipo": "escolha",
+   "tema": "Conceitos",
+   "enunciado": "Um sistema multimédia que perde qualidade quando falha um deadline é um exemplo de...",
+   "opcoes": [
+    "soft real time",
+    "hard real time",
+    "sistema não embebido",
+    "sistema multi-rate"
+   ],
+   "correta": 0,
+   "explicacao": "Hard = falha da ação; soft = redução da performance."
+  },
+  {
+   "id": "mc-12",
+   "grupo": "Conceitos",
+   "tipo": "escolha",
+   "tema": "Conceitos",
+   "enunciado": "Qual destes é um requisito não funcional?",
+   "opcoes": [
+    "Autonomia de 8 horas com 4 pilhas AA",
+    "Apresentar a latitude e longitude atuais",
+    "Mostrar estradas principais e marcos",
+    "Calcular a rota"
+   ],
+   "correta": 0,
+   "explicacao": "Energia, tempo, tamanho, peso, custo e fiabilidade são não funcionais."
+  },
+  {
+   "id": "mc-13",
+   "grupo": "Conceitos",
+   "tipo": "escolha",
+   "tema": "Conceitos",
+   "enunciado": "Qual a ordem dos níveis de abstração na conceção?",
+   "opcoes": [
+    "Requisitos, especificação, arquitetura, design de componentes, integração",
+    "Especificação, requisitos, arquitetura, integração, componentes",
+    "Arquitetura, requisitos, componentes, especificação, integração",
+    "Requisitos, arquitetura, especificação, integração, componentes"
+   ],
+   "correta": 0,
+   "explicacao": "Do mais abstrato ao mais detalhado."
+  },
+  {
+   "id": "mc-14",
+   "grupo": "Conceitos",
+   "tipo": "escolha",
+   "tema": "Conceitos",
+   "enunciado": "Qual arquitetura permite dois fetches de memória simultâneos?",
+   "opcoes": [
+    "Harvard",
+    "von Neumann",
+    "CISC",
+    "Big-endian"
+   ],
+   "correta": 0,
+   "explicacao": "Memórias de dados e de programa separadas."
+  },
+  {
+   "id": "mc-15",
+   "grupo": "Conceitos",
+   "tipo": "escolha",
+   "tema": "Conceitos",
+   "enunciado": "Quantos registos de uso geral tem o modelo de programação do ARM?",
+   "opcoes": [
+    "16 (r0 a r15)",
+    "32 (r0 a r31)",
+    "8 (r0 a r7)",
+    "4 (N, Z, C, V)"
+   ],
+   "correta": 0,
+   "explicacao": "r15 é o PC; o CPSR é à parte."
+  },
+  {
+   "id": "mc-16",
+   "grupo": "Conceitos",
+   "tipo": "escolha",
+   "tema": "Conceitos",
+   "enunciado": "Que flags tem o CPSR do ARM?",
+   "opcoes": [
+    "N, Z, C, V",
+    "PC, IR, SP, LR",
+    "S, Z, P, C",
+    "FIQ, IRQ"
+   ],
+   "correta": 0,
+   "explicacao": "Negativo, Zero, Carry, oVerflow."
+  },
+  {
+   "id": "mc-17",
+   "grupo": "Conceitos",
+   "tipo": "escolha",
+   "tema": "Conceitos",
+   "enunciado": "Qual o pipeline do ARM7?",
+   "opcoes": [
+    "3 estágios: fetch, decode, execute",
+    "3 estágios: fetch, run, idle",
+    "5 estágios: fetch, decode, execute, memory, write-back",
+    "2 estágios: fetch, execute"
+   ],
+   "correta": 0,
+   "explicacao": "Run e idle são modos de potência."
+  },
+  {
+   "id": "mc-18",
+   "grupo": "Conceitos",
+   "tipo": "escolha",
+   "tema": "Conceitos",
+   "enunciado": "Qual é a latência de interrupção do ARM no pior caso?",
+   "opcoes": [
+    "27 ciclos",
+    "20 ciclos",
+    "7 ciclos",
+    "33 ciclos"
+   ],
+   "correta": 0,
+   "explicacao": "2 + 20 + 3 + 2."
+  },
+  {
+   "id": "mc-19",
+   "grupo": "Conceitos",
+   "tipo": "escolha",
+   "tema": "Conceitos",
+   "enunciado": "Qual a interrupção de maior prioridade, que nunca é mascarada?",
+   "opcoes": [
+    "NMI",
+    "IRQ",
+    "SWI",
+    "Trap"
+   ],
+   "correta": 0,
+   "explicacao": "Non-maskable interrupt, muitas vezes para power-down."
+  },
+  {
+   "id": "mc-20",
+   "grupo": "Conceitos",
+   "tipo": "escolha",
+   "tema": "Conceitos",
+   "enunciado": "No ARM, uma trap (interrupção de software) é feita com a instrução...",
+   "opcoes": [
+    "SWI",
+    "BL",
+    "MOV r15,r14",
+    "CMP"
+   ],
+   "correta": 0,
+   "explicacao": "SWI entra no modo supervisor."
+  },
+  {
+   "id": "mc-21",
+   "grupo": "Conceitos",
+   "tipo": "escolha",
+   "tema": "Conceitos",
+   "enunciado": "Que tipo de cache miss se reduz aumentando o tamanho da cache?",
+   "opcoes": [
+    "Capacidade",
+    "Compulsório",
+    "Conflito",
+    "Nenhum"
+   ],
+   "correta": 0,
+   "explicacao": "O working set deixa de ser maior do que a cache."
+  },
+  {
+   "id": "mc-22",
+   "grupo": "Conceitos",
+   "tipo": "escolha",
+   "tema": "Conceitos",
+   "enunciado": "Com h = 0,70, tcache = 4 ns e tmain = 20 ns, qual é o tav?",
+   "opcoes": [
+    "8,8 ns",
+    "6,8 ns",
+    "17,2 ns",
+    "12 ns"
+   ],
+   "correta": 0,
+   "explicacao": "0,7×4 + 0,3×20 = 2,8 + 6 = 8,8 ns."
+  },
+  {
+   "id": "mc-23",
+   "grupo": "Conceitos",
+   "tipo": "escolha",
+   "tema": "Conceitos",
+   "enunciado": "Com h = 35%, tcache = 10 ns e tmain = 120 ns, qual é o tav?",
+   "opcoes": [
+    "81,5 ns",
+    "45,5 ns",
+    "3,5 ns",
+    "78 ns"
+   ],
+   "correta": 0,
+   "explicacao": "0,35×10 + 0,65×120 = 3,5 + 78 = 81,5 ns."
+  },
+  {
+   "id": "mc-24",
+   "grupo": "Conceitos",
+   "tipo": "escolha",
+   "tema": "Conceitos",
+   "enunciado": "O pipelining...",
+   "opcoes": [
+    "aumenta o throughput sem reduzir a latência",
+    "reduz a latência sem alterar o throughput",
+    "reduz a latência e o throughput",
+    "só funciona em CISC"
+   ],
+   "correta": 0,
+   "explicacao": "Medidas da performance."
+  },
+  {
+   "id": "mc-25",
+   "grupo": "Conceitos",
+   "tipo": "escolha",
+   "tema": "Conceitos",
+   "enunciado": "Para satisfazer as restrições temporais deve analisar-se o tempo de execução...",
+   "opcoes": [
+    "no pior caso",
+    "no melhor caso",
+    "no caso médio",
+    "de uma só instrução"
+   ],
+   "correta": 0,
+   "explicacao": "O pior caso garante o deadline."
+  },
+  {
+   "id": "mc-26",
+   "grupo": "Conceitos",
+   "tipo": "escolha",
+   "tema": "Conceitos",
+   "enunciado": "A fórmula básica do tempo de execução de um programa é...",
+   "opcoes": [
+    "program path + instruction timing",
+    "tempo de ciclo × número de registos",
+    "latência + throughput",
+    "tcache + tmain"
+   ],
+   "correta": 0,
+   "explicacao": "Slides de Análise de performance."
+  },
+  {
+   "id": "mc-27",
+   "grupo": "Conceitos",
+   "tipo": "escolha",
+   "tema": "Conceitos",
+   "enunciado": "Trocar x*2 por x<<1 é um exemplo de...",
+   "opcoes": [
+    "redução da strength",
+    "movimento de código",
+    "eliminação de variáveis de indução",
+    "array padding"
+   ],
+   "correta": 0,
+   "explicacao": "Operação cara trocada por uma barata."
+  },
+  {
+   "id": "mc-28",
+   "grupo": "Conceitos",
+   "tipo": "escolha",
+   "tema": "Conceitos",
+   "enunciado": "O teste que examina o código fonte é o...",
+   "opcoes": [
+    "clear box (white box)",
+    "black box",
+    "random",
+    "de regressão"
+   ],
+   "correta": 0,
+   "explicacao": "Black box não analisa o código."
+  },
+  {
+   "id": "mc-29",
+   "grupo": "Conceitos",
+   "tipo": "escolha",
+   "tema": "Conceitos",
+   "enunciado": "A injeção de erros serve para...",
+   "opcoes": [
+    "medir a qualidade dos testes",
+    "aumentar a performance",
+    "reduzir o consumo de energia",
+    "corrigir bugs automaticamente"
+   ],
+   "correta": 0,
+   "explicacao": "Vê-se a % de bugs injetados que os testes detetam."
+  },
+  {
+   "id": "mc-30",
+   "grupo": "Conceitos",
+   "tipo": "escolha",
+   "tema": "Conceitos",
+   "enunciado": "O tempo total de execução de um acelerador é...",
+   "opcoes": [
+    "taccel = tin + tx + tout",
+    "taccel = tCPU − tx",
+    "taccel = n·tCPU",
+    "taccel = tin × tout"
+   ],
+   "correta": 0,
+   "explicacao": "Entrada + computação + saída."
+  },
+  {
+   "id": "mc-31",
+   "grupo": "Conceitos",
+   "tipo": "escolha",
+   "tema": "Conceitos",
+   "enunciado": "O speedup de um acelerador num loop de n iterações é...",
+   "opcoes": [
+    "S = n(tCPU − taccel)",
+    "S = n(taccel − tCPU)",
+    "S = tCPU / n",
+    "S = taccel + tCPU"
+   ],
+   "correta": 0,
+   "explicacao": "Positivo = compensa."
+  },
+  {
+   "id": "mc-32",
+   "grupo": "Conceitos",
+   "tipo": "escolha",
+   "tema": "Conceitos",
+   "enunciado": "CPU: 450 ns para 100 ciclos. Acelerador: 2 ns de execução, 1 ns de leitura e 2 ns de escrita por ciclo. A aceleração foi vantajosa?",
+   "opcoes": [
+    "Não: o acelerador demora 500 ns",
+    "Sim: o acelerador demora 50 ns",
+    "Sim: o acelerador demora 5 ns",
+    "Não: o acelerador demora 4500 ns"
+   ],
+   "correta": 0,
+   "explicacao": "5 ns × 100 = 500 ns > 450 ns (exercício 1 dos slides)."
+  },
+  {
+   "id": "mc-33",
+   "grupo": "Conceitos",
+   "tipo": "escolha",
+   "tema": "Conceitos",
+   "enunciado": "Qual a solução indicada para os problemas de caching com aceleradores?",
+   "opcoes": [
+    "Atualização da cache",
+    "Aumentar a cache",
+    "Desligar a cache",
+    "Usar arquitetura de von Neumann"
+   ],
+   "correta": 0,
+   "explicacao": "O CPU pode ler um valor desatualizado da cache."
+  },
+  {
+   "id": "mc-34",
+   "grupo": "Conceitos",
+   "tipo": "escolha",
+   "tema": "Conceitos",
+   "enunciado": "O que gasta mais energia por operação?",
+   "opcoes": [
+    "Transferência de memória",
+    "Soma",
+    "Multiplicação",
+    "Leitura na SRAM"
+   ],
+   "correta": 0,
+   "explicacao": "33 ciclos contra 1 da soma."
+  },
+  {
+   "id": "mc-35",
+   "grupo": "Conceitos",
+   "tipo": "escolha",
+   "tema": "Conceitos",
+   "enunciado": "Num sistema multithreaded (non-blocking) com acelerador...",
+   "opcoes": [
+    "o CPU continua a trabalhar enquanto o acelerador computa",
+    "o CPU espera pelo acelerador",
+    "não pode haver acelerador",
+    "o acelerador espera pelo CPU"
+   ],
+   "correta": 0,
+   "explicacao": "No single-threaded o CPU espera."
+  },
+  {
+   "id": "r-m3",
+   "grupo": "Grupo 2 · Escolha as corretas",
+   "tipo": "afirmacoes",
+   "fonte": "Teste real · Moodle",
+   "tema": "Pergunta 3",
+   "valores": 2,
+   "instrucao": "Escolha até 2 respostas corretas. Cada resposta correta valerá 1 valor e cada resposta errada será descontado 0,5 valor.",
+   "enunciado": "Conjunto de instruções e CPUs.",
+   "afirmacoes": [
+    {
+     "v": true,
+     "texto": "Na arquitetura de computador de Harvard são permitidos dois fetches de memória simultâneos uma vez que a memória de dados e a memória de instruções são separadas.",
+     "porque": "Memórias e barramentos separados."
+    },
+    {
+     "v": false,
+     "texto": "O modelo de programação do ARM contém 16 registos (r0-r15), adicionalmente existe um registo especial de 32 bits designado por NZCV, que é automaticamente colocado durante todas as operações aritméticas, lógicas e deslocamento para o registo de estado do programa em curso.",
+     "porque": "O registo chama-se CPSR; NZCV são as flags dentro dele."
+    },
+    {
+     "v": false,
+     "texto": "Ao nível de prioridades de interrupções, Non-maskable interrupt (NMI) é um tipo de interrupção com prioridade inferior à interrupção em curso e não é reconhecida pelo CPU enquanto a interrupção corrente não estiver completa.",
+     "porque": "A NMI tem a prioridade mais alta e nunca é mascarada."
+    },
+    {
+     "v": true,
+     "texto": "Nas operações de cache, dizemos que houve um cache hit quando a localização requerida está na memória cache. Quando a localização não se encontra em cache, então dizemos que aconteceu um cache miss. Um cache miss pode ocorrer de modo compulsório (se o endereço ainda não foi acedido anteriormente).",
+     "porque": "Definições certas; o miss compulsório é o primeiro acesso."
+    },
+    {
+     "v": false,
+     "texto": "O pipeline do ARM7 possui um pipe de 3 estágios, fetch, run e idle. Permitindo que várias instruções sejam tratadas simultaneamente em diferentes estágios do ciclo.",
+     "porque": "São fetch, decode e execute."
+    }
+   ],
+   "tituloReal": "Pergunta 3 (2 val.)"
+  },
+  {
+   "id": "r-m4",
+   "grupo": "Grupo 3 · Verdadeiro ou falso",
+   "tipo": "vf",
+   "fonte": "Teste real · Moodle",
+   "tema": "Pergunta 4",
+   "valores": 2,
+   "rotulos": [
+    "Verdadeiro",
+    "Falso"
+   ],
+   "enunciado": "A engenharia concorrente mostra que a operação em diferentes tarefas simultaneamente permite reduzir o tempo de conceção dos sistemas embebidos. Escolha se as seguintes técnicas de engenharia concorrentes são Verdadeiras ou Falsas.",
+   "itens": [
+    {
+     "texto": "Cruzar equipas funcionais (multidisciplinares)",
+     "r": 0,
+     "porque": "Cross-functional teams."
+    },
+    {
+     "texto": "Realização do produto de forma concorrente (vários componentes de uma só vez)",
+     "r": 0,
+     "porque": "Concurrent product realization: projetar vários subsistemas ao mesmo tempo é o centro da técnica."
+    },
+    {
+     "texto": "Envolvimento dos fornecedores (maior capacidade de resposta)",
+     "r": 0,
+     "porque": "Early and continual supplier involvement."
+    },
+    {
+     "texto": "Gestão integrada do produto (todos os elementos são independentes, não tem de haver um responsável)",
+     "r": 1,
+     "porque": "Na gestão integrada há alguém responsável pelo projeto todo."
+    },
+    {
+     "texto": "Focalização na concorrência (ir ao encontro das necessidades)",
+     "r": 0,
+     "porque": "Pela descrição corresponde ao foco no cliente (ir ao encontro das necessidades). A palavra «concorrência» é estranha: confirma com o professor."
+    },
+    {
+     "texto": "Manter a informação em sigilo (sem partilha de informação)",
+     "r": 1,
+     "porque": "É o oposto da partilha incremental de informação."
+    }
+   ],
+   "tituloReal": "Pergunta 4 (2 val.)"
+  },
+  {
+   "id": "r-m5",
+   "grupo": "Grupo 4 · Assembly ARM",
+   "tipo": "aberta",
+   "fonte": "Teste real · Moodle",
+   "tema": "Pergunta 5",
+   "valores": 3,
+   "enunciado": "Considerando a arquitetura das instruções do ARM, escreva em código assembly comentado, a seguinte atribuição em C:\n\n<b>X = (a << 2) & (b * c)</b>",
+   "resolucao": "<div style=\"font-family:ui-monospace,Menlo,Consolas,monospace;font-size:13px\">ADR r4,a                ; endereço de a\nLDR r0,[r4]             ; r0 = a\nMOV r0,r0,LSL #2        ; r0 = a << 2\nADR r4,b                ; endereço de b\nLDR r1,[r4]             ; r1 = b\nADR r4,c                ; endereço de c\nLDR r2,[r4]             ; r2 = c\nMUL r3,r1,r2            ; r3 = b*c\nAND r0,r0,r3            ; r0 = (a<<2) & (b*c)\nADR r4,x                ; endereço de x\nSTR r0,[r4]             ; x = r0</div>\n\nCarregar a, deslocar 2 bits para a esquerda (LSL #2), carregar b e c, multiplicar, fazer o AND e guardar em x.",
+   "tituloReal": "Pergunta 5 (3 val.)"
+  },
+  {
+   "id": "r-m6",
+   "grupo": "Grupo 2 · Escolha as corretas",
+   "tipo": "afirmacoes",
+   "fonte": "Teste real · Moodle",
+   "tema": "Pergunta 6",
+   "valores": 2,
+   "instrucao": "Escolha até 2 respostas corretas. Cada resposta correta valerá 1 valor e cada resposta errada será descontado 0,5 valor.",
+   "enunciado": "Conceitos e técnicas de conceção de SETR.",
+   "afirmacoes": [
+    {
+     "v": false,
+     "texto": "Em Sistemas Embebidos em Tempo Real (SETR), as operações com restrições temporais podem classificar-se como, Soft real time, quando o não cumprimento das restrições causa a falha da ação do sistema.",
+     "porque": "Falha da ação é hard real time."
+    },
+    {
+     "v": false,
+     "texto": "Os projetos de SETR normalmente são desenvolvidos por equipas multidisciplinares complexas formadas por muitos elementos, com janelas de mercado até 1 ano e sem grande margem para falhas.",
+     "porque": "Slides: equipas de poucos elementos, janela de mercado de 6 meses."
+    },
+    {
+     "v": true,
+     "texto": "A utilização de lógica customizada na conceção de projetos de SETR (ex: FPGAs), requer menos energia que os microprocessadores, contudo, os microprocessadores são mais rápidos e mais eficientes, uma vez que são fortemente pipelined e utilizam tecnologia VLSI agressiva.",
+     "porque": "Paradoxo da performance + slide de energia."
+    },
+    {
+     "v": false,
+     "texto": "Os requisitos funcionais indicam o que o sistema deve realmente fazer, definem as suas iterações de tarefas e serviços para input/output. O tempo necessário para processar um input e a fiabilidade do sistema são 2 exemplos de requisitos deste tipo.",
+     "porque": "Tempo de processamento e fiabilidade são não funcionais."
+    },
+    {
+     "v": true,
+     "texto": "O ambiente de desenvolvimento de SETR é normalmente diferente da arquitetura da plataforma de destino/target do sistema. Um compilador cruzado permite gerar código para essa arquitetura específica (target) a partir de um ambiente de desenvolvimento genérico (host).",
+     "porque": "Host e target diferentes, daí o cross-compiler."
+    }
+   ],
+   "tituloReal": "Pergunta 6 (2 val.)"
+  },
+  {
+   "id": "r-m7",
+   "grupo": "Grupo 2 · Escolha as corretas",
+   "tipo": "afirmacoes",
+   "fonte": "Teste real · Moodle",
+   "tema": "Pergunta 7",
+   "valores": 2,
+   "instrucao": "Escolha até 2 respostas corretas. Cada resposta correta valerá 1 valor e cada resposta errada será descontado 0,5 valor.",
+   "enunciado": "Análise da performance de programas e multi-processadores.",
+   "afirmacoes": [
+    {
+     "v": false,
+     "texto": "Para medição da performance de programas de sistemas em tempo real, é imperativo considerar o tempo de execução no melhor caso, uma vez que é uma métrica para satisfação das restrições temporais.",
+     "porque": "É o pior caso."
+    },
+    {
+     "v": false,
+     "texto": "O cálculo do tempo de execução de um programa consiste no path do programa + o tempo de execução de cada instrução. As instruções condicionais \"IF\" são bons alvos para otimização do tempo de execução dos programas.",
+     "porque": "Os bons alvos de otimização são os loops."
+    },
+    {
+     "v": false,
+     "texto": "Duas das estratégias estudadas para validação e teste do programa são: Black box que consiste em examinar o código fonte para determinar se este funciona e Clear box, técnica esta que considera testes random e testes de regressão.",
+     "porque": "Estão trocadas."
+    },
+    {
+     "v": true,
+     "texto": "Na conceção de SETR, a utilização de sistemas multiprocessadores melhora o desempenho no processamento de I/O em tempo-real, podem consumir menos energia e melhorar o desempenho no streaming de dados (multimédia). Normalmente a partilha da computação supera o desempenho da computação singular.",
+     "porque": "Texto dos slides de multiprocessadores."
+    },
+    {
+     "v": true,
+     "texto": "Um acelerador é um elemento de processamento (PE) que surge no barramento do CPU, nas operações de acesso à memória principal durante o processo de aceleração, este pode provocar problemas de caching com o CPU. Normalmente, a solução para resolver este tipo de problema é considerar a atualização da cache.",
+     "porque": "Solução dos slides: atualização da cache."
+    }
+   ],
+   "tituloReal": "Pergunta 7 (2 val.)"
+  },
+  {
+   "id": "r-m8",
+   "grupo": "Grupo 5 · Cálculos",
+   "tipo": "aberta",
+   "fonte": "Teste real · Moodle",
+   "tema": "Pergunta 8",
+   "valores": 2,
+   "enunciado": "No que concerne à latência das interrupções do ARM, no pior caso de latência, existe um número mínimo de ciclos do relógio necessário para dar resposta a um pedido de interrupção:",
+   "alineas": [
+    {
+     "enunciado": "Número de ciclos para sincronizar o pedido externo",
+     "cotacao": 4,
+     "resolucao": "2 ciclos"
+    },
+    {
+     "enunciado": "Número de ciclos para completar a instrução em curso",
+     "cotacao": 4,
+     "resolucao": "20 ciclos (no máximo)"
+    },
+    {
+     "enunciado": "Número de ciclos para abortar dados",
+     "cotacao": 4,
+     "resolucao": "3 ciclos"
+    },
+    {
+     "enunciado": "Número de ciclos para entrar no estado de handling da interrupção",
+     "cotacao": 4,
+     "resolucao": "2 ciclos"
+    },
+    {
+     "enunciado": "Total de ciclos para dar resposta a uma interrupção (no pior caso)",
+     "cotacao": 4,
+     "resolucao": "2 + 20 + 3 + 2 = 27 ciclos"
+    }
+   ],
+   "tituloReal": "Pergunta 8 (2 val.)"
+  },
+  {
+   "id": "r-m9",
+   "grupo": "Grupo 5 · Cálculos",
+   "tipo": "aberta",
+   "fonte": "Teste real · Moodle",
+   "tema": "Pergunta 9",
+   "valores": 2,
+   "enunciado": "Calcule o tempo médio (Tav em nanossegundos) de acesso a uma memória multinível, com:\nTaxa de cache hit L1 de 20%;\nTaxa de cache miss 50%;\ntcache L1 = 4 ns; tcache L2 = 10 ns; tmain = 70 ns;\nTav = ?\n\nDeve dar uma resposta numérica, ex: 73.8ns",
+   "resolucao": "Seguindo o exercício resolvido nos slides (cache miss L2 de 60% → h2 = 40%), h2 = 1 − 0,5 = 0,5:\nTav = h1·tL1 + h2·tL2 + (1 − h1 − h2)·tmain\nTav = 0,2×4 + 0,5×10 + (1 − 0,2 − 0,5)×70 = 0,8 + 5 + 21 = 26,8 ns\n\nNota: se se interpretar o miss de 50% como a fração que vai à memória principal (h2 = 1 − 0,2 − 0,5 = 0,3), dá 0,8 + 3 + 35 = 38,8 ns. Como o enunciado é ambíguo, escreve a fórmula e diz que h2 usaste.",
+   "tituloReal": "Pergunta 9 (2 val.)"
+  },
+  {
+   "id": "r-p21",
+   "grupo": "Grupo 2 · Escolha as corretas",
+   "tipo": "afirmacoes",
+   "fonte": "Teste real · papel",
+   "tema": "2.1",
+   "valores": 2,
+   "instrucao": "Escolha as respostas corretas (circulando-as). Cada resposta correta valerá 1 valor e cada resposta incorreta descontará 0,5 valores. A seleção de todas como corretas implica a anulação da questão.",
+   "enunciado": "2.1 Conjunto de instruções e CPUs",
+   "afirmacoes": [
+    {
+     "v": false,
+     "texto": "Na arquitetura de computador de Von Neumann são permitidos dois fetches de memória simultâneos uma vez que a memória de dados e a memória de instruções são separadas.",
+     "porque": "É Harvard."
+    },
+    {
+     "v": false,
+     "texto": "O modelo de programação do ARM contem 32 registos (r0-r31), existe um registo especial, o CPSR (Current Program Status Register), que é automaticamente colocado durante todas as operações aritméticas, lógicas e deslocamento para o registo de estado do programa em curso.",
+     "porque": "São 16 registos (r0-r15). O resto está certo."
+    },
+    {
+     "v": true,
+     "texto": "ARM7 suporta 2 tipos de interrupções, Fast interrupt requests (FIQs) e Interrupt requests (IRQs). As FIQs são mais rápidas, permitem atalhar algumas etapas do handler.",
+     "porque": "FIQ = tratamento rápido e de baixa latência (tem registos próprios, o handler guarda menos coisas)."
+    },
+    {
+     "v": false,
+     "texto": "Nas operações de cache, dizemos que houve um cache miss quando a localização requerida está na memória cache. Quando a localização não se encontra na cache, então dizemos que aconteceu um cache hit. Um cache hit pode ocorrer compulsoriamente (se o endereço ainda não foi acedido anteriormente).",
+     "porque": "Hit e miss estão trocados."
+    },
+    {
+     "v": true,
+     "texto": "O pipeline do ARM7 possui um pipe de 3 estágios, fetch, decode e execute. Permitindo que várias instruções sejam tratadas simultaneamente em diferentes estágios do ciclo.",
+     "porque": "Certo."
+    }
+   ],
+   "tituloReal": "Questão 2.1 (2 val.)"
+  },
+  {
+   "id": "r-p22",
+   "grupo": "Grupo 2 · Escolha as corretas",
+   "tipo": "afirmacoes",
+   "fonte": "Teste real · papel",
+   "tema": "2.2",
+   "valores": 2,
+   "instrucao": "Escolha as respostas corretas (circulando-as). Cada resposta correta valerá 1 valor e cada resposta incorreta descontará 0,5 valores. A seleção de todas como corretas implica a anulação da questão.",
+   "enunciado": "2.2 Análise da performance de programas e multiprocessadores",
+   "afirmacoes": [
+    {
+     "v": false,
+     "texto": "Para medição da performance de programas de sistemas em tempo real, é imperativo considerar o tempo de execução no melhor caso, uma vez que é uma métrica para satisfação das restrições temporais.",
+     "porque": "É o pior caso."
+    },
+    {
+     "v": true,
+     "texto": "O cálculo do tempo de execução de um programa consiste no path do programa + o tempo de execução de cada instrução. Os loops são bons alvos para otimização.",
+     "porque": "Certo."
+    },
+    {
+     "v": false,
+     "texto": "Duas das estratégias estudadas para validação e teste do programa são: Black box que consiste em examinar o código fonte para determinar se este funciona e Clear box, técnica esta que considera testes random e testes de regressão.",
+     "porque": "Estão trocadas."
+    },
+    {
+     "v": true,
+     "texto": "Na conceção de SETR, a utilização de sistemas multiprocessadores melhora o desempenho no processamento de I/O em tempo-real, podem consumir menos energia e melhorar o desempenho no streaming de dados (multimédia). Normalmente a partilha da computação supera o desempenho da computação singular.",
+     "porque": "Certo."
+    },
+    {
+     "v": false,
+     "texto": "Um acelerador é um elemento de processamento (PE) que surge no barramento do CPU, contudo este pode provocar problemas de caching na sincronia com o CPU. Normalmente, se aumentar a capacidade da cache soluciona este problema.",
+     "porque": "A solução é a atualização da cache."
+    }
+   ],
+   "tituloReal": "Questão 2.2 (2 val.)"
+  },
+  {
+   "id": "r-p23",
+   "grupo": "Grupo 2 · Escolha as corretas",
+   "tipo": "afirmacoes",
+   "fonte": "Teste real · papel",
+   "tema": "2.3",
+   "valores": 2,
+   "instrucao": "Escolha as respostas corretas (circulando-as). Cada resposta correta valerá 1 valor e cada resposta incorreta descontará 0,5 valores. A seleção de todas como corretas implica a anulação da questão.",
+   "enunciado": "2.3 Técnicas de Design de Sistemas Embebidos",
+   "explicacao": "Esta parte (modelos de desenvolvimento e engenharia concorrente) não está nos objetivos deste ano. As respostas são a minha leitura do livro de Wolf: confirma com o professor se aparecer.",
+   "afirmacoes": [
+    {
+     "v": false,
+     "texto": "Dos vários modelos de desenvolvimento de projetos estudados, o modelo de refinamento sucessivo assume que o sistema é construído em várias etapas, cada uma das etapas é composta por 3 fases sendo elas, requisitos, conceção e teste.",
+     "porque": "Voltas com requisitos, construção e teste descrevem o modelo em espiral."
+    },
+    {
+     "v": false,
+     "texto": "A junção de equipas funcionais da mesma área disciplinar e a partilha incremental de informação entre equipas, são duas técnicas fulcrais de engenharia concorrente no desenvolvimento de Sistemas Embebidos em Tempo Real.",
+     "porque": "As equipas são multidisciplinares (cross-functional)."
+    },
+    {
+     "v": false,
+     "texto": "A metodologia co-design consiste em arquitetar o hardware e o software paralelamente para permitir implementar módulos independentes para uma maior facilidade de integração.",
+     "porque": "No co-design o hardware e o software são concebidos em conjunto, tendo em conta a interação entre eles, não como módulos independentes."
+    },
+    {
+     "v": true,
+     "texto": "No fluxo de conceção hierárquico, os sistemas embebidos devem ser desenvolvidos sobre múltiplos níveis de abstração, nomeadamente, Arquitetura do sistema; Sistemas de hardware e software e Componentes de hardware e software.",
+     "porque": "Certo."
+    },
+    {
+     "v": true,
+     "texto": "Os requisitos são uma descrição formal das necessidades do cliente, a sua consistência para que não se contradigam entre si e permitir que sejam modificados facilmente durante o processo de desenvolvimento são dois exemplos de bons requisitos a seguir para SETR.",
+     "porque": "Consistência e modificabilidade são qualidades de bons requisitos. Atenção que nos slides os requisitos são descritos em linguagem corrente."
+    }
+   ],
+   "tituloReal": "Questão 2.3 (2 val.)"
+  }
+ ]
+}

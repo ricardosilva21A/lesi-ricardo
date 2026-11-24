@@ -61,6 +61,9 @@ Cada banco é um ficheiro em `src/estudo/bancos/<nome>.json`. Aparece sozinho na
 
 - `correta` é o índice da opção certa, a contar do 0. As opções são baralhadas em cada tentativa.
 - `aberta` serve para esquemas e desenhos: mostra o enunciado, depois a resolução, e autoavalias.
+- `afirmacoes` é o formato «escolhe as corretas»: lista `afirmacoes` com `{ "v": true/false, "texto", "porque" }`. Cada certa escolhida vale 1, cada errada desconta 0,5, escolher todas anula. Com `mostrar` e `certas` (ex.: 5 e 2) o motor sorteia afirmações diferentes em cada tentativa.
+- `vf` é uma lista de afirmações para classificar: `rotulos` (por omissão Verdadeiro/Falso, mas pode ser ex. RISC/CISC), `itens` com `{ "texto", "r": índice do rótulo certo, "porque" }` e `mostrar` opcional.
+- As afirmações de `afirmacoes` e `vf` aparecem também no modo «Afirmações uma a uma».
 - Fórmulas em LaTeX entre `$...$` (escrever `\\` no JSON). Pode-se usar HTML, tabelas e SVG.
 - Põe mais perguntas do que o `n` de cada grupo para os testes modelo variarem.
 

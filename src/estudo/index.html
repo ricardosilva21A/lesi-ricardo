@@ -64,6 +64,21 @@
   .prof { border:1px solid var(--line); border-radius:12px; padding:10px; background:var(--bg); }
   .prof canvas { width:100%; border-radius:8px; background:#fff; margin-bottom:8px; display:block; }
   .prof .sub { font-size:13px; }
+  .inst { font-size:13px; color:var(--sub); margin:-6px 0 10px; }
+  .opt.multi .l::after { content:")"; }
+  .opt.falta { border-color:var(--ok); border-style:dashed; }
+  .vfrow { display:flex; gap:10px; align-items:center; justify-content:space-between; padding:9px 0; border-top:1px solid var(--line); }
+  .vfrow > span:first-child { flex:1; }
+  .vfb { display:flex; gap:6px; flex-shrink:0; }
+  .vfo { padding:7px 12px; font-size:13px; border:2px solid transparent; }
+  .vfo.sel { border-color:var(--acc); }
+  .vfo.ok { background:var(--okBg); border-color:var(--ok); }
+  .vfo.bad { background:var(--badBg); border-color:var(--bad); }
+  .vfo.falta { border:2px dashed var(--ok); }
+  .opt:disabled, .vfo:disabled { opacity:.8; }
+  .opt.ok:disabled, .opt.bad:disabled, .opt.falta:disabled, .vfo.ok:disabled, .vfo.bad:disabled, .vfo.falta:disabled { opacity:1; }
+  .lst { margin:0; padding-left:0; list-style:none; }
+  .lst li { margin:4px 0; }
 </style>
 </head>
 <body>
@@ -102,6 +117,23 @@
   if (!B) { draw(`<a href="./" class="sub">← Estudo</a><h1>Banco não encontrado</h1>`); return; }
   B.perguntas.forEach((q, i) => { q._id = q.id || `${bancoId}-${i}`; q.tipo = q.tipo || (q.opcoes ? "escolha" : "aberta"); });
   const porId = Object.fromEntries(B.perguntas.map(q => [q._id, q]));
+  // afirmações soltas (de perguntas "afirmacoes" e "vf") para treinar uma a uma
+  const soltas = [];
+  {
+    const vistos = new Set();
+    B.perguntas.forEach(q => {
+      if (q.tipo === "afirmacoes") q.afirmacoes.forEach((a, j) => {
+        if (vistos.has(a.texto)) return; vistos.add(a.texto);
+        soltas.push({ _id: `${q._id}#${j}`, tipo: "escolha", fixa: true, tema: q.tema, fonte: q.fonte, enunciado: a.texto, opcoes: ["Verdadeira", "Falsa"], correta: a.v ? 0 : 1, explicacao: a.porque || "" });
+      });
+      if (q.tipo === "vf") q.itens.forEach((a, j) => {
+        const rot = q.rotulos || ["Verdadeiro", "Falso"];
+        const key = q.enunciado + a.texto; if (vistos.has(key)) return; vistos.add(key);
+        soltas.push({ _id: `${q._id}#${j}`, tipo: "escolha", fixa: true, tema: q.tema, fonte: q.fonte, enunciado: `${q.enunciado}\n\n«${a.texto}»`, opcoes: rot, correta: a.r, explicacao: a.porque || "" });
+      });
+    });
+    soltas.forEach(x => porId[x._id] = x);
+  }
   const kErr = `erradas:${bancoId}`, kHist = `historico:${bancoId}`, kFeitas = `feitas:${bancoId}`;
   const erradas = () => store.get(kErr, []).filter(id => porId[id]);
   const marcar = (id, certo) => {
@@ -195,10 +227,34 @@
   const ativaCorrecoes = root => root.querySelectorAll(".prof[data-pdf]").forEach(x => { if (!x.dataset.on) { x.dataset.on = 1; mostraCorrecao(x, JSON.parse(x.dataset.c)); } });
 
   const prepara = q => {
+    if (q.tipo === "afirmacoes") {
+      let itens = q.afirmacoes.map((a, j) => ({ ...a, j }));
+      if (q.mostrar && q.mostrar < itens.length) {
+        const nv = Math.min(q.certas ?? 2, itens.filter(a => a.v).length);
+        const v = shuffle(itens.filter(a => a.v)).slice(0, nv), f = shuffle(itens.filter(a => !a.v)).slice(0, q.mostrar - nv);
+        itens = shuffle([...v, ...f]);
+      }
+      return { q, itens };
+    }
+    if (q.tipo === "vf") {
+      let itens = q.itens.map((a, j) => ({ ...a, j }));
+      if (q.mostrar && q.mostrar < itens.length) itens = shuffle(itens).slice(0, q.mostrar);
+      return { q, itens };
+    }
     if (q.tipo !== "escolha") return { q };
-    const ordem = shuffle(q.opcoes.map((_, i) => i));
+    const ordem = q.fixa ? q.opcoes.map((_, i) => i) : shuffle(q.opcoes.map((_, i) => i));
     return { q, ordem, correta: ordem.indexOf(q.correta) };
   };
+  const autoTipo = q => ["escolha", "afirmacoes", "vf"].includes(q.tipo);
+  // nota de uma pergunta "afirmacoes": +1 por certa escolhida, -0,5 por errada, todas escolhidas anula; fração de 0 a 1
+  const notaAfirm = (it, sel) => {
+    const nv = it.itens.filter(a => a.v).length || 1;
+    if (sel.size && sel.size === it.itens.length) return 0;
+    let p = 0; sel.forEach(i => p += it.itens[i].v ? 1 : -0.5);
+    return Math.max(0, p) / nv;
+  };
+  const fbAfirm = it => `<ul class="lst">${it.itens.map((a, i) => `<li><b>${"abcdefgh"[i]})</b> ${a.v ? "✅ Verdadeira" : "❌ Falsa"}${a.porque ? ": " + esc(a.porque) : ""}</li>`).join("")}</ul>${it.q.explicacao ? `<div style="margin-top:6px">${esc(it.q.explicacao)}</div>` : ""}`;
+  const fbVf = it => { const rot = it.q.rotulos || ["Verdadeiro", "Falso"]; return `<ul class="lst">${it.itens.map((a, i) => `<li><b>${i + 1}.</b> ${esc(rot[a.r])}${a.porque ? ". " + esc(a.porque) : ""}</li>`).join("")}</ul>`; };
 
   function menu() {
     app.classList.remove("largo");
@@ -219,6 +275,7 @@
         <div class="modes">${B.fichas.map((t, i) => `<button class="mode" data-ficha="${i}"><b>📘 ${esc(t.titulo)}</b><span>${t.ids.length} exercícios</span></button>`).join("")}</div>` : ""}
       <h2>${reais.length ? ((B.fichas || []).length ? "3. " : "2. ") : ""}Treinar</h2>
       <div class="modes">
+        ${soltas.length ? `<button class="mode" data-m="soltas"><b>✅ Afirmações uma a uma</b><span>${soltas.length} afirmações: verdadeira ou falsa? Correção imediata com o porquê. As que erras voltam no fim.</span></button>` : ""}
         <button class="mode" data-m="modelo"><b>📝 Teste modelo</b><span>${estrutura.map(g => `${esc(g.grupo)}${g.cotacao ? ` (${fmtN(g.cotacao)} val.)` : ""}`).join(" · ")}. Exercícios novos em cada tentativa.</span></button>
         <button class="mode" data-m="treino" ${nEsc ? "" : "disabled"}><b>🎯 Conceitos (escolha múltipla)</b><span>${nEsc} perguntas uma a uma, com correção imediata. As que erras voltam no fim.</span></button>
         <button class="mode" data-m="grupo"><b>🧩 Treinar um grupo</b><span>Só exercícios do grupo onde tens mais dificuldade.</span></button>
@@ -229,7 +286,7 @@
     `);
     app.querySelectorAll("[data-real]").forEach(b => b.onclick = () => {
       const t = reais[+b.dataset.real];
-      const grupos = t.ids.map(id => porId[id]).filter(Boolean).map(q => ({ grupo: q.grupo, cotacao: somaCot(q) / 10, itens: [prepara(q)] }));
+      const grupos = t.ids.map(id => porId[id]).filter(Boolean).map(q => ({ grupo: q.tituloReal || q.grupo, cotacao: q.valores || somaCot(q) / 10, itens: [prepara(q)] }));
       runTest(grupos, t.titulo);
     });
     app.querySelectorAll("[data-ficha]").forEach(b => b.onclick = () => {
@@ -239,6 +296,7 @@
     app.querySelectorAll("[data-m]").forEach(b => b.onclick = () => ({
       modelo: () => testeModelo(),
       treino: () => treino(B.perguntas.filter(q => q.tipo === "escolha")),
+      soltas: () => treino(soltas),
       grupo: escolherGrupo,
       erradas: () => {
         if (errAb.length) runTest(errAb.map(id => porId[id]).map(q => ({ grupo: q.grupo, cotacao: grupoCot(q.grupo), itens: [prepara(q)] })), "Rever falhados", () => errEsc.length && treino(errEsc.map(id => porId[id])));
@@ -295,15 +353,26 @@
     app.querySelector("#sair").onclick = menu;
     app.querySelectorAll(".opt").forEach(b => b.onclick = () => {
       const k = b.dataset.k;
+      if (b.dataset.multi) { b.classList.toggle("sel"); resp[k] = new Set([...app.querySelectorAll(`.opt.sel[data-k="${k}"]`)].map(x => +x.dataset.i)); return; }
       app.querySelectorAll(`.opt[data-k="${k}"]`).forEach(x => x.classList.remove("sel"));
       b.classList.add("sel"); resp[k] = +b.dataset.i;
+    });
+    app.querySelectorAll(".vfo").forEach(b => b.onclick = () => {
+      const k = b.dataset.k, j = b.dataset.j;
+      app.querySelectorAll(`.vfo[data-k="${k}"][data-j="${j}"]`).forEach(x => x.classList.toggle("sel", x === b));
+      (resp[k] = resp[k] || {})[j] = +b.dataset.v;
     });
     app.querySelector("#entregar").onclick = () => corrigir(grupos, resp, titulo, depois, repetir);
   }
 
   function pergunta(it, k, num) {
     const q = it.q;
-    const corpo = q.tipo === "escolha"
+    const rot = q.rotulos || ["V", "F"];
+    const corpo = q.tipo === "afirmacoes"
+      ? `<div class="inst">${esc(q.instrucao || "Escolhe as afirmações corretas. Cada certa vale 1 valor, cada errada desconta 0,5. Escolher todas anula a pergunta.")}</div>` + it.itens.map((a, i) => `<button class="opt multi" data-multi="1" data-k="${k}" data-i="${i}"><span class="l">${"abcdefgh"[i]}</span><span>${esc(a.texto)}</span></button>`).join("")
+      : q.tipo === "vf"
+      ? it.itens.map((a, i) => `<div class="vfrow"><span>${esc(a.texto)}</span><span class="vfb">${rot.map((r, v) => `<button class="vfo" data-k="${k}" data-j="${i}" data-v="${v}">${esc(r)}</button>`).join("")}</span></div>`).join("")
+      : q.tipo === "escolha"
       ? it.ordem.map((oi, i) => `<button class="opt" data-k="${k}" data-i="${i}"><span class="l">${L[i]}</span><span>${esc(q.opcoes[oi])}</span></button>`).join("")
       : q.alineas
         ? q.alineas.map((a, j) => `<div class="al" id="al-${k}-${j}"><div><span class="an">${num}.${j + 1}</span><span class="ae">${esc(a.enunciado)}</span><span class="ac">(${a.cotacao} pts)</span></div><div class="fb"></div></div>`).join("")
@@ -318,7 +387,7 @@
   }
 
   function corrigir(grupos, resp, titulo, depois, repetir) {
-    app.querySelectorAll(".opt").forEach(b => b.disabled = true);
+    app.querySelectorAll(".opt, .vfo").forEach(b => b.disabled = true);
     app.querySelector(".sticky").remove();
     const abertas = [];
     let certas = 0, total = 0, pontos = 0, max = 0;
@@ -336,6 +405,27 @@
         marcar(q._id, ok);
         card.querySelectorAll(".opt").forEach((b, i) => { if (i === it.correta) b.classList.add("ok"); else if (i === r) b.classList.add("bad"); });
         card.querySelector(".fb").innerHTML = `<div class="expl">${fbEscolha(it, r)}</div>`;
+      } else if (q.tipo === "afirmacoes") {
+        total++;
+        const sel = resp[k] || new Set(), fr = notaAfirm(it, sel);
+        if (fr === 1) certas++;
+        pontos += valorQ * fr;
+        marcar(q._id, fr === 1);
+        card.querySelectorAll(".opt").forEach((b, i) => { const a = it.itens[i]; if (a.v) b.classList.add(sel.has(i) ? "ok" : "falta"); else if (sel.has(i)) b.classList.add("bad"); });
+        const nv = it.itens.filter(a => a.v).length;
+        card.querySelector(".fb").innerHTML = `<div class="expl"><b>${fmtN(fr * nv)} / ${nv} valores</b>${sel.size === it.itens.length ? " (escolheste todas: anulada)" : ""}${fbAfirm(it)}</div>`;
+      } else if (q.tipo === "vf") {
+        total++;
+        const r = resp[k] || {}, n = it.itens.length;
+        let c = 0;
+        it.itens.forEach((a, i) => {
+          if (r[i] === a.r) c++;
+          card.querySelectorAll(`.vfo[data-j="${i}"]`).forEach(b => { const v = +b.dataset.v; if (v === a.r) b.classList.add(r[i] === v ? "ok" : "falta"); else if (r[i] === v) b.classList.add("bad"); });
+        });
+        if (c === n) certas++;
+        pontos += valorQ * c / n;
+        marcar(q._id, c === n);
+        card.querySelector(".fb").innerHTML = `<div class="expl"><b>${c}/${n} certas</b>${fbVf(it)}</div>`;
       } else if (q.alineas) {
         const sc = somaCot(q);
         q.alineas.forEach((a, j) => {
@@ -360,7 +450,7 @@
       const nota = max ? (pontos + pa) / max * 20 : 0;
       const falta = abertas.filter(a => auto[a.key] === undefined).length;
       resumo.innerHTML = `<div class="sub">Resultado</div><div class="score">${fmtN(nota)}<span class="sub" style="font-size:18px"> / 20</span></div>
-        <div class="sub">${total ? `Escolhas múltiplas: ${certas}/${total} · ` : ""}${abertas.length ? (falta ? `faltam ${falta} alíneas por autoavaliar` : "tudo autoavaliado") : ""}</div>
+        <div class="sub">${total ? `Perguntas de resposta fechada totalmente certas: ${certas}/${total} · ` : ""}${abertas.length ? (falta ? `faltam ${falta} alíneas por autoavaliar` : "tudo autoavaliado") : ""}</div>
         <div class="row" style="margin-top:12px">${repetir ? `<button class="primary" id="outro">Gerar outro</button>` : ""}${depois ? `<button id="depois">Continuar</button>` : ""}<button id="voltar">Menu</button></div>`;
       if (repetir) resumo.querySelector("#outro").onclick = repetir;
       if (depois) resumo.querySelector("#depois").onclick = depois;
@@ -432,7 +522,9 @@
       ${mostrar.map((q, i) => `
         <div class="card q"><div class="n">${q.tema ? esc(q.tema) : ""}${fonteHtml(q)}</div><div class="e">${esc(q.enunciado)}</div>
         ${q.imagem ? `<img src="${q.imagem}" alt="" style="background:#fff;padding:6px">` : ""}
-        ${q.tipo === "escolha" ? q.opcoes.map((o, j) => `<div class="opt ${j === q.correta ? "ok" : ""}"><span class="l">${L[j]}</span><span>${esc(o)}${j !== q.correta && q.porque && q.porque[j] ? `<br><small class="sub">✗ ${esc(q.porque[j])}</small>` : ""}</span></div>`).join("") + (q.explicacao ? `<div class="expl">${esc(q.explicacao)}</div>` : "")
+        ${q.tipo === "afirmacoes" ? `<div class="expl" style="white-space:normal"><ul class="lst">${q.afirmacoes.map(a => `<li>${a.v ? "✅" : "❌"} ${esc(a.texto)}${a.porque ? `<br><small class="sub">${esc(a.porque)}</small>` : ""}</li>`).join("")}</ul></div>` : ""}
+        ${q.tipo === "vf" ? `<div class="expl" style="white-space:normal"><ul class="lst">${q.itens.map(a => `<li>«${esc(a.texto)}» → <b>${esc((q.rotulos || ["Verdadeiro", "Falso"])[a.r])}</b>${a.porque ? ": " + esc(a.porque) : ""}</li>`).join("")}</ul></div>` : ""}
+        ${q.tipo === "afirmacoes" || q.tipo === "vf" ? "" : q.tipo === "escolha" ? q.opcoes.map((o, j) => `<div class="opt ${j === q.correta ? "ok" : ""}"><span class="l">${L[j]}</span><span>${esc(o)}${j !== q.correta && q.porque && q.porque[j] ? `<br><small class="sub">✗ ${esc(q.porque[j])}</small>` : ""}</span></div>`).join("") + (q.explicacao ? `<div class="expl">${esc(q.explicacao)}</div>` : "")
           : q.alineas ? q.alineas.map((a, j) => `<div class="al"><span class="an">${j + 1}.</span><span class="ae">${esc(a.enunciado)}</span><details><summary class="sub" style="cursor:pointer;margin-top:6px">Ver resolução</summary><div class="res">${esc(a.resolucao)}</div></details></div>`).join("")
           : `<div class="res">${esc(q.resolucao || "")}</div>${q.correcao ? `<details><summary class="sub" style="cursor:pointer;margin-top:8px">Ver a correção da professora</summary>${blocoCorrecao(q.correcao)}</details>` : ""}`}
         </div>`).join("")}

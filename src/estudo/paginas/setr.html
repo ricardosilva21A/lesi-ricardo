@@ -1,0 +1,288 @@
+<!doctype html>
+<html lang="pt-PT">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light dark">
+<meta name="robots" content="noindex, nofollow">
+<title>SETR · Resumo para o teste</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📚</text></svg>">
+<style>
+  :root { --bg:#f6f6f8; --card:#fff; --txt:#111116; --sub:#6b6b76; --line:#e6e6ec; --chip:#ececf1; --acc:#e5484d; --r:16px; }
+  @media (prefers-color-scheme: dark) { :root { --bg:#0b0b0f; --card:#16161c; --txt:#f2f2f5; --sub:#9a9aa6; --line:#26262f; --chip:#22222a; } }
+  * { box-sizing:border-box; }
+  body { margin:0; background:var(--bg); color:var(--txt); font:16px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Inter,sans-serif; }
+  .wrap { max-width:780px; margin:0 auto; padding:max(20px,env(safe-area-inset-top)) 16px 80px; }
+  a { color:inherit; }
+  h1 { font-size:26px; letter-spacing:-.02em; margin:6px 0 2px; }
+  h2 { font-size:19px; margin:30px 0 10px; padding-top:8px; border-top:3px solid var(--acc); }
+  h3 { font-size:15px; margin:16px 0 6px; }
+  .sub { color:var(--sub); margin:0; }
+  .card { background:var(--card); border:1px solid var(--line); border-radius:var(--r); padding:14px 16px; margin-bottom:10px; }
+  ul { margin:6px 0; padding-left:20px; }
+  li { margin:3px 0; }
+  .f { font-family:ui-monospace,Menlo,Consolas,monospace; background:var(--chip); padding:2px 6px; border-radius:6px; font-size:14px; white-space:nowrap; }
+  pre { font-family:ui-monospace,Menlo,Consolas,monospace; font-size:13px; background:var(--chip); padding:10px 12px; border-radius:10px; overflow:auto; margin:8px 0; }
+  table { width:100%; border-collapse:collapse; font-size:14px; margin:6px 0; }
+  th, td { text-align:left; padding:6px 6px; border-bottom:1px solid var(--line); vertical-align:top; }
+  th { color:var(--sub); font-weight:600; }
+  .armadilha { border-left:4px solid var(--acc); padding:8px 12px; background:var(--card); border-radius:8px; margin:8px 0; font-size:15px; }
+  nav { display:flex; flex-wrap:wrap; gap:6px; margin:14px 0; }
+  nav a { font-size:13px; text-decoration:none; background:var(--chip); padding:6px 10px; border-radius:999px; }
+  .top { display:flex; gap:8px; flex-wrap:wrap; margin-top:12px; }
+  .btn { font-size:14px; text-decoration:none; background:var(--txt); color:var(--bg); padding:10px 16px; border-radius:999px; font-weight:500; }
+  @media print { nav, .top { display:none; } body { background:#fff; color:#000; } .card { break-inside:avoid; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <a href="/estudo/?banco=setr-t" class="sub">← Treinar SETR</a>
+  <h1>SETR · Resumo para o teste</h1>
+  <p class="sub">Teste a 9 de dezembro de 2026. Segue a lista «Matéria para teste de SETR» e os slides do prof. Pedro Cunha. Componente teórica vale 40%, mínimo 8 valores.</p>
+  <div class="top"><a class="btn" href="/estudo/?banco=setr-t">📝 Fazer um teste modelo</a></div>
+  <nav>
+    <a href="#ohm">Ohm</a><a href="#kirchhoff">Kirchhoff</a><a href="#rlc">RLC</a><a href="#se">Sistemas embebidos</a><a href="#req">Requisitos</a>
+    <a href="#isa">Instruction set</a><a href="#asm">Assembly ARM</a><a href="#int">Interrupções</a><a href="#cache">Caches</a><a href="#cpu">Performance CPU</a>
+    <a href="#prog">Programas</a><a href="#multi">Multiprocessadores</a><a href="#formato">Formato do teste</a>
+  </nav>
+
+  <h2 id="formato">Como costuma ser o teste</h2>
+  <div class="card">
+    <p>Pelas fotos de dois testes anteriores:</p>
+    <ul>
+      <li><b>Escolhe as corretas</b> em blocos de 5 afirmações (a a e), normalmente 2 certas. Cada certa +1, cada errada −0,5, escolher todas anula. Blocos: «Conjunto de instruções e CPUs», «Análise da performance e multiprocessadores», «Conceitos e técnicas de conceção de SETR».</li>
+      <li><b>Verdadeiro/falso</b> numa lista (ex.: técnicas de engenharia concorrente).</li>
+      <li><b>Assembly ARM comentado</b> a partir de uma atribuição em C (3 valores).</li>
+      <li><b>Cálculos</b>: latência de interrupções do ARM, tempo médio de acesso à memória multinível.</li>
+      <li>Provavelmente circuitos (Ohm e Kirchhoff) nas perguntas que não aparecem nas fotos.</li>
+    </ul>
+    <div class="armadilha">As afirmações falsas são quase sempre uma verdadeira com <b>uma</b> palavra trocada: von Neumann ↔ Harvard, melhor ↔ pior caso, black ↔ clear box, hit ↔ miss, hard ↔ soft, 16 ↔ 32 registos, decode/execute ↔ run/idle, loops ↔ ifs, «atualização da cache» ↔ «aumentar a cache». Lê cada palavra.</div>
+  </div>
+
+  <h2 id="ohm">Lei de Ohm Ω</h2>
+  <div class="card">
+    <p><span class="f">E = R × I</span> (tensão = resistência × corrente). Pirâmide: <span class="f">I = E / R</span>, <span class="f">R = E / I</span>.</p>
+    <table><tr><th>Grandeza</th><th>Símbolo</th><th>Unidade</th><th>Função</th></tr>
+      <tr><td>Tensão</td><td>E</td><td>volt (V)</td><td>pressão que desencadeia o fluxo de eletrões</td></tr>
+      <tr><td>Corrente</td><td>I</td><td>ampere (A)</td><td>fluxo de eletrões</td></tr>
+      <tr><td>Resistência</td><td>R</td><td>ohm (Ω)</td><td>inibidor do fluxo</td></tr></table>
+    <ul>
+      <li>Exemplos dos slides: 12 V / 6 Ω = 2 A; 24 V / 6 A = 4 Ω; 5 A × 8 Ω = 40 V; 10 Ω × 1 A = 10 V; 1,5 V / 1,5 mA = 1000 Ω (<b>mA = 10⁻³ A</b>).</li>
+      <li>Corrente mais alta do que o normal: resistência diminuiu ou tensão aumentou. Mais baixa (DC): tensão diminuiu ou resistência aumentou (ligações soltas, corrosão, componentes danificados).</li>
+      <li>Potência (lei de Joule): <span class="f">P = R × I²</span> = <span class="f">V × I</span>.</li>
+      <li>Série: <span class="f">Req = R1 + R2 + …</span>, mesma corrente. Paralelo: mesma tensão, <span class="f">1/Req = 1/R1 + 1/R2 + …</span>.</li>
+    </ul>
+  </div>
+
+  <h2 id="kirchhoff">Leis de Kirchhoff</h2>
+  <div class="card">
+    <ul>
+      <li><b>1ª lei, dos nós (correntes)</b>: soma das correntes que chegam a um nó = soma das que saem. Conservação da <b>carga</b>.</li>
+      <li><b>2ª lei, das malhas (tensões)</b>: soma dos potenciais numa malha fechada = 0. Conservação da <b>energia</b>.</li>
+      <li>Ao contrário da lei de Ohm (âmbito: a resistência), as leis de Kirchhoff dão as regras das associações de componentes. Juntas resolvem o circuito.</li>
+    </ul>
+    <h3>Nós, ramos e malhas</h3>
+    <ul>
+      <li><b>Nó</b>: onde o circuito ramifica (mais de um caminho para a corrente).</li>
+      <li><b>Ramo</b>: trecho entre dois nós consecutivos; a corrente é constante ao longo dele.</li>
+      <li><b>Malha</b>: caminho fechado que começa e acaba no mesmo nó.</li>
+    </ul>
+    <h3>Aplicar a 2ª lei</h3>
+    <ol>
+      <li>Escolher um sentido arbitrário para a corrente (se sair negativa, o sentido real é o contrário).</li>
+      <li>Escolher um sentido para percorrer cada malha.</li>
+      <li>Somar: resistência percorrida a favor da corrente <span class="f">+R·I</span>, contra <span class="f">−R·I</span>; gerador: se se entra pelo terminal negativo, a tensão entra com sinal −.</li>
+    </ol>
+    <p>Barra comprida = polo +. <b>Gerador</b>: corrente entra pelo − e sai pelo + (ganha energia). <b>Recetor</b>: entra pelo + e sai pelo − (perde energia).</p>
+    <pre>Duas malhas com R3 no ramo do meio (i3 = i1 + i2):
+E1 = R1·i1 + R3·(i1 + i2)
+E2 = R2·i2 + R3·(i1 + i2)   → resolver o sistema</pre>
+  </div>
+
+  <h2 id="rlc">Condensadores, bobines e circuitos RLC</h2>
+  <div class="card">
+    <ul>
+      <li><b>Condensador</b>: armazena energia num campo <b>elétrico</b> (capacitância, farads). Filtra quedas e picos; cerâmico 100 nF para desacoplamento; eletrolíticos guardam mais carga e são polarizados.</li>
+      <li><b>Bobine (indutor)</b>: armazena energia num campo <b>magnético</b>; opõe-se a variações de corrente (Lenz); tensão induzida pela lei de Faraday. Indutância L em henries (H). <span class="f">Z = jωL</span>.</li>
+      <li><b>Circuito RLC</b>: resistência, indutor e condensador em <b>série ou paralelo</b>. Oscilador harmónico para a corrente, ressoa como um LC. A resistência aumenta o <b>amortecimento</b> e reduz a frequência de ressonância de pico. O RLC série resolve-se com a lei das tensões (KVL); o paralelo é o dual.</li>
+    </ul>
+  </div>
+
+  <h2 id="se">Sistemas embebidos e de tempo real</h2>
+  <div class="card">
+    <p><b>Definição</b>: qualquer dispositivo que inclui um computador programável mas que <b>não é um computador de propósito geral</b>. Tira partido da aplicação para otimizar o projeto e não precisa de todas as características de propósito geral. <b>Arquitetura</b>: CPU + memória, com input e output analógicos.</p>
+    <h3>Características</h3>
+    <ul>
+      <li>Funcionalidade sofisticada (algoritmos múltiplos, interfaces sofisticadas).</li>
+      <li>Operação em tempo real; muitos sistemas são <b>multi-rate</b>.</li>
+      <li>Baixo custo de fabrico (memória limitada, CPU de baixa frequência) e baixo consumo.</li>
+      <li>Equipas <b>pequenas</b>, prazos apertados: janela de mercado de <b>6 meses</b>, pouco espaço para falhas.</li>
+    </ul>
+    <h3>Restrições temporais</h3>
+    <table><tr><th>Hard real time</th><td>não cumprir causa a <b>falha da ação</b> (controlo de voo)</td></tr>
+      <tr><th>Soft real time</th><td>não cumprir causa <b>redução da performance</b> (multimédia)</td></tr></table>
+    <h3>Performance</h3>
+    <ul>
+      <li>Propósito geral: throughput médio. Tempo real: <b>cumprir as restrições</b>; terminar depois do deadline pode ser igual a não executar.</li>
+      <li>Analisa-se a vários níveis: CPU, plataforma, programa, tarefas, multiprocessadores.</li>
+      <li><b>Paradoxo</b>: os microprocessadores usam mais lógica do que a lógica customizada, mas são mais rápidos (fortemente pipelined, grandes equipas, VLSI agressiva). A lógica customizada (FPGA) gasta menos energia; sistemas heterogéneos juntam as duas.</li>
+    </ul>
+    <h3>Objetivos de conceção</h3>
+    <p>Performance (velocidade, restrições temporais); funcionalidade e interface; custo de fabrico; consumo de energia; outros (dimensão, volume, materiais).</p>
+    <h3>Níveis de abstração (de cima para baixo)</h3>
+    <p><b>Requisitos → Especificação → Arquitetura → Design de componentes → Integração no sistema.</b> Top-down começa no mais abstrato; bottom-up começa em componentes pequenos; na prática usam-se as duas. Em cada nível analisa-se e refina-se o design.</p>
+    <h3>Técnicas de design (só em testes antigos)</h3>
+    <ul>
+      <li>Espiral: o sistema é construído várias vezes, cada volta com requisitos, construção e teste. Refinamento sucessivo: protótipo grosseiro e versões sucessivamente refinadas.</li>
+      <li>Engenharia concorrente: equipas multidisciplinares, realização concorrente, partilha incremental de informação, gestão integrada (com responsável), fornecedores e cliente envolvidos cedo.</li>
+      <li>Compilador cruzado: gera código para o target a partir do host.</li>
+    </ul>
+  </div>
+
+  <h2 id="req">Requisitos</h2>
+  <div class="card">
+    <ul>
+      <li><b>Requisitos</b>: descrição em linguagem corrente das necessidades do utilizador (clientes, marketing, protótipos).</li>
+      <li><b>Funcionais</b>: output como função do input (o que o sistema faz).</li>
+      <li><b>Não funcionais</b>: tempo de processamento, tamanho, peso, consumo de energia, fiabilidade, custo.</li>
+      <li><b>Formulário</b>: nome, propósito, inputs, outputs, funções, performance, custo de fabrico, consumo de energia, dimensão/peso.</li>
+      <li>Bons requisitos: corretos, não ambíguos, completos, verificáveis, <b>consistentes</b> (não se contradizem), <b>modificáveis</b>, rastreáveis.</li>
+      <li><b>Especificação</b>: mais precisa, <b>não implica arquitetura</b>, pode ser executável ou matemática.</li>
+    </ul>
+  </div>
+
+  <h2 id="isa">Instruction set</h2>
+  <div class="card">
+    <table><tr><th></th><th>von Neumann</th><th>Harvard</th></tr>
+      <tr><td>Memória</td><td>dados e instruções na mesma</td><td>separadas</td></tr>
+      <tr><td>Barramentos</td><td>partilhados</td><td>duplicados (sincronização mais complexa)</td></tr>
+      <tr><td>Fetches</td><td>um de cada vez</td><td><b>dois simultâneos</b></td></tr>
+      <tr><td>Notas</td><td>registos PC, IR, gerais</td><td>sem código adaptativo; usada pelos DSPs (mais largura de banda, mais previsível)</td></tr></table>
+    <table><tr><th>RISC</th><td>acesso à memória só por <b>load/store</b>; instruções <b>pipelinable</b> (ex.: ARM)</td></tr>
+      <tr><th>CISC</th><td>muitos <b>modos de endereçamento</b> e muitas <b>operações</b> (ex.: x86)</td></tr></table>
+    <h3>Linguagem assembly (características)</h3>
+    <ul><li>Uma instrução por linha; labels na 1ª coluna; instruções nas colunas seguintes; comentários com <b>;</b> até ao fim da linha.</li>
+      <li>Pseudo-operações (PLACE, EQU, WORD, STRING, TABLE): não geram código executável.</li></ul>
+    <h3>ARM</h3>
+    <ul>
+      <li>16 registos <b>r0 a r15</b> (r15 = PC, r14 = link) + <b>CPSR</b> com as flags <b>N</b>egativo, <b>Z</b>ero, <b>C</b>arry, o<b>V</b>erflow. Ex.: −1 + 1 = 0 → NZCV = 0110.</li>
+      <li>Word de 32 bits; little ou big-endian (configura-se no arranque).</li>
+      <li>CMP, CMN, TST, TEQ só mexem nas flags. Logical shift preenche com 0, arithmetic com 1.</li>
+      <li><span class="f">LDR r0,[r1,#16]</span> lê de r1+16; <span class="f">LDR r0,[r1,#16]!</span> e depois r1 += 16; <span class="f">LDR r0,[r1],#16</span> lê de r1 e depois r1 += 16.</li>
+      <li>Sub-rotinas: <span class="f">BL foo</span> guarda o PC em r14; volta com <span class="f">MOV r15,r14</span>. Todas as instruções podem ser condicionais (EQ, NE, LT, GE, GT, LE…).</li>
+    </ul>
+  </div>
+
+  <h2 id="asm">Receita para o assembly</h2>
+  <div class="card">
+    <pre>; z = (a << 2) | (b & 15);   (exemplo dos slides)
+ADR r4,a          ; endereço de a
+LDR r0,[r4]       ; r0 = a
+MOV r0,r0,LSL #2  ; r0 = a << 2
+ADR r4,b          ; endereço de b
+LDR r1,[r4]       ; r1 = b
+AND r1,r1,#15     ; r1 = b & 15
+ORR r1,r0,r1      ; r1 = (a<<2) | (b&15)
+ADR r4,z          ; endereço de z
+STR r1,[r4]       ; z = r1</pre>
+    <table><tr><th>C</th><th>ARM</th></tr>
+      <tr><td>+  −  *</td><td>ADD, SUB, MUL</td></tr>
+      <tr><td>&amp;  |  ^  ~</td><td>AND, ORR, EOR, MVN</td></tr>
+      <tr><td>&lt;&lt; n, &gt;&gt; n</td><td>MOV r0,r0,LSL #n / LSR #n (ASR com sinal)</td></tr>
+      <tr><td>if (a &lt; b)</td><td>CMP r0,r1 + BGE senao (salta com a condição <b>contrária</b>)</td></tr></table>
+  </div>
+
+  <h2 id="int">CPUs: interrupções I/O</h2>
+  <div class="card">
+    <ul>
+      <li>A interrupção permite a um dispositivo alterar o fluxo de controlo do CPU e chamar uma sub-rotina (<b>ISR</b>), guardando o endereço de retorno.</li>
+      <li><b>Interface físico</b>: CPU e dispositivo ligados pelo barramento; handshake: o dispositivo faz o pedido, o CPU reconhece (acknowledge) quando puder.</li>
+      <li><b>Prioridades</b> (quem acede primeiro) e <b>vetores</b> (que código é chamado) são ortogonais.</li>
+      <li><b>Masking</b>: as de prioridade <b>inferior</b> à atual não são reconhecidas até esta acabar. <b>NMI</b>: prioridade máxima, nunca mascarada, usada para power-down.</li>
+      <li><b>Sequência</b>: CPU reconhece (ACK) → dispositivo envia o vetor → CPU chama o handler → software processa → CPU restaura o estado do foreground.</li>
+      <li><b>Exceção</b>: erro detetado internamente, síncrona com as instruções mas imprevisível. <b>Trap</b>: exceção gerada por instrução (SWI no ARM, entra no modo supervisor).</li>
+      <li>ARM7: <b>FIQ</b> (rápida, baixa latência) tem prioridade sobre <b>IRQ</b> (geral). CPU salva o PC, copia CPSR → SPSR, força o PC para o vetor. O handler restaura PC e CPSR.</li>
+      <li>Overhead: tempo do handler, mecanismo, save/restore de registos, pipeline, cache.</li>
+    </ul>
+    <pre>Latência no pior caso (ARM) = 27 ciclos
+  2  sincronizar o pedido externo
+ 20  completar a instrução em curso (até)
+  3  abortar dados
+  2  entrar no estado de handling</pre>
+  </div>
+
+  <h2 id="cache">CPUs: caches</h2>
+  <div class="card">
+    <ul>
+      <li>Muitas localizações da memória principal mapeiam numa entrada da cache. Há caches de instruções, de dados e unificadas.</li>
+      <li><b>Hit</b>: está na cache. <b>Miss</b>: não está. <b>Working set</b>: localizações usadas num intervalo de tempo.</li>
+      <li>Misses: <b>compulsório</b> (1º acesso, inevitável), <b>capacidade</b> (working set maior do que a cache; cache maior ajuda), <b>conflito</b> (várias localizações na mesma entrada).</li>
+    </ul>
+    <pre>1 nível:    tav = h·tcache + (1 − h)·tmain
+            0,70×4 + 0,30×20 = 8,8 ns
+multinível: tav = h1·tL1 + h2·tL2 + (1 − h1 − h2)·tmain
+            0,2×4 + 0,5×10 + 0,3×20 = 11,8 ns</pre>
+    <div class="armadilha">Se derem «taxa de cache miss L2 de 60%», o slide resolvido faz <b>h2 = 1 − 0,6 = 0,4</b>. Escreve sempre a fórmula e o h2 que usaste.</div>
+    <p>MMU: traduz endereços lógicos em físicos, permite memória virtual (page fault). ARM: section 1 MB, large page 64 KB, small page 4 KB.</p>
+  </div>
+
+  <h2 id="cpu">Elementos da performance do CPU</h2>
+  <div class="card">
+    <ul>
+      <li><b>Tempo de ciclo</b>, <b>pipeline</b> do CPU e <b>sistema de memória</b>.</li>
+      <li>Pipeline do ARM7: <b>3 estágios, fetch, decode, execute</b>. Branches e atrasos de memória causam bubbles.</li>
+      <li><b>Latência</b>: tempo de uma instrução no pipeline. <b>Throughput</b>: instruções por unidade de tempo. Pipelining aumenta o throughput sem reduzir a latência.</li>
+    </ul>
+    <pre>Filtro FIR: tloop = tinit + N·(tbody + tupdate) + (N−1)·ttest,worst + ttest,best
+            N = 10: 7 + 10×(4+2) + 9×4 + 2 = 105 ciclos</pre>
+    <p><b>Energia</b>: reduzir tensão, baixar a frequência, desativar unidades, desligar componentes. Gestão estática (utilizador ativa power-down) vs. dinâmica (baseada na atividade). Power-down também gasta tempo e energia. StrongARM: run, idle (50 mW), sleep (0,16 mW).</p>
+  </div>
+
+  <h2 id="prog">Análise e desenvolvimento de programas</h2>
+  <div class="card">
+    <ul>
+      <li>Tempo de execução = <b>program path + instruction timing</b>. Performance do programa ≠ do CPU.</li>
+      <li>Métricas: caso médio (aplicações), <b>pior caso (restrições temporais)</b>, melhor caso.</li>
+      <li>Medir: simular o CPU (cycle-accurate), timer num CPU real (altera o programa), analisador lógico.</li>
+      <li><b>Loops</b> são bons alvos: movimento de código, eliminação de variáveis de indução, redução de força (x*2 → x&lt;&lt;1). Conflitos de arrays na cache: mover um array ou array padding.</li>
+    </ul>
+    <h3>Otimização de energia</h3>
+    <ul>
+      <li>Energia (bateria) vs. potência (calor), <span class="f">P = R·I²</span>.</li>
+      <li>Energia por operação: transferência de memória 33, I/O externo 10, escrita SRAM 9, leitura SRAM 4,4, multiplicação 3,6, soma 1.</li>
+      <li>Cache muito pequena ou muito grande gasta energia. Usar registos, eliminar conflitos da cache, moderar loops, eliminar gaps do pipeline.</li>
+      <li>Loops eficientes: sem chamadas de funções, corpo pequeno, contador unsigned, &lt;= no teste. Evitar function inlining reduz o código.</li>
+    </ul>
+    <h3>Validação e teste: vetores de teste</h3>
+    <table><tr><th>Clear box (white)</th><td>examina o <b>código fonte</b>: controlabilidade, execução, observabilidade. Executar cada instrução e cada branch pelo menos uma vez; ramos verdadeiro e falso de cada condição.</td></tr>
+      <tr><th>Black box</th><td>não vê o código. <b>Random</b> (distribuição dos dados segundo a especificação) e <b>regressão</b> (testes de versões anteriores, bugs).</td></tr></table>
+    <p>Teste exaustivo é impraticável. Injeção de erros mede a qualidade dos testes.</p>
+  </div>
+
+  <h2 id="multi">Multiprocessadores</h2>
+  <div class="card">
+    <h3>Qual a vantagem</h3>
+    <ul>
+      <li>Melhor custo/performance (custo do CPU é não linear com a performance; partilha de hardware).</li>
+      <li>Melhor performance em tempo real (funções críticas em PEs menos carregados).</li>
+      <li>Processadores especializados poupam energia.</li>
+      <li>Bom I/O em tempo real, menos energia, melhor streaming; a partilha da computação supera a computação singular.</li>
+    </ul>
+    <h3>Sistemas aceleradores</h3>
+    <ul>
+      <li>Acelerador: aparece no <b>barramento</b> como PE, controlado por <b>registos</b>. Co-processador: executa <b>instruções</b> despachadas pelo CPU.</li>
+      <li>Implementação: ASIC, FPGA, componente standard (GPU). Hardware/software co-design.</li>
+      <li>Antes: quão rápido é na função core? Qual o overhead da transferência?</li>
+      <li>Caching: o CPU pode ler um valor desatualizado da cache. Solução: <b>atualização da cache</b>.</li>
+      <li>Single-threaded: CPU espera, soma-se tudo. Multi-threaded: CPU continua, conta o path mais longo.</li>
+    </ul>
+    <pre>Tempo de execução do acelerador: taccel = tin + tx + tout
+Speedup (loop de n vezes):        S = n·(tCPU − taccel)
+
+Ex. 1: CPU 450 ns / 100 ciclos; acel. 2 + 1 + 2 = 5 ns × 100 = 500 ns → não compensa
+Ex. 2: CPU 6 ns × 1000 = 6000 ns; acel. 1 + 1 + 3 = 5 ns × 1000 = 5000 ns → compensa</pre>
+    <p>A vantagem pode ser relativa: considera o custo de implementação e o consumo de energia do acelerador.</p>
+  </div>
+</div>
+</body>
+</html>
