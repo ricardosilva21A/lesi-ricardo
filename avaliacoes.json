@@ -223,6 +223,17 @@
       "estudo": "md-t2"
     },
     {
+      "id": "rc-cp1",
+      "uc": "RC",
+      "tipo": "trabalho",
+      "titulo": "Checkpoint 1 do TP",
+      "data": "2026-12-03",
+      "hora": "",
+      "local": "",
+      "notas": "Ponto de situação de 5 minutos na aula, presença obrigatória, conta para avaliação",
+      "estudo": ""
+    },
+    {
       "id": "setr-t",
       "uc": "SETR",
       "tipo": "teste",
@@ -256,6 +267,17 @@
       "estudo": ""
     },
     {
+      "id": "rc-cp2",
+      "uc": "RC",
+      "tipo": "trabalho",
+      "titulo": "Checkpoint 2 do TP",
+      "data": "2026-12-17",
+      "hora": "",
+      "local": "",
+      "notas": "Ponto de situação de 5 minutos na aula, presença obrigatória, conta para avaliação",
+      "estudo": ""
+    },
+    {
       "id": "setr-rel",
       "uc": "SETR",
       "tipo": "trabalho",
@@ -264,6 +286,17 @@
       "hora": "",
       "local": "",
       "notas": "",
+      "estudo": ""
+    },
+    {
+      "id": "rc-tp",
+      "uc": "RC",
+      "tipo": "trabalho",
+      "titulo": "Entrega do TP",
+      "data": "2026-12-30",
+      "hora": "",
+      "local": "",
+      "notas": "Moodle: zip TP_RC_NNNNN com relatório PDF + TP-G1.pkt, TP-G2.pkt, TP-G3.pkt",
       "estudo": ""
     },
     {
@@ -307,7 +340,7 @@
       "data": "2027-01-07",
       "hora": "",
       "local": "",
-      "notas": "",
+      "notas": "Apresentação do TP e perguntas individuais. Dias de defesa: 5, 7 ou 12 de janeiro (confirmar o do grupo)",
       "estudo": ""
     },
     {
