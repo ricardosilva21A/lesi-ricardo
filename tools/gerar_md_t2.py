@@ -906,6 +906,260 @@ def reais():
         enunciado="Suponha que um grafo planar conexo tem 30 arestas e que uma sua representação planar divide o plano em 20 regiões.", alineas=[
         dict(enunciado="Quantos vértices tem o grafo? Justifique.", cotacao=15,
              resolucao="Fórmula de Euler: $n - m + f = 2 \\Rightarrow n = 2 + m - f = 2 + 30 - 20 = 12$ vértices.")]))
+    # ================= Teste do diurno · José Castro / Paula Cheira · 25/11/2026
+    FD = "Teste real · Diurno (José Castro / Paula Cheira) · 25/11/2026"
+    Vg = list("12345678")
+    Eg = [("1", "2"), ("3", "4"), ("3", "5"), ("4", "8"), ("5", "6"), ("5", "7"), ("6", "8"), ("7", "8")]
+    adjg = adj_from_edges(Vg, Eg)
+    assert reach(adjg, "4") == set("345678") and not connected(adjg)
+    dg = bfs_dist(adjg, "4")
+    dg = dg[0] if isinstance(dg, tuple) else dg
+    def bij(u, v):
+        return 1 if (v in adjg[u]) else 0
+    Mrows = [[u] + [bij(u, v) for v in Vg] for u in Vg]
+    Mtab = table(["", *Vg], Mrows)
+    Mtab4 = table(["", *Vg, "d(4,·)"], [r + [dg.get(r[0], "∞") if r[0] in dg else "∞"] for r in Mrows])
+    degg = {"1": 1, "2": 1, "3": 2, "4": 3, "5": 3, "6": 2, "7": 2, "8": 4}
+    posP = {"4": (.02, .5), "8": (.25, .05), "7": (.7, .05), "5": (.7, .9), "3": (.25, .95), "6": (.45, .5), "2": (.95, .15), "1": (.95, .85)}
+    out.append(dict(id="r-diu26-1", grupo=G1, tipo="aberta", tema="Grafo não orientado", fonte=FD,
+        enunciado="Considere o grafo G da figura (arestas: {4,8}, {8,7}, {8,6}, {7,5}, {4,3} (a curva, que passa por cima de {8,6}), {3,5}, {6,5}, {2,1} (que cruza {6,5}); os cruzamentos não são vértices):",
+        imagem="/estudo/img/md/diu26-g1.jpg", alineas=[
+        dict(enunciado="O grafo G é simples ou multigrafo? Justifique.", cotacao=5, resolucao=R(
+            "Classificar G como simples ou multigrafo, dizendo porquê.",
+            ["Grafo simples: não tem lacetes nem arestas paralelas.",
+             "Lacete: aresta que sai e volta ao mesmo vértice.",
+             "Arestas paralelas (múltiplas): duas ou mais arestas a ligar o MESMO par de vértices.",
+             "Multigrafo: grafo que tem arestas paralelas."],
+            "Só as definições. Olha para o desenho à procura de duas linhas entre os mesmos dois vértices ou de um laço. Armadilha: perto do 4 saem duas linhas na mesma direção, mas uma vai para o 8 e a outra é a curva que vai para o 3.",
+            ["Procura laços: nenhum vértice tem uma linha que volte a ele próprio.",
+             "Procura linhas repetidas: segue cada linha até ao fim. Do 4 sai uma para o 8 e a curva para o 3, pares diferentes. Não há nenhum par de vértices com 2 arestas.",
+             "Os sítios onde as linhas se cruzam (curva com {8,6}, {2,1} com {6,5}) não são vértices, só cruzamentos no papel.",
+             "Sem laços e sem arestas paralelas: é simples."],
+            "G é um grafo simples (não é multigrafo), porque não tem lacetes (nenhuma aresta liga um vértice a si próprio) nem arestas paralelas (cada par de vértices está ligado no máximo por uma aresta).")),
+        dict(enunciado="Apresente um grafo parcial de G com 6 arestas.", cotacao=7.5, resolucao=R(
+            "Desenhar um grafo parcial de G que tenha exatamente 6 arestas.",
+            ["Grafo parcial de G: mantém TODOS os vértices de G e fica só com algumas das arestas (G' = (V, E') com E' ⊆ E).",
+             "Não confundir com subgrafo gerado por vértices, em que se tiram vértices."],
+            "A definição de grafo parcial. G tem 8 arestas; escolhes 6 quaisquer e manténs os 8 vértices, mesmo que alguns fiquem isolados.",
+            ["Lista as 8 arestas: {4,8}, {8,7}, {8,6}, {7,5}, {4,3}, {3,5}, {6,5}, {2,1}.",
+             "Escolhe 6, por exemplo {4,8}, {8,7}, {7,5}, {5,6}, {6,8}, {3,5}.",
+             "Desenha os 8 vértices (1 e 2 ficam isolados, sem problema) e só essas 6 arestas."],
+            "G' = (V, E') com V = {1, 2, 3, 4, 5, 6, 7, 8} e E' = {{4,8}, {8,7}, {7,5}, {5,6}, {6,8}, {3,5}} ⊆ E, |E'| = 6:\n" +
+            svg(Vg, posP, [("4", "8"), ("8", "7"), ("7", "5"), ("5", "6"), ("6", "8"), ("3", "5")], w=300, h=220))),
+        dict(enunciado="Determine a matriz booleana de G.", cotacao=10, resolucao=R(
+            "A matriz booleana (só 0 e 1) do grafo G.",
+            ["Matriz booleana B: linha i, coluna j tem 1 se vi e vj são adjacentes, 0 se não.",
+             "Diferença para a matriz de adjacência: na de adjacência escreve-se o NÚMERO de arestas entre os dois; na booleana só 0 ou 1. Como G é simples, aqui as duas são iguais.",
+             "Num grafo não orientado a matriz é simétrica (bij = bji)."],
+            "A definição de matriz booleana. Vai vértice a vértice e marca 1 nos vizinhos.",
+            ["Vizinhos: 1: {2}; 2: {1}; 3: {4, 5}; 4: {3, 8}; 5: {3, 6, 7}; 6: {5, 8}; 7: {5, 8}; 8: {4, 6, 7}.",
+             "Preenche a linha de cada vértice com 1 nas colunas dos vizinhos.",
+             "Confirma a simetria: a linha 5 tem 1 em 3, 6 e 7, e as colunas 5 das linhas 3, 6 e 7 também têm 1."],
+            "Ordenando os vértices 1, 2, …, 8 (bij = 1 se {vi, vj} ∈ E, 0 caso contrário):\n" + Mtab)),
+        dict(enunciado="Determine o fecho transitivo direto do vértice 4 e adicione a coluna correspondente do comprimento mínimo à matriz de 1.3.", cotacao=12.5, resolucao=R(
+            "(a) Γ4, os vértices a que se chega a partir de 4; (b) acrescentar à matriz uma coluna com a distância mínima de 4 a cada vértice.",
+            ["Fecho transitivo direto Γv: todos os vértices atingíveis a partir de v por cadeias de qualquer comprimento (inclui o próprio v, comprimento 0).",
+             "Comprimento de uma cadeia: nº de arestas. Comprimento mínimo d(4, v): menor nº de arestas para ir de 4 a v.",
+             "∞: não há cadeia nenhuma."],
+            "O método do professor (expansão por camadas com a matriz): começa com 4 (comprimento 0), juntam-se os vizinhos (comprimento 1), depois os vizinhos desses (comprimento 2), até não aparecer ninguém novo. O nº da camada é o comprimento mínimo.",
+            ["Comprimento 0: {4}.",
+             "Comprimento 1: vizinhos de 4 (linha 4 da matriz): 3 e 8.",
+             "Comprimento 2: vizinhos de 3 e 8 ainda não marcados: 5 (de 3), 6 e 7 (de 8).",
+             "Comprimento 3: vizinhos de 5, 6, 7 ainda não marcados: nenhum. Pára.",
+             "1 e 2 nunca aparecem: distância ∞.",
+             "Γ4 = {3, 4, 5, 6, 7, 8}. Escreve a coluna d(4,·) ao lado da matriz."],
+            "Γ4 = {4} ∪ {3, 8} ∪ {5, 6, 7} = {3, 4, 5, 6, 7, 8}.\nMatriz de 1.3 com a coluna dos comprimentos mínimos a partir de 4:\n" + Mtab4)),
+        dict(enunciado="Justifique que o grafo não é conexo e apresente uma representação gráfica das suas componentes conexas.", cotacao=10, resolucao=R(
+            "Mostrar que G não é conexo e desenhar cada componente conexa.",
+            ["Conexo: entre quaisquer dois vértices existe uma cadeia.",
+             "Componente conexa: um bocado do grafo que está todo ligado entre si e não está ligado ao resto.",
+             "Atenção: o cruzamento de {2,1} com {6,5} no desenho NÃO é um vértice, as arestas só se cruzam no papel."],
+            "Usa o resultado de 1.4: se Γ4 não tem todos os vértices, há vértices aos quais 4 não chega, logo não é conexo.",
+            ["Γ4 = {3, 4, 5, 6, 7, 8} ≠ V: 1 e 2 não são atingíveis a partir de 4.",
+             "Logo não existe cadeia entre 4 e 1: G não é conexo.",
+             "Componentes: {1, 2} (só a aresta {1,2}) e {3, 4, 5, 6, 7, 8} (as outras 7 arestas).",
+             "Desenha-as separadas, sem cruzamentos."],
+            "Pela alínea 1.4, Γ4 = {3, 4, 5, 6, 7, 8} ≠ V, ou seja, não existe nenhuma cadeia entre 4 e 1 (nem entre 4 e 2). Logo G não é conexo.\n"
+            "G tem 2 componentes conexas: G1 com vértices {3, 4, 5, 6, 7, 8} e G2 com vértices {1, 2}:\n" +
+            svg(Vg, posP, [("4", "8"), ("8", "7"), ("7", "5"), ("5", "3"), ("3", "4"), ("8", "6"), ("6", "5"), ("1", "2")], w=300, h=220)))]))
+    out.append(dict(id="r-diu26-2", grupo=G1, tipo="aberta", tema="Definições", fonte=FD, enunciado="Teoria:", alineas=[
+        dict(enunciado="Defina, com rigor, uma rede.", cotacao=10, resolucao=R(
+            "A definição formal de rede.",
+            ["Rede: grafo (ou digrafo) em que cada aresta (ou arco) tem um número associado, o peso.",
+             "Peso: custo, distância, tempo, capacidade…"],
+            "A definição dos slides TG_5. \"Com rigor\" quer dizer: escrever com símbolos, G, V, E e a função peso.",
+            ["Diz o que é o grafo: G = (V, E).", "Diz que há uma função que dá um número real a cada aresta: w: E → ℝ.", "Junta os dois: a rede é o par (G, w)."],
+            "Uma rede é um grafo (ou digrafo) G = (V, E) ao qual está associada uma função w: E → ℝ (ponderação) que atribui a cada aresta (arco) e ∈ E um número real w(e), chamado peso (custo, distância, capacidade, …). Representa-se por R = (V, E, w).")),
+        dict(enunciado="Considere o grafo bipartido completo Kn,m. Em que condições tal grafo é hamiltoniano?", cotacao=10, resolucao=R(
+            "Para que valores de n e m o Kn,m tem ciclo hamiltoniano.",
+            ["Kn,m: dois grupos, um com n vértices e outro com m; cada vértice de um grupo liga a TODOS os do outro; dentro do mesmo grupo não há arestas.",
+             "Ciclo hamiltoniano: volta que passa uma vez por cada vértice."],
+            "Raciocínio sobre a alternância: num bipartido qualquer aresta muda de grupo, por isso um ciclo alterna V1, V2, V1, V2… e tem tantos vértices de um lado como do outro.",
+            ["Um ciclo hamiltoniano passa por todos os n + m vértices alternando os grupos.",
+             "Alternar e voltar ao início obriga a usar o mesmo nº de vértices de cada grupo: n = m.",
+             "Um ciclo num grafo simples precisa de pelo menos 3 vértices, logo n + m ≥ 4, isto é, n = m ≥ 2.",
+             "Se n = m ≥ 2, o ciclo existe: a1, b1, a2, b2, …, an, bn, a1 (todas estas arestas existem porque é completo).",
+             "Exemplo: K2,2 é um quadrado (hamiltoniano); K2,3 não é."],
+            "Kn,m é hamiltoniano se e só se n = m ≥ 2.\nJustificação: em Kn,m todas as arestas ligam V1 (n vértices) a V2 (m vértices), pelo que um ciclo alterna entre V1 e V2 e usa tantos vértices de V1 como de V2; para passar por todos é preciso n = m. Reciprocamente, se n = m ≥ 2, [a1, b1, a2, b2, …, an, bn, a1] é um ciclo hamiltoniano, pois Kn,m é completo."))]))
+    # ---- Q3 digrafo
+    Vd3 = list("ABCDEF"); Ad3 = [("E", "C"), ("C", "A"), ("E", "F"), ("F", "D"), ("D", "E"), ("D", "C"), ("C", "B"), ("A", "B"), ("B", "D")]
+    o3, i3 = digraph_maps(Vd3, Ad3)
+    assert all(reach(o3, v) == set(Vd3) for v in Vd3)
+    eul3 = ["E", "C", "A", "B", "D", "E", "F", "D", "C", "B"]
+    assert sorted(zip(eul3, eul3[1:])) == sorted(Ad3)
+    tab3 = table(["v", "deg⁺ (saem)", "deg⁻ (entram)"], [[v, len(o3[v]), len(i3[v])] for v in Vd3])
+    out.append(dict(id="r-diu26-3", grupo=G2, tipo="aberta", tema="Digrafo", fonte=FD,
+        enunciado="Considere o grafo orientado D (arcos: E→C, C→A, E→F, F→D, D→E, D→C, C→B, A→B, B→D):", imagem="/estudo/img/md/diu26-d3.jpg", alineas=[
+        dict(enunciado="Indique Γ⁻(E) e deg⁻(B).", cotacao=10, resolucao=R(
+            "Os antecessores de E e o grau de entrada de B.",
+            ["Γ⁻(v) (antecessores): vértices de onde sai uma seta que chega DIRETAMENTE a v. Não confundir com Γ⁻¹v (fecho inverso, caminhos de qualquer tamanho).",
+             "deg⁻(v) (semigrau interior): nº de setas que ENTRAM em v."],
+            "Só as definições: olha para as pontas das setas.",
+            ["Setas que acabam em E: só D→E. Logo Γ⁻(E) = {D}.",
+             "Setas que acabam em B: C→B e A→B. Logo deg⁻(B) = 2."],
+            "Γ⁻(E) = {D}, porque (D, E) é o único arco que chega a E.\ndeg⁻(B) = |Γ⁻(B)| = |{A, C}| = 2.")),
+        dict(enunciado="Justifique que D não tem um circuito euleriano mas tem um caminho euleriano. Não apresente tal caminho para o justificar.", cotacao=12.5, resolucao=R(
+            "Usar o teorema (e não um exemplo) para mostrar: não há circuito euleriano, mas há caminho euleriano.",
+            ["Circuito euleriano: caminho fechado que usa todos os arcos uma vez.",
+             "Caminho euleriano: o mesmo, mas acaba num vértice diferente do início.",
+             "deg⁺: setas que saem; deg⁻: setas que entram."],
+            "Os teoremas para digrafos conexos: circuito euleriano ⇔ deg⁺(v) = deg⁻(v) em todos os vértices. Caminho euleriano de v0 para v1 ⇔ deg⁺(v0) = deg⁻(v0) + 1, deg⁻(v1) = deg⁺(v1) + 1 e os restantes equilibrados. \"Não apresente o caminho\" = a justificação TEM de ser pela tabela de graus.",
+            ["Confirma que é conexo (ignorando as setas, está tudo ligado).",
+             "Faz a tabela de deg⁺ e deg⁻.",
+             "E: sai 2, entra 1. B: sai 1, entra 2. Os outros 4: iguais.",
+             "Como E e B não estão equilibrados: não há circuito euleriano.",
+             "E tem uma seta a sair a mais (início), B uma a entrar a mais (fim), resto equilibrado: há caminho euleriano de E para B."],
+            tab3 + "D é conexo. Como deg⁺(E) = 2 ≠ 1 = deg⁻(E), não se verifica deg⁺(v) = deg⁻(v) para todo o v, logo D não tem circuito euleriano.\n"
+            "No entanto, deg⁺(E) = deg⁻(E) + 1, deg⁻(B) = deg⁺(B) + 1 e deg⁺(v) = deg⁻(v) para v ∈ {A, C, D, F}, logo D tem um caminho euleriano, que começa em E e termina em B.")),
+        dict(enunciado="Apresente um caminho euleriano de D.", cotacao=10, resolucao=R(
+            "Escrever um caminho que use os 9 arcos, cada um uma vez.",
+            ["Caminho euleriano: segue as setas e usa todos os arcos exatamente uma vez."],
+            "Pela 3.2 sabes que começa em E e acaba em B. Constrói riscando as setas usadas; se ficares preso antes do fim, volta atrás e escolhe outra seta (algoritmo de Hierholzer).",
+            ["Começa em E: E→C, C→A, A→B, B→D, D→E (5 setas usadas).",
+             "De E ainda sai E→F: F→D, D→C, C→B.",
+             "Contas: 9 setas usadas, acabou em B ✓"],
+            "[E, C, A, B, D, E, F, D, C, B] é um caminho euleriano: usa os 9 arcos de D, cada um uma única vez, de E até B.")),
+        dict(enunciado="O grafo D é fortemente conexo? Justifique.", cotacao=12.5, resolucao=R(
+            "Dizer se de qualquer vértice se chega a qualquer outro, respeitando as setas.",
+            ["Fortemente conexo: para quaisquer u e v existe caminho de u para v E de v para u.",
+             "Γv: vértices atingíveis a partir de v. Γ⁻¹v: vértices que atingem v."],
+            "Basta um circuito que passe por todos os vértices (ou mostrar ΓE = Γ⁻¹E = V). Também se pode usar: um vértice é atingível de todos e atinge todos ⇒ fortemente conexo.",
+            ["Procura um caminho fechado que passe por todos: E→F→D→C→A→B→D→E. Passa por E, F, D, C, A, B: todos os 6.",
+             "Num caminho fechado, cada vértice chega a qualquer outro seguindo o caminho às voltas.",
+             "Logo é fortemente conexo. (Cuidado: os digrafos de outros testes tinham um vértice sem setas a sair; aqui todos têm deg⁺ ≥ 1, mas isso sozinho não prova nada.)"],
+            "Sim. O caminho fechado [E, F, D, C, A, B, D, E] passa por todos os vértices de D, pelo que, para quaisquer u, v ∈ V, existe um caminho de u para v (seguindo este caminho fechado). Equivalentemente, ΓE = Γ⁻¹E = {A, B, C, D, E, F} = V. Logo D é fortemente conexo (tem uma única componente fortemente conexa)."))]))
+    # ---- Q4 rede R
+    VR = list("ABCDEFGH")
+    WR = {("G", "H"): 14, ("C", "H"): 21, ("A", "G"): 26, ("C", "G"): 13, ("B", "H"): 8, ("A", "B"): 7, ("F", "G"): 15, ("E", "G"): 14,
+          ("C", "E"): 12, ("E", "F"): 12, ("D", "E"): 10, ("B", "D"): 14, ("B", "F"): 33}
+    adjR = adj_from_edges(VR, list(WR))
+    assert ham_cycle(adjR, VR) is None
+    stR, totR, ptR = prim_html(VR, WR, "A")
+    assert totR == 76
+    posR = {"H": (.6, 0), "A": (.95, .12), "G": (.2, .35), "C": (.6, .35), "B": (.92, .65), "F": (0, .85), "E": (.5, .85), "D": (.75, .85)}
+    out.append(dict(id="r-diu26-4", grupo=G4, tipo="aberta", tema="Redes", fonte=FD,
+        enunciado="Seja R a rede da figura (pesos: GH 14, CH 21, GA 26, GC 13, HB 8, AB 7, GF 15, GE 14, CE 12, FE 12, ED 10, DB 14, FB 33). "
+                  "Confirma os pesos na tua folha: na foto alguns estão meio tapados.", imagem="/estudo/img/md/diu26-r4.jpg", alineas=[
+        dict(enunciado="Verifique se R é hamiltoniano.", cotacao=17.5, resolucao=R(
+            "Ver se existe um ciclo que passe uma vez por cada uma das 8 plantas (vértices) e volte ao início.",
+            ["Ciclo hamiltoniano: passa por TODOS os vértices uma única vez e fecha.",
+             "Regra 1: se um vértice tem grau 2, as suas 2 arestas estão obrigatoriamente no ciclo (é a única forma de entrar e sair).",
+             "Regra 2: num ciclo, cada vértice usa exatamente 2 arestas; se já tem 2 obrigatórias, as outras saem (Regra 3)."],
+            "Dirac não serve (deg(A) = 2 < 8/2 = 4, e falhar Dirac não prova nada). Usa-se o método das regras dos vértices de grau 2 até chegar a uma contradição.",
+            ["Graus: A 2 (G, B); D 2 (E, B); H 3 (G, C, B); B 4; C 3; E 4; F 3; G 5.",
+             "A tem grau 2: {G,A} e {A,B} entram no ciclo.",
+             "D tem grau 2: {E,D} e {D,B} entram no ciclo.",
+             "B já tem 2 arestas ({A,B} e {D,B}): apagam-se {H,B} e {F,B}.",
+             "Agora H fica com grau 2 (G, C): {G,H} e {H,C} entram. F fica com grau 2 (G, E): {G,F} e {F,E} entram.",
+             "G teria 3 arestas obrigatórias: {G,A}, {G,H}, {G,F}. Num ciclo só pode ter 2. Contradição.",
+             "Logo não existe ciclo hamiltoniano."],
+            "Aplicando as regras para ciclos hamiltonianos: deg(A) = 2 ⇒ {G,A}, {A,B} ∈ ciclo; deg(D) = 2 ⇒ {E,D}, {D,B} ∈ ciclo. B já tem duas arestas no ciclo, logo eliminam-se {H,B} e {F,B}. "
+            "Então deg(H) = 2 ⇒ {G,H}, {H,C} ∈ ciclo e deg(F) = 2 ⇒ {G,F}, {F,E} ∈ ciclo. Mas assim G teria três arestas no ciclo ({G,A}, {G,H}, {G,F}), o que é impossível.\nLogo R não é hamiltoniano.")),
+        dict(enunciado="Represente a rede R através da sua matriz de adjacência.", cotacao=10, resolucao=R(
+            "A matriz da rede (com os pesos).",
+            ["Matriz de adjacência de uma rede: na linha i, coluna j, escreve-se o PESO da aresta {vi, vj}; se não há aresta, fica vazio (ou 0/∞, conforme o professor).",
+             "Rede não orientada ⇒ matriz simétrica."],
+            "A definição. Ordena os vértices (A, B, …, H) e percorre a lista de arestas, escrevendo cada peso duas vezes (em ij e em ji).",
+            ["Ordem: A, B, C, D, E, F, G, H.", "Para cada aresta, escreve o peso nas duas posições simétricas (por exemplo AB = 7 em (A,B) e (B,A)).",
+             "Confirma: 13 arestas ⇒ 26 números na matriz."],
+            matrix_table(VR, WR, False) + "(em branco: não há ligação)")),
+        dict(enunciado="Utilize o algoritmo de Prim para encontrar as ligações entre as raízes das plantas que minimiza a distância total e garanta ainda que todas as plantas estão ligadas entre si. Indique a distância mínima e as ligações obtidas.", cotacao=15, resolucao=R(
+            "A árvore geradora mínima (pelo Prim): quais as ligações e a soma.",
+            ["Árvore geradora mínima: liga TODOS os vértices, sem ciclos, com a menor soma de pesos. Tem V − 1 = 7 arestas.",
+             "Prim: começa num vértice e, em cada passo, junta o vértice novo mais barato de ligar à árvore que já tens."],
+            "O enunciado pede Prim explicitamente. Podes começar em qualquer vértice (a soma final é sempre a mesma); aqui começa-se em A.",
+            ["Árvore {A}. Ligações a sair: AB 7, AG 26. Escolhe AB 7.",
+             "Árvore {A, B}. Candidatas: BH 8, BD 14, BF 33, AG 26. Escolhe BH 8.",
+             "Árvore {A, B, H}. Candidatas: GH 14, BD 14, CH 21, AG 26, BF 33. Empate a 14: escolhe BD (podias escolher GH; dá o mesmo total). Escreve que há empate.",
+             "Árvore {A, B, H, D}. Candidatas: DE 10, GH 14, CH 21… Escolhe DE 10.",
+             "Árvore {A, B, H, D, E}. Candidatas: CE 12, FE 12, GE 14, GH 14… Empate a 12: escolhe CE.",
+             "Juntam-se FE 12 e depois GC 13 (menor ligação a G).",
+             "7 arestas para 8 vértices ✓. Soma: 7 + 8 + 14 + 10 + 12 + 12 + 13 = 76."],
+            "Algoritmo de Prim com início em A:\n" + ptR + svg(VR, posR, list(WR), weights=WR, highlight=[(a, b) for a, b, _ in stR], w=360, h=260) +
+            "Ligações: {A,B}, {B,H}, {B,D}, {D,E}, {E,C}, {E,F}, {C,G}. Distância mínima: 76.\n(No 3º passo há empate entre {B,D} e {H,G}, ambos com 14; escolhendo {H,G} obtém-se outra árvore com o mesmo total 76.)"))]))
+    # ---- Q5 planaridade
+    V5 = list("ABCDEFGH")
+    E5 = [norm_edge(a, b, V5) for a, b in ["AH", "AF", "AD", "HF", "HD", "HE", "HC", "GF", "GD", "GB", "FB", "FC", "DE", "EB", "BC"]]
+    C5 = ["A", "H", "C", "B", "E", "D", "G", "F", "A"]
+    adj5 = adj_from_edges(V5, E5)
+    assert all(b in adj5[a] for a, b in zip(C5, C5[1:]))
+    ok5, txt5 = metodo_ciclico(V5, E5, C5)
+    assert ok5
+    out.append(dict(id="r-diu26-5", grupo=G3, tipo="aberta", tema="Planaridade", fonte=FD,
+        enunciado="A figura mostra uma representação de um grafo planar (arestas: AH, AF (arco), AD, HF (arco), HD, HE, HC, GF, GD, GB, FB, FC, DE, EB, BC; H e G não estão ligados).",
+        imagem="/estudo/img/md/diu26-p5.jpg", alineas=[
+        dict(enunciado="Utilize o método cíclico para encontrar uma representação planar do grafo.", cotacao=17.5, resolucao=R(
+            "Redesenhar o grafo sem cruzamentos usando o método cíclico.",
+            ["Representação planar: desenho sem arestas a cruzar.",
+             "Ciclo hamiltoniano: volta por todos os vértices; vai ser desenhado como um polígono.",
+             "Cordas (L): arestas que não estão no ciclo. A: cordas desenhadas dentro; B: cordas desenhadas fora.",
+             "Incompatíveis: duas cordas cujas pontas alternam no ciclo (a, c, b, d); se ficarem do mesmo lado, cruzam-se."],
+            "O método cíclico (TG_3): (1) ciclo hamiltoniano; (2) lista das cordas; (3) pares incompatíveis; (4) distribuir por A e B sem pôr duas incompatíveis do mesmo lado; (5) desenhar.",
+            ["Encontra um ciclo hamiltoniano: A→H→C→B→E→D→G→F→A (todas estas arestas existem).",
+             "Escreve os 8 vértices nesta ordem à volta de um círculo.",
+             "Cordas: as 15 − 8 = 7 arestas que sobram.",
+             "Testa os pares: duas cordas são incompatíveis se as pontas alternam na ordem A, H, C, B, E, D, G, F.",
+             "Põe a primeira em A, e cada incompatível com ela em B, e assim sucessivamente.",
+             "Se tudo couber, desenha: polígono + cordas de A por dentro + cordas de B por fora (em curva)."],
+            txt5)),
+        dict(enunciado="Indique o maior grau das faces da sua representação planar.", cotacao=10, resolucao=R(
+            "Das faces do desenho planar de 5.1, qual tem mais arestas à volta, e quantas.",
+            ["Face: região fechada por arestas (incluindo a exterior).",
+             "Grau de uma face: nº de arestas na sua fronteira."],
+            "Contar as faces no desenho e confirmar com Euler: F = 2 − V + A, e Σ deg(faces) = 2A.",
+            ["V = 8, A = 15 ⇒ F = 2 − 8 + 15 = 9 faces.",
+             "Percorre cada face no desenho: [A,F,H] 3, [A,H,D] 3, [H,F,C] 3, [H,E,D] 3, [F,G,B] 3, [F,B,C] 3, [A,D,G,F] 4, [H,C,B,E] 4, [D,E,B,G] 4.",
+             "Confirma: 6 × 3 + 3 × 4 = 30 = 2 × 15 ✓",
+             "O maior grau é 4. (Este grafo é 3-conexo, por isso qualquer representação planar tem estas mesmas faces.)"],
+            "V − A + F = 2 ⇒ F = 2 − 8 + 15 = 9 faces: [A,F,H], [A,H,D], [H,F,C], [H,E,D], [F,G,B], [F,B,C] de grau 3 e [A,D,G,F], [H,C,B,E], [D,E,B,G] de grau 4.\n"
+            "Confirmação: Σ deg(fi) = 6 × 3 + 3 × 4 = 30 = 2A.\nO maior grau das faces é 4."))]))
+    # ---- Q6 Dijkstra
+    V6 = list("ABCDEFGHI")
+    W6 = {("A", "C"): 6, ("A", "B"): 5, ("B", "C"): 8, ("B", "F"): 9, ("B", "D"): 3, ("C", "E"): 1, ("C", "F"): 10, ("E", "G"): 7, ("E", "F"): 1,
+          ("E", "H"): 8, ("F", "H"): 5, ("D", "F"): 6, ("D", "H"): 4, ("G", "H"): 7, ("G", "I"): 11, ("H", "I"): 7}
+    p6, c6, t6 = dijkstra_html(V6, W6, "A", "I", True)
+    assert c6 == 19 and p6 == list("ABDHI")
+    out.append(dict(id="r-diu26-6", grupo=G4, tipo="aberta", tema="Redes", fonte=FD,
+        enunciado="Utilize o algoritmo de Dijkstra para determinar o caminho mais curto entre os vértices A e I. Apresente esse caminho e o respetivo custo.\n"
+                  "Arcos (lidos da foto; confirma A→B, C→E, E→H e D→H na tua folha): A→C 6, A→B 5, B→C 8, B→F 9, B→D 3, C→E 1, C→F 10, E→G 7, E→F 1, E→H 8, F→H 5, D→F 6, D→H 4, G→H 7, G→I 11, H→I 7.",
+        imagem="/estudo/img/md/diu26-d6.jpg", alineas=[
+        dict(enunciado="Caminho mais curto de A para I e custo.", cotacao=20, resolucao=R(
+            "O caminho de menor custo de A até I, com as iterações do Dijkstra.",
+            ["Rede orientada: só se anda no sentido das setas.",
+             "Etiqueta: custo (antecessor), a menor distância conhecida até esse vértice.",
+             "Temporária: ainda pode baixar. Permanente (✓): já é a mínima."],
+            "Caminho mais curto entre dois vértices ⇒ Dijkstra. Em cada iteração, a menor etiqueta temporária fica permanente e, a partir dela, tenta-se baixar as etiquetas dos vértices para onde há seta.",
+            ["A = 0 ✓. Setas de A: B 5 (A), C 6 (A).",
+             "B 5 ✓. De B: C 5+8 = 13 > 6 (fica 6); D 5+3 = 8 (B); F 5+9 = 14 (B).",
+             "C 6 ✓. De C: E 6+1 = 7 (C); F 6+10 = 16 > 14 (fica).",
+             "E 7 ✓. De E: F 7+1 = 8 < 14 ⇒ 8 (E); G 7+7 = 14 (E); H 7+8 = 15 (E).",
+             "D 8 ✓ (empate com F 8, escolhe um). De D: F 8+6 = 14 > 8 (fica); H 8+4 = 12 < 15 ⇒ 12 (D).",
+             "F 8 ✓. De F: H 8+5 = 13 > 12 (fica 12).",
+             "H 12 ✓. De H: I 12+7 = 19 (H).",
+             "G 14 ✓. De G: I 14+11 = 25 > 19 (fica). I 19 ✓: chegou ao destino.",
+             "Volta pelos antecessores: I ← H ← D ← B ← A."],
+            "Algoritmo de Dijkstra (etiquetas custo (antecessor); ✓ = etiqueta permanente):\n" + t6 +
+            "Caminho mais curto: A → B → D → H → I, com custo 5 + 3 + 4 + 7 = 19."))]))
     return out
 
 # ============================================================ ESCOLHA MÚLTIPLA
@@ -1009,6 +1263,7 @@ def main():
         cabula="https://claude.ai/artifact/ShdbdPjQgkLmhrSpaJ9odP",
         estrutura=[dict(grupo=G1, n=1, cotacao=8), dict(grupo=G2, n=1, cotacao=4.5), dict(grupo=G3, n=1, cotacao=3.5), dict(grupo=G4, n=1, cotacao=4)],
         testesReais=[
+            dict(titulo="🆕 Teste do diurno · 25/11/2026 (José Castro / Paula Cheira)", nota="Feito esta semana pelo diurno: o mais provável de se parecer com o teu.", ids=["r-diu26-1", "r-diu26-2", "r-diu26-3", "r-diu26-4", "r-diu26-5", "r-diu26-6"]),
             dict(titulo="Teste do Ricardo · 21/11/2025", nota="O mais parecido com o teu: faz este primeiro, com 1h30.", ids=["r-ric25-1", "r-ric25-2", "r-ric25-3", "r-ric25-4"]),
             dict(titulo="Teste da Anabela Silva · 04/12/2025 (2º teste, PL)", nota="Pede uma representação planar: treina redesenhar.", ids=["r-ana25-1", "r-ana25-2", "r-ana25-3", "r-ana25-4"]),
             dict(titulo="Teste da Teresa Abreu · 18/11/2025 (partes sem figura)", ids=["r-ter25-2", "r-ter25-3", "r-ter25-4"]),
@@ -1020,7 +1275,7 @@ def main():
     def latex(t):
         t = t[1:-1]
         t = re.sub(r"\\frac\{([^{}]*)\}\{([^{}]*)\}", r"\1/\2", t)
-        for a, b in [("\\Gamma", "Γ"), ("\\deg", "deg"), ("\\sum", "Σ"), ("\\le", "≤"), ("\\ge", "≥"), ("\\times", "×"), ("\\neq", "≠"),
+        for a, b in [("\\Rightarrow", "⇒"), ("\\Gamma", "Γ"), ("\\deg", "deg"), ("\\sum", "Σ"), ("\\le", "≤"), ("\\ge", "≥"), ("\\times", "×"), ("\\neq", "≠"),
                      ("\\cap", "∩"), ("\\cup", "∪"), ("\\emptyset", "∅"), ("\\notin", "∉"), ("\\leftrightarrow", "↔"), ("\\to", "→"),
                      ("\\neg", "¬"), ("\\land", "∧"), ("\\lor", "∨"), ("\\setminus", "\\"), ("\\{", "{"), ("\\}", "}"), ("\\,", " "), ("\\dots", "…"), ("\\mu", "μ")]:
             t = t.replace(a, b)
