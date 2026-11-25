@@ -1135,13 +1135,13 @@ def reais():
             "Confirmação: Σ deg(fi) = 6 × 3 + 3 × 4 = 30 = 2A.\nO maior grau das faces é 4."))]))
     # ---- Q6 Dijkstra
     V6 = list("ABCDEFGHI")
-    W6 = {("A", "C"): 6, ("A", "B"): 5, ("B", "C"): 8, ("B", "F"): 9, ("B", "D"): 3, ("C", "E"): 1, ("C", "F"): 10, ("E", "G"): 7, ("E", "F"): 1,
-          ("E", "H"): 8, ("F", "H"): 5, ("D", "F"): 6, ("D", "H"): 4, ("G", "H"): 7, ("G", "I"): 11, ("H", "I"): 7}
+    W6 = {("A", "C"): 6, ("A", "B"): 5, ("B", "C"): 8, ("B", "F"): 9, ("B", "D"): 3, ("C", "E"): 4, ("C", "F"): 10, ("E", "G"): 7, ("E", "F"): 1,
+          ("E", "H"): 8, ("F", "H"): 5, ("D", "F"): 6, ("D", "H"): 7, ("G", "H"): 7, ("G", "I"): 11, ("H", "I"): 7}
     p6, c6, t6 = dijkstra_html(V6, W6, "A", "I", True)
-    assert c6 == 19 and p6 == list("ABDHI")
+    assert c6 == 22 and p6 == list("ABDHI")
     out.append(dict(id="r-diu26-6", grupo=G4, tipo="aberta", tema="Redes", fonte=FD,
         enunciado="Utilize o algoritmo de Dijkstra para determinar o caminho mais curto entre os vértices A e I. Apresente esse caminho e o respetivo custo.\n"
-                  "Arcos (lidos da foto; confirma A→B, C→E, E→H e D→H na tua folha): A→C 6, A→B 5, B→C 8, B→F 9, B→D 3, C→E 1, C→F 10, E→G 7, E→F 1, E→H 8, F→H 5, D→F 6, D→H 4, G→H 7, G→I 11, H→I 7.",
+                  "Arcos: A→C 6, A→B 5, B→C 8, B→F 9, B→D 3, C→E 4, C→F 10, E→G 7, E→F 1, E→H 8, F→H 5, D→F 6, D→H 7, G→H 7, G→I 11, H→I 7.",
         imagem="/estudo/img/md/diu26-d6.jpg", alineas=[
         dict(enunciado="Caminho mais curto de A para I e custo.", cotacao=20, resolucao=R(
             "O caminho de menor custo de A até I, com as iterações do Dijkstra.",
@@ -1151,15 +1151,15 @@ def reais():
             "Caminho mais curto entre dois vértices ⇒ Dijkstra. Em cada iteração, a menor etiqueta temporária fica permanente e, a partir dela, tenta-se baixar as etiquetas dos vértices para onde há seta.",
             ["A = 0 ✓. Setas de A: B 5 (A), C 6 (A).",
              "B 5 ✓. De B: C 5+8 = 13 > 6 (fica 6); D 5+3 = 8 (B); F 5+9 = 14 (B).",
-             "C 6 ✓. De C: E 6+1 = 7 (C); F 6+10 = 16 > 14 (fica).",
-             "E 7 ✓. De E: F 7+1 = 8 < 14 ⇒ 8 (E); G 7+7 = 14 (E); H 7+8 = 15 (E).",
-             "D 8 ✓ (empate com F 8, escolhe um). De D: F 8+6 = 14 > 8 (fica); H 8+4 = 12 < 15 ⇒ 12 (D).",
-             "F 8 ✓. De F: H 8+5 = 13 > 12 (fica 12).",
-             "H 12 ✓. De H: I 12+7 = 19 (H).",
-             "G 14 ✓. De G: I 14+11 = 25 > 19 (fica). I 19 ✓: chegou ao destino.",
+             "C 6 ✓. De C: E 6+4 = 10 (C); F 6+10 = 16 > 14 (fica 14).",
+             "D 8 ✓. De D: F 8+6 = 14, igual a 14 (fica B); H 8+7 = 15 (D).",
+             "E 10 ✓. De E: F 10+1 = 11 < 14 ⇒ 11 (E); G 10+7 = 17 (E); H 10+8 = 18 > 15 (fica 15).",
+             "F 11 ✓. De F: H 11+5 = 16 > 15 (fica 15).",
+             "H 15 ✓. De H: I 15+7 = 22 (H).",
+             "G 17 ✓. De G: H já é permanente; I 17+11 = 28 > 22 (fica). I 22 ✓: chegou ao destino.",
              "Volta pelos antecessores: I ← H ← D ← B ← A."],
             "Algoritmo de Dijkstra (etiquetas custo (antecessor); ✓ = etiqueta permanente):\n" + t6 +
-            "Caminho mais curto: A → B → D → H → I, com custo 5 + 3 + 4 + 7 = 19."))]))
+            "Caminho mais curto: A → B → D → H → I, com custo 5 + 3 + 7 + 7 = 22."))]))
     return out
 
 # ============================================================ ESCOLHA MÚLTIPLA
