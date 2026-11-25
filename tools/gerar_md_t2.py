@@ -548,68 +548,189 @@ def reais():
     odd, pares, dup = eulerize(adj, V)
     mu = list("DFECQPONGLMIJKH")
     assert all(b in adj[a] for a, b in zip(mu, mu[1:])) and len(set(mu)) == 15 and "D" not in adj["H"]
+    def R(pede, termos, usar, passos, exame):
+        t = "\n".join(f"• {x}" for x in termos)
+        p = "\n".join(f"{i}) {x}" for i, x in enumerate(passos, 1))
+        return (f"<b>📌 O que pedem</b>\n{pede}\n\n<b>📖 Termos</b>\n{t}\n\n<b>🧰 O que usar e porquê</b>\n{usar}\n\n<b>🪜 Passo a passo</b>\n{p}\n\n"
+                f"<b>✍️ Resposta como no exame</b>\n<div style='border-left:3px solid #1f9d55;padding:6px 10px;margin-top:4px;background:var(--chip);border-radius:8px'>{exame}</div>")
     out.append(dict(id="r-ric25-1", grupo=G1, tipo="aberta", tema="Grafo não orientado", fonte="Teste real · Ricardo Gonçalves · 21/11/2025",
-        enunciado="Considere o seguinte grafo $G_1$:", imagem="/estudo/img/md/ric25-g1.png", alineas=[
-        dict(enunciado="Ilustre a fórmula de Euler para grafos planares.", cotacao=15,
-             resolucao=("$G_1$ está desenhado sem cruzamentos (planar) e é conexo.\nn = 15 vértices, m = 20 arestas.\nFaces: "
-                        "$f_1$ = [C,Q,P,D] (4), $f_2$ = [P,O,N,D] (4), $f_3$ = [C,D,F,E] (4), $f_4$ = [D,N,G,K,H,F] (6), $f_5$ = [G,I,J,K] (4), $f_6$ = [G,L,M,I] (4) e a face exterior $f_7$ (14) → f = 7.\n"
-                        "$n - m + f = 15 - 20 + 7 = 2$ ✓   ( $\\sum \\deg(f_i) = 4+4+4+6+4+4+14 = 40 = 2m$ ✓ )")),
-        dict(enunciado="Indique $\\deg(F_1)$, sendo $F_1$ o subgrafo de $G_1$ gerado por $\\{F, D, N, G, K, H\\}$.", cotacao=10,
-             resolucao=("Arestas de $G_1$ com as duas extremidades no conjunto: {F,D}, {D,N}, {N,G}, {G,K}, {K,H}, {H,F}.\n"
-                        "$F_1$ é o ciclo [F,D,N,G,K,H,F]: cada vértice tem grau 2 em $F_1$ (soma dos graus = 12 = 2 × 6 arestas).\n"
-                        "Este ciclo é a fronteira da face $f_4$, que tem grau 6.")),
-        dict(enunciado="Justifique que o grafo não é completo e investigue, justificando, se o grafo é bipartido.", cotacao=15,
-             resolucao=(f"Não é completo: $K_{{15}}$ tem $\\frac{{15 \\times 14}}{{2}} = 105$ arestas e $G_1$ só tem 20 (por exemplo C e H não são adjacentes).\n"
-                        f"É bipartido: $V_1 = {S(P1, V)}$ e $V_2 = {S(P2, V)}$; todas as arestas ligam $V_1$ a $V_2$. "
-                        "(Confirma-se também porque todas as faces têm grau par, ou seja, não há ciclos ímpares.)")),
-        dict(enunciado="Ilustre para o grafo a aplicação do teorema de Dirac.", cotacao=15,
-             resolucao=("Dirac: G simples, conexo, n ≥ 3, $\\deg(v) \\ge n/2$ ∀v ⇒ hamiltoniano.\nn = 15, n/2 = 7,5. Mas, por exemplo, deg(E) = 2 < 7,5 (o grau máximo é 4).\n"
-                        "A condição falha e, sendo Dirac uma condição suficiente, não se pode concluir se $G_1$ é ou não hamiltoniano.\n"
-                        f"(Extra: na verdade $G_1$ não é hamiltoniano. É bipartido com partes de tamanhos {len(P1)} e {len(P2)}, e um ciclo hamiltoniano alterna entre as partes, por isso exigiria partes iguais.)")),
-        dict(enunciado="Seja $\\mu = [D, F, E, C, Q, P, O, N, G, L, M, I, J, K, H]$. O que pode concluir deste resultado à luz da Teoria de Grafos?", cotacao=15,
-             resolucao=("Todos os pares consecutivos são arestas de $G_1$, não há vértices repetidos e μ passa pelos 15 vértices: μ é uma CADEIA HAMILTONIANA.\n"
-                        "Não é um ciclo hamiltoniano porque H e D não são adjacentes (não dá para fechar). Logo $G_1$ tem cadeia hamiltoniana (é semi-hamiltoniano).")),
-        dict(enunciado="A eulerização consiste em transformar um grafo não euleriano num euleriano duplicando arestas já existentes. Indique o menor número de arestas necessárias e quais.", cotacao=10,
-             resolucao=("Vértices de grau ímpar: " + ", ".join(f"{v}({deg[v]})" for v in odd) + " → 6 vértices.\n"
-                        "Nenhum par de vértices ímpares é adjacente, por isso cada emparelhamento custa pelo menos 2 arestas: mínimo 3 × 2 = 6 arestas.\n"
-                        "Uma solução: " + "; ".join(f"{a}–{b}" for a, b in pares) + f" duplicando {edges_txt(dup)}.\n"
-                        "(Outras escolhas com 6 arestas também estão certas, por exemplo C–E–F, P–O–N, I–J–K.)"))]))
+        enunciado="Considere o seguinte grafo G1:", imagem="/estudo/img/md/ric25-g1.png", alineas=[
+        dict(enunciado="Ilustre a fórmula de Euler para grafos planares.", cotacao=15, resolucao=R(
+            "Mostrar, com os números deste grafo, que a fórmula de Euler V − A + F = 2 se verifica.",
+            ["Vértice: cada ponto (C, D, …, Q). Aresta: cada linha entre dois pontos.",
+             "Face: cada região do papel fechada por arestas, como uma sala. A região de fora também conta (face exterior).",
+             "Grau de uma face: número de arestas à volta dela.",
+             "Planar: dá para desenhar sem arestas a cruzar. Conexo: está tudo numa só peça (de qualquer vértice chega-se a qualquer outro)."],
+            "A fórmula de Euler, V − A + F = 2 (o professor escreve n − m + f = 2). Só vale para grafos PLANARES e CONEXOS, por isso a primeira coisa a escrever é que G1 cumpre essas duas condições.",
+            ["Planar: olha para o desenho. Nenhuma aresta cruza outra, logo é planar.",
+             "Conexo: escreve uma cadeia que passe por todos os vértices. A sequência da alínea 1.5 serve: [D,F,E,C,Q,P,O,N,G,L,M,I,J,K,H].",
+             "Conta os vértices: C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, logo V = 15.",
+             "Conta as arestas: soma os graus e divide por 2. Graus: C3 D4 E2 F3 G4 H2 I3 J2 K3 L2 M2 N3 O2 P3 Q2, soma 40, logo A = 40 / 2 = 20.",
+             "Conta as faces: as 6 zonas cinzentas do desenho mais a de fora, logo F = 7. Escreve o grau de cada uma: [C,Q,P,D] 4, [P,O,N,D] 4, [C,D,F,E] 4, [D,N,G,K,H,F] 6, [G,I,J,K] 4, [G,L,M,I] 4, exterior 14.",
+             "Substitui: 15 − 20 + 7 = 2.",
+             "Confirma (opcional): a soma dos graus das faces tem de dar 2A. 4+4+4+6+4+4+14 = 40 = 2 × 20 ✓"],
+            "G1 é planar, porque a representação dada não tem arestas a cruzar-se, e é conexo, porque a cadeia [D,F,E,C,Q,P,O,N,G,L,M,I,J,K,H] passa por todos os vértices. Logo aplica-se a fórmula de Euler V − A + F = 2.\n"
+            "V = nº de vértices = 15; A = nº de arestas = 20; F = nº de faces = 7 (f1 = [C,Q,P,D], f2 = [P,O,N,D], f3 = [C,D,F,E], f4 = [D,N,G,K,H,F], f5 = [G,I,J,K], f6 = [G,L,M,I] e f7 a face exterior).\n"
+            "V − A + F = 15 − 20 + 7 = 2, logo verifica-se a fórmula de Euler.\nConfirmação: Σ deg(fi) = 4+4+4+6+4+4+14 = 40 = 2A.")),
+        dict(enunciado="Indique deg(F1), sendo F1 o subgrafo de G1 gerado pelo conjunto de vértices {F, D, N, G, K, H}.", cotacao=10, resolucao=R(
+            "Construir o subgrafo formado por esses 6 vértices e dizer o seu grau.",
+            ["Subgrafo gerado por um conjunto de vértices: ficas SÓ com esses vértices e com TODAS as arestas de G1 que ligam dois deles.",
+             "Grau de um vértice: nº de arestas que tocam nele. Grau de uma face: nº de arestas à volta dela.",
+             "Ciclo: percurso que volta ao início sem repetir arestas."],
+            "A definição de subgrafo gerado. A pergunta é ambígua (\"deg\" de um subgrafo não existe), mas o F de F1 sugere uma face: estes 6 vértices são precisamente a fronteira da face grande da direita. Por isso respondes as duas coisas: os graus dos vértices e o grau da face.",
+            ["Para cada par dos 6 vértices, vê no desenho se há aresta: F–D sim, D–N sim, N–G sim, G–K sim, K–H sim, H–F sim. Os outros pares (por exemplo D–G ou F–K) não têm aresta.",
+             "Ficam 6 arestas que formam uma volta fechada: o ciclo [F, D, N, G, K, H, F].",
+             "Cada vértice tem 2 arestas neste subgrafo, logo grau 2 (soma 12 = 2 × 6 arestas ✓).",
+             "Essa volta é a fronteira da face f4, rodeada por 6 arestas: grau 6."],
+            "O subgrafo F1 gerado por {F, D, N, G, K, H} tem as arestas {F,D}, {D,N}, {N,G}, {G,K}, {K,H} e {H,F}: é o ciclo [F, D, N, G, K, H, F], em que cada vértice tem grau 2.\n"
+            "Este ciclo delimita uma face de G1 com 6 arestas na fronteira, logo deg(F1) = 6.")),
+        dict(enunciado="Justifique que o grafo não é completo e investigue, justificando, se o grafo é bipartido.", cotacao=15, resolucao=R(
+            "Duas coisas: (a) mostrar que G1 não é completo; (b) descobrir se é bipartido e justificar.",
+            ["Completo (Kn): todos os vértices ligados a todos os outros.",
+             "Adjacentes: dois vértices ligados diretamente por uma aresta.",
+             "Bipartido: dá para dividir os vértices em dois grupos V1 e V2 de forma que TODAS as arestas liguem um vértice de V1 a um de V2 (nenhuma aresta dentro do mesmo grupo)."],
+            "(a) A definição de completo: basta encontrar 2 vértices que NÃO estejam ligados. Como reforço, um completo com 15 vértices teria 15 × 14 / 2 = 105 arestas (cada um liga aos outros 14 e cada aresta é contada 2 vezes, uma por ponta), e G1 só tem 20.\n"
+            "(b) Para o bipartido não há fórmula, há um método: pintar com 2 cores. Pintas um vértice de azul, os vizinhos dele de vermelho, os vizinhos desses de azul, e assim sucessivamente. Se nunca aparecer uma aresta com as duas pontas da mesma cor, é bipartido.",
+            ["(a) Procura dois vértices sem aresta entre eles: C e H, por exemplo. Já chega.",
+             "(b) C fica azul (V1). Os vizinhos de C (Q, E, D) ficam vermelhos (V2).",
+             "Vizinhos de Q, E, D ainda sem cor: P, F, N ficam azuis.",
+             "Vizinhos de P, F, N ainda sem cor: O, H, G ficam vermelhos.",
+             "Vizinhos de O, H, G ainda sem cor: K, I, L ficam azuis.",
+             "Vizinhos de K, I, L ainda sem cor: J, M ficam vermelhos. Todos têm cor.",
+             "Confirma as 20 arestas: todas ligam um azul a um vermelho. Não há conflito, logo é bipartido.",
+             "Atalho para confirmar: num grafo plano, se todas as faces têm grau par, é bipartido. Aqui os graus são 4, 4, 4, 6, 4, 4 e 14, todos pares ✓"],
+            "G1 não é completo, porque há vértices não adjacentes, por exemplo C e H (um grafo completo com 15 vértices teria 15 × 14 / 2 = 105 arestas e G1 tem apenas 20).\n"
+            "G1 é bipartido: com V1 = {C, F, I, K, L, N, P} e V2 = {D, E, G, H, J, M, O, Q}, V1 ∩ V2 = ∅, V1 ∪ V2 = V e todas as arestas têm uma extremidade em V1 e a outra em V2.")),
+        dict(enunciado="Ilustre para o grafo a aplicação do teorema de Dirac.", cotacao=15, resolucao=R(
+            "Verificar se G1 cumpre a condição do teorema de Dirac e dizer o que se conclui.",
+            ["Teorema de Dirac: se G é simples, conexo, tem V ≥ 3 vértices e TODOS os vértices têm grau ≥ V/2, então G tem um ciclo hamiltoniano.",
+             "Ciclo hamiltoniano: volta que passa por TODOS os vértices uma única vez e regressa ao início.",
+             "Simples: sem lacetes nem arestas repetidas. Conexo: tudo numa só peça.",
+             "Condição suficiente: se se cumpre, conclui-se; se falha, NÃO se conclui nada."],
+            "O próprio teorema de Dirac. \"Ilustrar\" é: verificar as hipóteses, testar a condição com os números do grafo e escrever a conclusão.",
+            ["Hipóteses: G1 é simples, conexo e V = 15 ≥ 3 ✓",
+             "Calcula V/2 = 15/2 = 7,5. Todos os graus teriam de ser ≥ 7,5 (na prática ≥ 8).",
+             "Procura o grau mais baixo: deg(E) = 2 (o maior grau de G1 é 4).",
+             "2 < 7,5, logo a condição falha.",
+             "Como Dirac é condição suficiente, falhar não prova que G1 não é hamiltoniano: nada se conclui."],
+            "G1 é simples, conexo e tem V = 15 ≥ 3 vértices. Para aplicar o teorema de Dirac seria preciso deg(v) ≥ V/2 = 7,5 para todo o vértice v. Mas, por exemplo, deg(E) = 2 < 7,5, logo a condição do teorema de Dirac não se verifica.\n"
+            "Como o teorema dá apenas uma condição suficiente, não se pode concluir, por ele, se G1 tem ou não ciclo hamiltoniano.")),
+        dict(enunciado="Seja μ = [D, F, E, C, Q, P, O, N, G, L, M, I, J, K, H]. O que pode concluir deste resultado à luz da Teoria de Grafos?", cotacao=15, resolucao=R(
+            "Classificar a sequência μ: que tipo de percurso é e o que isso diz sobre G1.",
+            ["Cadeia: sequência de vértices em que cada par seguido está ligado por uma aresta.",
+             "Elementar: não repete vértices.",
+             "Cadeia hamiltoniana: cadeia elementar que passa por TODOS os vértices.",
+             "Ciclo hamiltoniano: a mesma coisa, mas fechada (volta ao vértice inicial)."],
+            "As definições de cadeia, elementar e hamiltoniana. Verifica-se por ordem: é cadeia? repete vértices? passa por todos? fecha?",
+            ["É cadeia? Confirma cada par seguido no desenho: D–F, F–E, E–C, C–Q, Q–P, P–O, O–N, N–G, G–L, L–M, M–I, I–J, J–K, K–H. Todos são arestas ✓",
+             "Repete vértices? Não: os 15 são todos diferentes, logo é elementar.",
+             "Passa por todos? Sim, G1 tem 15 vértices e μ tem 15 vértices diferentes: é hamiltoniana.",
+             "Fecha? Para ser ciclo, o último (H) teria de estar ligado ao primeiro (D). H e D não são adjacentes, logo não é ciclo."],
+            "μ é uma cadeia de G1 (todos os pares consecutivos são arestas), elementar (não repete vértices) e passa pelos 15 vértices de G1. Logo μ é uma cadeia hamiltoniana e G1 é semi-hamiltoniano.\n"
+            "μ não é um ciclo hamiltoniano, porque os vértices H e D não são adjacentes.")),
+        dict(enunciado="A eulerização de um grafo consiste em transformar um grafo que não é euleriano num grafo euleriano, por meio da duplicação das arestas já existentes. Indique o menor número de arestas necessárias para obter um grafo euleriano, e quais.", cotacao=10, resolucao=R(
+            "Quantas arestas (já existentes) é preciso duplicar, no mínimo, para G1 ficar euleriano, e quais.",
+            ["Grafo euleriano: tem um ciclo euleriano, uma volta que passa por TODAS as arestas uma única vez.",
+             "Teorema de Euler: um grafo conexo é euleriano se e só se TODOS os vértices têm grau par.",
+             "Duplicar uma aresta: desenhá-la outra vez ao lado. Soma 1 ao grau de cada uma das suas duas pontas."],
+            "O teorema de Euler: temos de pôr todos os graus pares. Duplicar uma aresta muda a paridade das suas 2 pontas. Para corrigir um vértice ímpar sem estragar os outros, junta-se cada vértice ímpar a outro ímpar pelo caminho mais curto e duplicam-se as arestas desse caminho (os vértices do meio recebem +2 e continuam pares).",
+            ["Lista os vértices de grau ímpar: C(3), F(3), I(3), K(3), N(3), P(3). São 6.",
+             "Precisas de 3 pares. Vê se algum par de ímpares está ligado diretamente (custaria só 1 aresta): nenhum está.",
+             "Logo cada par custa pelo menos 2 arestas, e o mínimo é 3 × 2 = 6.",
+             "Escolhe pares a distância 2: C–E–F, P–O–N e I–J–K.",
+             "Duplica {C,E}, {E,F}, {P,O}, {O,N}, {I,J}, {J,K}. Confirma: C, F, P, N, I e K passam a grau 4; E, O e J passam de 2 para 4. Todos pares ✓"],
+            "G1 é conexo e tem 6 vértices de grau ímpar: C, F, I, K, N e P (todos de grau 3), logo não é euleriano (pelo teorema de Euler, todos os graus teriam de ser pares).\n"
+            "Como nenhum par destes vértices é adjacente, cada par precisa de pelo menos 2 arestas duplicadas, logo o mínimo é 6 arestas. Por exemplo, duplicando {C,E}, {E,F}, {P,O}, {O,N}, {I,J} e {J,K}, todos os vértices ficam com grau par e o grafo fica euleriano."))]))
     # ---- Ricardo 2025/26 G2
     Vd = list("ABCDEF"); A = [("A", "B"), ("B", "E"), ("E", "C"), ("C", "A"), ("A", "D"), ("D", "C"), ("C", "F")]
     o, i = digraph_maps(Vd, A)
     assert reach(o, "C") == set(Vd) and reach(i, "C") == set("ABCDE")
     out.append(dict(id="r-ric25-2", grupo=G2, tipo="aberta", tema="Digrafo", fonte="Teste real · Ricardo Gonçalves · 21/11/2025",
-        enunciado="Considere o digrafo:", imagem="/estudo/img/md/ric25-d2.png", alineas=[
-        dict(enunciado="Investigue se o digrafo é fortemente conexo. Caso não seja, indique todas as componentes conexas.", cotacao=10,
-             resolucao=("Não é fortemente conexo: F não tem arcos a sair ($\\deg^+(F) = 0$), logo de F não se chega a nenhum vértice.\n"
-                        "$\\Gamma_A \\cap \\Gamma^{-1}_A = \\{A,B,C,D,E,F\\} \\cap \\{A,B,C,D,E\\} = \\{A,B,C,D,E\\}$\n"
-                        "Componentes fortemente conexas: {A, B, C, D, E} e {F}. (O digrafo é conexo: o grafo subjacente é conexo.)")),
-        dict(enunciado="Apresente um circuito não elementar.", cotacao=10,
-             resolucao=("Circuitos elementares: [A,B,E,C,A] e [A,D,C,A]. Juntando os dois pelo vértice comum: [A,B,E,C,A,D,C,A] passa duas vezes por A e por C (não elementar).\n"
-                        "⚠️ Atenção: este percurso usa o arco (C,A) duas vezes. Com a definição rigorosa (circuito = caminho simples fechado) este digrafo não tem circuito não elementar, porque (C,A) é o único arco que entra em A. "
-                        "Na prova, apresenta o exemplo e, se tiveres tempo, comenta isto: mostra que dominas a definição.")),
-        dict(enunciado="Justifique que o digrafo tem um caminho euleriano e indique-o.", cotacao=10,
-             resolucao=(table(["v", "deg⁺", "deg⁻"], [["A", 2, 1], ["B", 1, 1], ["C", 2, 2], ["D", 1, 1], ["E", 1, 1], ["F", 0, 1]]) +
-                        "Conexo; $\\deg^+(A) = \\deg^-(A) + 1$, $\\deg^-(F) = \\deg^+(F) + 1$ e nos outros $\\deg^+ = \\deg^-$ ⇒ caminho euleriano de A para F:\n[A, B, E, C, A, D, C, F]")),
-        dict(enunciado="Determine $\\Gamma_C$ e $\\Gamma^{-1}_C$.", cotacao=15,
-             resolucao=("$\\Gamma_C$ (atingíveis a partir de C): C→A, C→F, A→B, A→D, B→E ⇒ $\\Gamma_C = \\{A, B, C, D, E, F\\}$\n"
-                        "$\\Gamma^{-1}_C$ (de onde se chega a C): D→C, E→C, B→E, A→B ⇒ $\\Gamma^{-1}_C = \\{A, B, C, D, E\\}$"))]))
+        enunciado="Considere o digrafo (arcos: A→B, B→E, E→C, C→A, A→D, D→C, C→F):", imagem="/estudo/img/md/ric25-d2.png", alineas=[
+        dict(enunciado="Investigue se o digrafo é fortemente conexo. Caso não seja, indique todas as componentes conexas.", cotacao=10, resolucao=R(
+            "Dizer se o digrafo é fortemente conexo e, como não é, indicar as suas componentes (fortemente) conexas.",
+            ["Digrafo: grafo com setas (arcos). Só se pode andar no sentido da seta.",
+             "Fortemente conexo: de QUALQUER vértice consegue-se chegar a QUALQUER outro, respeitando as setas.",
+             "Γv (fecho direto): todos os vértices onde se chega a partir de v. Γ⁻¹v (fecho inverso): todos os vértices de onde se chega a v.",
+             "Componente fortemente conexa: grupo de vértices em que todos chegam a todos. Calcula-se com Γv ∩ Γ⁻¹v."],
+            "Primeiro um atalho: um vértice sem setas a sair impede logo a forte conexidade. Depois, para encontrar as componentes, os fechos: a componente de v é Γv ∩ Γ⁻¹v (os vértices que v alcança E que alcançam v).",
+            ["Faz a tabela de setas: F tem 1 seta a entrar (C→F) e 0 a sair, logo deg⁺(F) = 0.",
+             "De F não se chega a nenhum vértice, logo NÃO é fortemente conexo.",
+             "Componente de A: ΓA = {A,B,C,D,E,F} (A→B→E→C→F, A→D). Γ⁻¹A = {A,B,C,D,E} (só F não chega a A). Interseção: {A,B,C,D,E}.",
+             "Sobra F, que forma sozinho outra componente: {F}."],
+            "O digrafo não é fortemente conexo, porque deg⁺(F) = 0, ou seja, não existe caminho de F para nenhum outro vértice.\n"
+            "ΓA ∩ Γ⁻¹A = {A,B,C,D,E,F} ∩ {A,B,C,D,E} = {A,B,C,D,E}. As componentes fortemente conexas são {A, B, C, D, E} e {F}.")),
+        dict(enunciado="Apresente um circuito não elementar.", cotacao=10, resolucao=R(
+            "Um exemplo de circuito que passe duas vezes pelo mesmo vértice.",
+            ["Circuito: caminho (a respeitar as setas) que acaba onde começou, sem repetir arcos.",
+             "Elementar: não repete vértices. Não elementar: passa pelo menos duas vezes num vértice."],
+            "Juntar dois circuitos que partilham um vértice: percorre-se um, e quando se volta ao vértice comum segue-se pelo outro.",
+            ["Encontra circuitos pequenos: A→B→E→C→A e A→D→C→A.",
+             "Partilham A (e C). Junta-os: A→B→E→C→A→D→C→A.",
+             "Passa duas vezes por A e por C, logo não é elementar.",
+             "Cuidado: este percurso usa a seta C→A duas vezes, porque é a única seta que entra em A. Com a definição rigorosa (circuito não repete arcos), este digrafo não tem circuito não elementar. Vale a pena escrever isto."],
+            "Por exemplo [A, B, E, C, A, D, C, A]: é um caminho fechado que passa duas vezes pelos vértices A e C, logo não é elementar.\n"
+            "(Observação: o arco (C,A) é o único que chega a A, pelo que qualquer caminho fechado que volte duas vezes a A tem de o repetir; sem repetir arcos não existe circuito não elementar.)")),
+        dict(enunciado="Justifique que o digrafo tem um caminho euleriano e indique-o.", cotacao=10, resolucao=R(
+            "Mostrar que existe um caminho que passa por TODAS as setas uma única vez, e escrevê-lo.",
+            ["Caminho euleriano: percurso que usa todos os arcos exatamente uma vez, a respeitar as setas.",
+             "deg⁺(v): setas que saem de v. deg⁻(v): setas que entram em v.",
+             "Conexo (num digrafo): ignorando as setas, está tudo numa só peça."],
+            "O teorema para digrafos: um digrafo conexo tem caminho euleriano de v0 para v1 se e só se v0 tem uma seta a sair a mais (deg⁺ = deg⁻ + 1), v1 tem uma seta a entrar a mais (deg⁻ = deg⁺ + 1) e todos os outros têm deg⁺ = deg⁻.",
+            ["Faz a tabela: A sai 2, entra 1; B 1, 1; C 2, 2; D 1, 1; E 1, 1; F sai 0, entra 1.",
+             "A tem uma seta a sair a mais: é o início. F tem uma seta a entrar a mais: é o fim. Os outros estão equilibrados ✓",
+             "É conexo (ignorando as setas está tudo ligado) ✓",
+             "Constrói a partir de A, riscando cada seta usada: A→B→E→C→A→D→C→F.",
+             "Confirma: usaste 7 setas e o digrafo tem 7 ✓"],
+            table(["v", "deg⁺", "deg⁻"], [["A", 2, 1], ["B", 1, 1], ["C", 2, 2], ["D", 1, 1], ["E", 1, 1], ["F", 0, 1]]) +
+            "O digrafo é conexo, deg⁺(A) = deg⁻(A) + 1, deg⁻(F) = deg⁺(F) + 1 e, para os restantes vértices, deg⁺(v) = deg⁻(v). Logo admite um caminho euleriano de A para F, por exemplo [A, B, E, C, A, D, C, F].")),
+        dict(enunciado="Determine ΓC e Γ⁻¹C.", cotacao=15, resolucao=R(
+            "Os dois fechos transitivos do vértice C.",
+            ["ΓC (fecho transitivo direto): todos os vértices onde se consegue chegar a partir de C, seguindo as setas, por caminhos de qualquer tamanho. Inclui o próprio C.",
+             "Γ⁻¹C (fecho transitivo inverso): todos os vértices de onde se consegue chegar a C. Inclui o próprio C.",
+             "Não confundir com Γ⁺(C) e Γ⁻(C), que são só os vizinhos diretos."],
+            "Expansão em camadas: começa com {C} e vai juntando, até não entrar ninguém novo. Para o inverso, faz o mesmo andando contra as setas.",
+            ["ΓC: começa {C}. C→A e C→F: {C, A, F}. A→B e A→D: {C, A, F, B, D}. B→E: junta E. Já estão todos: {A, B, C, D, E, F}.",
+             "Γ⁻¹C: começa {C}. Chegam a C: E (E→C) e D (D→C): {C, E, D}. Chegam a E: B. Chegam a D: A. Chegam a B: A. Chegam a A: C (já está). Fica {A, B, C, D, E}.",
+             "F não está em Γ⁻¹C porque de F não sai nenhuma seta."],
+            "ΓC = {A, B, C, D, E, F}, porque C→A, C→F, A→B, A→D e B→E.\nΓ⁻¹C = {A, B, C, D, E}, porque D→C, E→C, B→E e A→B (de F não se chega a C)."))]))
     # ---- Ricardo 2025/26 G3
     V3 = list("123456"); E3 = [norm_edge(a, b, V3) for a, b in ["15", "14", "13", "25", "24", "23", "63", "65", "64", "35"]]
     adj3 = adj_from_edges(V3, E3)
     C3 = ["1", "3", "2", "4", "6", "5", "1"]
     assert all(b in adj3[a] for a, b in zip(C3, C3[1:]))
+    assert metodo_ciclico(V3, E3, C3)[0] is False
     out.append(dict(id="r-ric25-3", grupo=G3, tipo="aberta", tema="Planaridade", fonte="Teste real · Ricardo Gonçalves · 21/11/2025",
         enunciado="Considere o seguinte grafo (numerei os vértices no sentido horário a partir do de cima à esquerda: 1 cima-esq., 2 cima-dir., 3 direita, 4 baixo-dir., 5 baixo-esq., 6 esquerda):",
         imagem="/estudo/img/md/ric25-g3.png", alineas=[
-        dict(enunciado="Justifique que o grafo não é planar.", cotacao=15,
-             resolucao=("n = 6, m = 10. $3n - 6 = 12$ e 10 ≤ 12, por isso o corolário não decide.\n"
-                        "Mas com $V_1 = \\{1, 2, 6\\}$ e $V_2 = \\{3, 4, 5\\}$ existem as 9 arestas entre os dois conjuntos: G contém $K_{3,3}$ (só sobra a aresta {3,5}).\n"
-                        "$K_{3,3}$ não tem triângulos e tem $9 > 2n - 4 = 8$ arestas ⇒ não é planar. Logo G também não é.")),
-        dict(enunciado="Aplique o método cíclico para comprovar que o grafo não é planar.", cotacao=20,
-             resolucao=metodo_ciclico(V3, E3, C3)[1]),
-    ]))
-    assert metodo_ciclico(V3, E3, C3)[0] is False
+        dict(enunciado="Justifique que o grafo não é planar.", cotacao=15, resolucao=R(
+            "Provar que é impossível desenhar este grafo sem arestas a cruzar.",
+            ["Planar: PODE ser desenhado sem cruzamentos. O desenho dado ter cruzamentos não prova nada.",
+             "K3,3: dois grupos de 3 vértices, cada vértice de um grupo ligado aos 3 do outro grupo (9 arestas). É o exemplo clássico de grafo não planar.",
+             "Triângulo: 3 vértices todos ligados entre si."],
+            "Tenta por esta ordem: (1) A > 3V − 6? (2) sem triângulos e A > 2V − 4? (3) contém K5 ou K3,3? Aqui as duas primeiras não decidem, por isso procura-se um K3,3 escondido.",
+            ["Conta: V = 6, A = 10.",
+             "3V − 6 = 12. Como 10 ≤ 12, este teste não decide.",
+             "Há triângulos (3, 5, 6 estão todos ligados), por isso o teste 2V − 4 também não se aplica.",
+             "Procura K3,3: os vértices 1, 2 e 6 estão os três ligados a 3, 4 e 5. São 9 arestas: {1,3} {1,4} {1,5} {2,3} {2,4} {2,5} {6,3} {6,4} {6,5}. Sobra só {3,5}.",
+             "K3,3 não tem triângulos e tem 9 arestas > 2 × 6 − 4 = 8, logo não é planar. Um grafo que contém um bocado não planar também não é planar."],
+            "V = 6 e A = 10 ≤ 3V − 6 = 12, pelo que o corolário da fórmula de Euler não permite concluir.\n"
+            "Mas, com V1 = {1, 2, 6} e V2 = {3, 4, 5}, existem as 9 arestas entre V1 e V2: o grafo contém K3,3. K3,3 é simples, conexo, sem triângulos e tem 9 > 2 × 6 − 4 = 8 arestas, logo não é planar. Portanto o grafo também não é planar.")),
+        dict(enunciado="Aplique o método cíclico para comprovar que o grafo não é planar.", cotacao=20, resolucao=R(
+            "Usar o método cíclico (o dos slides TG_3) e concluir que não é planar.",
+            ["Ciclo hamiltoniano: volta que passa por todos os vértices uma vez.",
+             "Cordas (conjunto L): as arestas que não fazem parte desse ciclo.",
+             "Incompatíveis: duas cordas que se cruzam se forem desenhadas do mesmo lado do ciclo. Acontece quando as pontas alternam ao longo do ciclo (a, c, b, d).",
+             "A: cordas desenhadas dentro do ciclo. B: cordas desenhadas por fora."],
+            "O método cíclico: desenha-se o ciclo como um polígono e tenta-se pôr cada corda dentro (A) ou fora (B) sem cruzar. Se não houver maneira, o grafo não é planar.",
+            ["Ciclo hamiltoniano: C = [1, 3, 2, 4, 6, 5, 1]. Escreve os vértices nesta ordem à volta de um círculo.",
+             "Cordas que sobram: L = {1,4}, {2,5}, {3,6}, {3,5}.",
+             "Testa cada par: {1,4} e {2,5}: na ordem 1, 3, 2, 4, 6, 5 as pontas alternam (1 … 2 … 4 … 5), logo incompatíveis. Do mesmo modo {1,4}×{3,6}, {1,4}×{3,5} e {2,5}×{3,6} são incompatíveis.",
+             "Põe {1,4} em A (dentro). Então {2,5} tem de ir para B (fora). Então {3,6}, incompatível com {2,5}, tem de ir para A.",
+             "Mas {3,6} também é incompatível com {1,4}, que já está em A. Não cabe em nenhum lado: L nunca fica vazio, logo não é planar."],
+            "Ciclo hamiltoniano C = [1, 3, 2, 4, 6, 5, 1]. Arestas fora de C: L = {{1,4}, {2,5}, {3,6}, {3,5}}.\n"
+            "Pares incompatíveis: {1,4}×{2,5}, {1,4}×{3,6}, {1,4}×{3,5}, {2,5}×{3,6}.\n"
+            "Colocando {1,4} em A, {2,5} tem de ficar em B e então {3,6} tem de ficar em A; mas {3,6} é incompatível com {1,4} ∈ A. As arestas {1,4}, {2,5} e {3,6} são incompatíveis duas a duas, pelo que não podem ser distribuídas por A e B sem interseções. L ≠ ∅, logo o grafo não é planar."))]))
     # ---- Ricardo 2025/26 G4
     V4 = ["Aveiro", "Braga", "Coimbra", "Porto", "Viana", "Vila Real", "Viseu"]
     W4 = {("Aveiro", "Coimbra"): 58, ("Aveiro", "Porto"): 68, ("Aveiro", "Vila Real"): 184, ("Aveiro", "Viseu"): 95, ("Braga", "Porto"): 53,
@@ -617,15 +738,42 @@ def reais():
           ("Porto", "Vila Real"): 116, ("Porto", "Viseu"): 133, ("Viana", "Vila Real"): 154, ("Vila Real", "Viseu"): 110}
     steps, total, ptab = prim_html(V4, W4, "Aveiro")
     path, cost, dtab = dijkstra_html(V4, W4, "Coimbra", "Viana", False)
+    assert total == 428 and cost == 188
+    pos4 = {"Aveiro": (.25, .55), "Braga": (.5, .1), "Coimbra": (.2, .95), "Porto": (.3, .3), "Viana": (.15, .05), "Vila Real": (.85, .3), "Viseu": (.75, .75)}
     out.append(dict(id="r-ric25-4", grupo=G4, tipo="aberta", tema="Redes", fonte="Teste real · Ricardo Gonçalves · 21/11/2025",
         enunciado="Considere as seguintes distâncias, em km, entre algumas cidades portuguesas (em branco: sem ligação):\n" + matrix_table(V4, W4, False),
         alineas=[
-        dict(enunciado="A empresa TIR pretende um percurso que permita a um camião recolher bens em todas as cidades, pelas ligações assinaladas. Por meio de um algoritmo adequado, represente e determine a menor distância possível.", cotacao=15,
-             resolucao=("É um problema de árvore geradora mínima (ligar todas as cidades com a menor soma). Prim a partir de Aveiro:\n" + ptab +
-                        svg(V4, {"Aveiro": (.25, .55), "Braga": (.5, .1), "Coimbra": (.2, .95), "Porto": (.3, .3), "Viana": (.15, .05), "Vila Real": (.85, .3), "Viseu": (.75, .75)},
-                            list(W4), weights=W4, highlight=[(a, b) for a, b, _ in steps], w=360, h=280) + f"Total: {total} km")),
-        dict(enunciado="Um funcionário está em Coimbra e tem de ir a Viana do Castelo. Determine, por um algoritmo adequado, o percurso mais curto e a distância.", cotacao=25,
-             resolucao=("Percurso mínimo ⇒ algoritmo de Dijkstra. Etiquetas custo (antecessor):\n" + dtab + f"Percurso: {' → '.join(path)}, {cost} km"))]))
+        dict(enunciado="A empresa TIR-INTERNACIONAL pretende estabelecer um percurso que permita a um camião recolher, entre as cidades e ligações assinaladas, os bens a transportar. Por meio de um algoritmo adequado, represente e determine a menor distância possível que o camião terá de percorrer se tiver de passar por todas as cidades.", cotacao=15, resolucao=R(
+            "Ligar as 7 cidades usando as estradas da tabela, com a menor soma de quilómetros.",
+            ["Rede: grafo com números (pesos) nas arestas, aqui quilómetros.",
+             "Árvore: ligações que unem todos os pontos sem formar nenhuma volta fechada. Com V pontos tem V − 1 ligações.",
+             "Árvore geradora mínima: a árvore que liga TODOS os vértices com a menor soma de pesos."],
+            "\"Passar por todas as cidades com a menor distância\", nesta UC, é tratado como árvore geradora mínima. \"Algoritmo a partir da matriz\" = Prim: começa numa cidade e, em cada passo, junta a cidade nova mais barata de ligar a partir das que já estão na árvore.",
+            ["Começa em Aveiro. Estradas de Aveiro: Coimbra 58, Porto 68, Viseu 95, Vila Real 184. A mais barata é Coimbra (58).",
+             "Árvore {Aveiro, Coimbra}. Candidatas para cidades novas: Porto 68 (Av), Viseu 95 (Av), Vila Real 184 (Av), Porto 117 (Co), Viseu 96 (Co). Mínima: Porto 68.",
+             "Árvore {Av, Co, Porto}. Novas candidatas a partir do Porto: Braga 53, Viana 71, Vila Real 116, Viseu 133. Mínima de todas: Braga 53.",
+             "Árvore {Av, Co, Po, Braga}. De Braga: Viana 48, Vila Real 106. Mínima: Viana 48.",
+             "Árvore {Av, Co, Po, Br, Viana}. Faltam Viseu e Vila Real. Candidatas: Viseu 95 (Av), Vila Real 106 (Br), 116 (Po), 154 (Vi). Mínima: Viseu 95.",
+             "Falta Vila Real: Vila Real 106 (Br) ou 110 (Vis). Mínima: 106.",
+             "6 ligações para 7 cidades ✓. Soma: 58 + 68 + 53 + 48 + 95 + 106 = 428 km."],
+            "Trata-se de um problema de árvore geradora mínima. Aplicando o algoritmo de Prim a partir da matriz, com início em Aveiro:\n" + ptab +
+            svg(V4, pos4, list(W4), weights=W4, highlight=[(a, b) for a, b, _ in steps], w=360, h=280) +
+            "Árvore geradora mínima: Aveiro–Coimbra, Aveiro–Porto, Porto–Braga, Braga–Viana, Aveiro–Viseu, Braga–Vila Real. Distância mínima: 428 km.")),
+        dict(enunciado="Um funcionário encontra-se em Coimbra e tem de fazer um transporte até Viana do Castelo. Determine, por meio de um algoritmo adequado, o percurso mais curto e a respetiva distância.", cotacao=25, resolucao=R(
+            "O caminho mais curto de Coimbra até Viana do Castelo e quantos km tem.",
+            ["Percurso mínimo: caminho entre DOIS pontos com a menor soma de pesos.",
+             "Etiqueta de um vértice: a menor distância conhecida até ele, escrita como custo (antecessor).",
+             "Temporária: ainda pode melhorar. Permanente (✓): já é de certeza a menor."],
+            "É um percurso mínimo entre dois pontos, logo Dijkstra. Em cada iteração, a menor etiqueta temporária passa a permanente e, a partir dela, tentam melhorar-se os vizinhos.",
+            ["Coimbra = 0 ✓. Vizinhos: Aveiro 58 (Co), Porto 117 (Co), Viseu 96 (Co). Restantes ∞.",
+             "Menor temporária: Aveiro 58 ✓. A partir de Aveiro: Porto 58 + 68 = 126 > 117, fica 117; Vila Real 58 + 184 = 242 (Av); Viseu 58 + 95 = 153 > 96, fica 96.",
+             "Menor temporária: Viseu 96 ✓. Porto 96 + 133 = 229 > 117, fica; Vila Real 96 + 110 = 206 < 242, passa a 206 (Vis).",
+             "Menor temporária: Porto 117 ✓. Braga 117 + 53 = 170 (Po); Viana 117 + 71 = 188 (Po); Vila Real 117 + 116 = 233 > 206, fica.",
+             "Menor temporária: Braga 170 ✓. Viana 170 + 48 = 218 > 188, fica 188; Vila Real 170 + 106 = 276 > 206, fica.",
+             "Menor temporária: Viana 188 ✓. É o destino: parar.",
+             "Percurso pelos antecessores, de trás para a frente: Viana ← Porto ← Coimbra."],
+            "Trata-se de um problema de percurso mínimo; aplica-se o algoritmo de Dijkstra (etiquetas custo (antecessor), ✓ = permanente):\n" + dtab +
+            "Percurso mais curto: Coimbra → Porto → Viana do Castelo, com 117 + 71 = 188 km."))]))
     # ---- Teresa 2025/26 Q3 e Q4
     VT = ["I1", "I2", "I3", "I4", "I5"]; AT = [("I1", "I2"), ("I1", "I5"), ("I2", "I4"), ("I3", "I1"), ("I4", "I3"), ("I4", "I5"), ("I5", "I2")]
     oT, iT = digraph_maps(VT, AT)
@@ -869,10 +1017,24 @@ def main():
         fichas=[dict(titulo=t, ids=temas[t]) for t in ("Conceitos e graus", "Euler e Hamilton", "Planares", "Matrizes e fecho", "Redes") if t in temas],
         perguntas=perguntas)
     import re
+    def latex(t):
+        t = t[1:-1]
+        t = re.sub(r"\\frac\{([^{}]*)\}\{([^{}]*)\}", r"\1/\2", t)
+        for a, b in [("\\Gamma", "Γ"), ("\\deg", "deg"), ("\\sum", "Σ"), ("\\le", "≤"), ("\\ge", "≥"), ("\\times", "×"), ("\\neq", "≠"),
+                     ("\\cap", "∩"), ("\\cup", "∪"), ("\\emptyset", "∅"), ("\\notin", "∉"), ("\\leftrightarrow", "↔"), ("\\to", "→"),
+                     ("\\neg", "¬"), ("\\land", "∧"), ("\\lor", "∨"), ("\\setminus", "\\"), ("\\{", "{"), ("\\}", "}"), ("\\,", " "), ("\\dots", "…"), ("\\mu", "μ")]:
+            t = t.replace(a, b)
+        t = re.sub(r"\\text\{([^{}]*)\}", r"\1", t)
+        t = re.sub(r"\\mathcal\{([^{}]*)\}", r"\1", t)
+        t = t.replace("^{-1}", "⁻¹").replace("^+", "⁺").replace("^-", "⁻").replace("^n", "ⁿ").replace("^3", "³").replace("^2", "²")
+        t = re.sub(r"_\{([^{}]*)\}", r"\1", t)
+        t = re.sub(r"_(\w)", r"\1", t)
+        t = re.sub(r"\^\{([^{}]*)\}", r"^\1", t)
+        return t.replace("{", "{").replace("\\", "")
     def limpa(x):
         if isinstance(x, str):
-            partes = re.split(r"(\$[^$]*\$)", x)  # fora de $...$ o KaTeX não atua
-            return "".join(p if p.startswith("$") else p.replace("\\{", "{").replace("\\}", "}") for p in partes)
+            partes = re.split(r"(\$[^$]*\$)", x)
+            return "".join(latex(p) if p.startswith("$") and len(p) > 1 else p.replace("\\{", "{").replace("\\}", "}") for p in partes)
         if isinstance(x, list): return [limpa(y) for y in x]
         if isinstance(x, dict): return {k: limpa(v) for k, v in x.items()}
         return x
