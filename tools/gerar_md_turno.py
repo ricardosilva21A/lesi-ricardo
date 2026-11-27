@@ -158,6 +158,10 @@ def ex1(idx):
         ciclo_txt = "componentes fortemente conexas: " + ", ".join("{" + ", ".join(c) + "}" for c in comps)
     o, i = digraph_maps(V, A)
     Gd = reach(o, V[0]); Gi = reach(i, V[0])
+    motivo = ""
+    for x in V:
+        if not o[x]: motivo = f"Do vértice {x} não sai nenhuma seta (deg⁺({x}) = 0), por isso de {x} não se chega a mais nenhum vértice."; break
+        if not i[x]: motivo = f"Ao vértice {x} não chega nenhuma seta (deg⁻({x}) = 0), por isso nenhum outro vértice consegue chegar a {x}."; break
     al = [
         dict(enunciado="Indique a ordem do grafo.", cotacao=5, resolucao=R(
             "O número de vértices do grafo.",
@@ -186,9 +190,11 @@ def ex1(idx):
             "Ver se de qualquer vértice se chega a qualquer outro, respeitando o sentido das setas.",
             [f"Calcula ΓX e Γ⁻¹X de um vértice, por exemplo {V[0]}.", "Se os dois derem V, é fortemente conexo.",
              "Se não, indica as componentes fortemente conexas (ΓX ∩ Γ⁻¹X de cada vértice).", "Atalho para o não: um vértice sem setas a sair (ou a entrar) estraga logo."],
-            (f"Γ{V[0]} = {S(Gd, V)} e Γ⁻¹{V[0]} = {S(Gi, V)}. " +
+            (f"Γ{V[0]} = {S(Gd, V)} (onde se chega a partir de {V[0]}) e Γ⁻¹{V[0]} = {S(Gi, V)} (quem consegue chegar a {V[0]}). " +
              (f"Como ambos são iguais a V, de qualquer vértice chega-se a qualquer outro (passando por {V[0]}), logo G é fortemente conexo." if forte else
-              f"Como Γ{V[0]} ∩ Γ⁻¹{V[0]} ≠ V, G não é fortemente conexo; {ciclo_txt}.")),
+              (motivo + " " if motivo else "") +
+              f"Como Γ{V[0]} ∩ Γ⁻¹{V[0]} ≠ V, G não é fortemente conexo.\nAs componentes fortemente conexas (grupos de vértices que vão e voltam uns aos outros) são: " +
+              ", ".join("{" + ", ".join(c) + "}" for c in comps) + ".")),
             ["Fortemente conexo: para quaisquer u, v existe caminho de u para v e de v para u (a respeitar as setas)."])),
         dict(enunciado="Apresente uma cadeia não elementar.", cotacao=10, resolucao=R(
             "Uma cadeia (ignora-se o sentido das setas) que passe duas vezes pelo mesmo vértice.",
