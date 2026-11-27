@@ -61,8 +61,8 @@ def svg_multi(V, A, directed=True, pos=None, weights=None, w=300, h=260, hl=None
         def enc(px, py, qx, qy, k):
             dd = math.hypot(qx - px, qy - py) or 1
             return px + (qx - px) / dd * k, py + (qy - py) / dd * k
-        sx, sy = enc(x1, y1, cx, cy, r)
-        ex, ey = enc(x2, y2, cx, cy, r + (2 if directed else 0))
+        sx, sy = enc(x1, y1, cx, cy, 6 if len(a) > 3 else r)
+        ex, ey = enc(x2, y2, cx, cy, (6 if len(b) > 3 else r) + (2 if directed else 0))
         on = (a, b) in hl
         st = "#e5484d" if on else "currentColor"
         mk = f" marker-end='url(#{mid})'" if directed else ""
@@ -73,7 +73,11 @@ def svg_multi(V, A, directed=True, pos=None, weights=None, w=300, h=260, hl=None
             s.append(f"<rect x='{lx - tw / 2:.1f}' y='{ly - 8:.1f}' width='{tw}' height='15' rx='4' fill='var(--card)' opacity='.92'/><text x='{lx:.1f}' y='{ly + 3.5:.1f}' font-size='11' text-anchor='middle' fill='{st}' font-weight='600'>{t}</text>")
     for v in V:
         x, y = P[v]
-        s.append(f"<circle cx='{x:.1f}' cy='{y:.1f}' r='{r}' fill='var(--card)' stroke='currentColor' stroke-width='1.6'/><text x='{x:.1f}' y='{y + 4:.1f}' font-size='11' text-anchor='middle' fill='currentColor' font-weight='700'>{v}</text>")
+        if len(v) > 3:
+            ty = y - 11 if y > h / 2 else y + 19
+            s.append(f"<circle cx='{x:.1f}' cy='{y:.1f}' r='5' fill='currentColor'/><text x='{x:.1f}' y='{ty:.1f}' font-size='11' text-anchor='middle' fill='currentColor' font-weight='700'>{v}</text>")
+        else:
+            s.append(f"<circle cx='{x:.1f}' cy='{y:.1f}' r='{r}' fill='var(--card)' stroke='currentColor' stroke-width='1.6'/><text x='{x:.1f}' y='{y + 4:.1f}' font-size='11' text-anchor='middle' fill='currentColor' font-weight='700'>{v}</text>")
     s.append("</svg>")
     return "".join(s)
 
@@ -533,7 +537,8 @@ def ex4(idx, dijkstra_html=None):
          f"Repete até teres n − 1 = {n - 1} caixas (todos os vértices ligados).",
          "Desenha só as ligações das caixas e soma os valores: é a extensão mínima."] + arv,
         "Matriz (os valores em caixa são as ligações escolhidas, pela ordem indicada):\n" + tri_table(V, W, chosen) +
-        svg_multi(V, A, directed=False, pos=pos, weights=ws, w=360, h=270, hl=hl) +
+        "Desenho da árvore (só as ligações escolhidas, com os pesos):\n" +
+        svg_multi(V, [(a, b) for a, b, _ in steps], directed=False, pos=pos, weights=[w for _, _, w in steps], w=360, h=270) +
         f"Árvore geradora mínima: {', '.join(f'{a}–{b}' for a, b, _ in steps)} ({n - 1} arestas para {n} vértices).\nExtensão mínima: {soma} = {total}.",
         ["Árvore: grafo conexo sem ciclos, com |E| = |V| − 1.", "Árvore geradora mínima: árvore com todos os vértices e com a menor soma de custos (extensão mínima)."]))]
     fig, resd, s0, t0 = dijkstra_parte(rnd)
