@@ -512,22 +512,24 @@ def ex4(idx, dijkstra_html=None):
         W = {(V[x], V[y]): (rnd.randint(8, 99) if big else rnd.randint(1, 25)) for x, y in E}
         if len(set(W.values())) < len(W) * .75: continue
         if not connected(adj_from_edges(V, list(W))): continue
-        steps, total = prim(V, W, V[0])
+        emin = min(W, key=lambda e: (W[e], V.index(e[0]), V.index(e[1])))
+        start = emin[0]
+        steps, total = prim(V, W, start)
         if len(steps) == n - 1: break
     chosen = {frozenset((a, b)): k for k, (a, b, w) in enumerate(steps, 1)}
     pos = {V[k]: pts[k] for k in range(n)}
     A = list(W); ws = [W[x] for x in A]
     arv = []
     for k, (a, b, w) in enumerate(steps, 1):
-        dentro = [V[0]] + [y for _, y, _ in steps[:k - 1]]
+        dentro = [start] + [y for _, y, _ in steps[:k - 1]]
         arv.append(f"Passo {k}: árvore {{{', '.join(dentro)}}}. Nas colunas e linhas destes vértices, o menor valor que liga a um vértice ainda fora é {w} ({a}–{b}) ⇒ entra {b}.")
     hl = [(a, b) for a, b, _ in steps] + [(b, a) for a, b, _ in steps]
     soma = " + ".join(str(w) for _, _, w in steps)
     al = [dict(enunciado="Utilize o algoritmo de Prim, a partir da matriz, para determinar a árvore geradora mínima. Represente-a e indique a extensão mínima.", cotacao=25, resolucao=R(
         "As ligações que unem todos os vértices com a menor soma (árvore geradora mínima), feitas na matriz, o desenho e a soma.",
-        [f"Começa no vértice {V[0]}: marca a sua linha/coluna (risco vertical, como na aula).",
-         "Procura, nos valores que ligam os vértices já marcados a vértices AINDA NÃO marcados, o menor. Põe-no numa caixa (escreve a ordem ao lado).",
-         "O vértice novo passa a estar marcado: risca também a coluna/linha dele. Os valores entre dois vértices já marcados deixam de contar (formariam ciclo).",
+        [f"Começa pelo MENOR valor de toda a matriz: {W[emin]} ({emin[0]}–{emin[1]}). Põe-no numa caixa com o 1 ao lado e risca a linha e a coluna dos dois vértices.",
+         "Depois, olha só para os valores com exatamente UM risco (ligam um vértice já escolhido a um ainda de fora). O menor vai para a caixa (escreve a ordem ao lado).",
+         "Risca a linha e a coluna do vértice novo. Valores com DOIS riscos deixam de contar (ligam dois vértices já escolhidos: formariam ciclo).",
          f"Repete até teres n − 1 = {n - 1} caixas (todos os vértices ligados).",
          "Desenha só as ligações das caixas e soma os valores: é a extensão mínima."] + arv,
         "Matriz (os valores em caixa são as ligações escolhidas, pela ordem indicada):\n" + tri_table(V, W, chosen) +
