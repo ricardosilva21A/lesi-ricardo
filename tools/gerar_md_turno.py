@@ -455,7 +455,15 @@ def dijkstra_aula(V, W, s, t, directed):
                 else:
                     calc.append(f"ℓ({y}) = min({velho}, {lab[p]}+{w}) = {velho}")
         rows.append(cells + [p, "<span style='white-space:nowrap'>{" + ",".join(gam) + "}</span>"])
-        contas.append(f"p = {p}: " + ("; ".join(calc) if calc else ("é o destino, parar." if p == t else "nenhum sucessor por escolher.")))
+        if calc:
+            txt = "; ".join(calc)
+        elif p == t:
+            txt = "é o destino, parar."
+        elif not gam:
+            txt = f"do {p} não sai nenhum arco (Γ({p}) vazio): não há contas, copia os valores para a linha seguinte."
+        else:
+            txt = f"os arcos do {p} vão todos para vértices já em caixa: não há contas, copia os valores para a linha seguinte."
+        contas.append(f"p = {p}: " + txt)
         if p == t: break
     path = [t]
     while path[-1] != s: path.append(ant[path[-1]])
