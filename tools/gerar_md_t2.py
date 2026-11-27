@@ -4,6 +4,9 @@ Formato inspirado no teste do prof. Ricardo Gonçalves (2025/26):
 Correr:  python3 tools/gerar_md_t2.py
 """
 import json, math, os, random, itertools, sys
+if os.environ.get("PYTHONHASHSEED") != "0":  # ordem dos conjuntos fixa: os exercícios não mudam entre gerações
+    os.environ["PYTHONHASHSEED"] = "0"
+    os.execv(sys.executable, [sys.executable] + sys.argv)
 sys.path.insert(0, os.path.dirname(__file__))
 from grafos import *
 from scipy.spatial import Delaunay
