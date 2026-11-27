@@ -2,12 +2,12 @@
   Ex. 1: ordem, grau de um vértice, arcos paralelos, subgrafo parcial, fortemente conexo, cadeia não elementar
   Ex. 2: matriz de adjacência, fecho transitivo direto e inverso, circuito euleriano, construir digrafo a partir da matriz
   Ex. 3: circuito hamiltoniano e descrição do circuito
-  Ex. 4: tabela do algoritmo de Dijkstra
+  Ex. 4: árvore geradora mínima com o Prim feito na matriz triangular (tabela da aula)
 Tudo calculado aqui (sem LaTeX, texto simples)."""
 import itertools, math, random
 from grafos import digraph_maps, reach, table, adj_from_edges, ham_cycle, dijkstra
 
-N1, N2, N3, N4 = "Ex. 1 · Multigrafo orientado", "Ex. 2 · Matriz e fechos", "Ex. 3 · Circuito hamiltoniano", "Ex. 4 · Algoritmo (tabela)"
+N1, N2, N3, N4 = "Ex. 1 · Multigrafo orientado", "Ex. 2 · Matriz e fechos", "Ex. 3 · Circuito hamiltoniano", "Ex. 4 · Prim (matriz) e Dijkstra (tabela)"
 FONTE = "Gerado no formato do teste do 1º turno"
 
 def R(pede, passos, exame, termos=None):
@@ -386,48 +386,153 @@ def ex3(idx):
     return dict(id=f"t3-{idx}", grupo=N3, tipo="aberta", tema="Hamiltoniano", fonte=FONTE,
                 enunciado=f"Considere {nome} com {'os arcos' if orient else 'as arestas'} {lista}:\n" + svg_multi(V, A, directed=orient, pos=pos), alineas=al)
 
-# ================================================================ EX. 4
-def ex4(idx, dijkstra_html):
-    rnd = random.Random(4000 + idx)
-    directed = rnd.random() < 0.6
-    from scipy.spatial import Delaunay
+# ================================================================ EX. 4 (árvore geradora mínima: Prim na matriz triangular, como na aula)
+from grafos import prim
+CIDADES = ["Braga", "Porto", "Guimarães", "Viana", "Barcelos", "Famalicão", "Fafe", "Vila Real"]
+
+def tri_table(V, W, chosen):
+    """matriz triangular inferior; valores escolhidos em caixa com a ordem."""
+    def val(a, b):
+        return W.get((a, b), W.get((b, a)))
+    hdr = "".join(f"<th style='padding:4px 6px;border:1px solid var(--line)'>{c}</th>" for c in [""] + V[:-1])
+    trs = []
+    for i, a in enumerate(V):
+        if i == 0: continue
+        tds = [f"<td style='padding:4px 6px;border:1px solid var(--line);font-weight:700'>{a}</td>"]
+        for j, b in enumerate(V[:-1]):
+            if j >= i:
+                tds.append("<td style='border:1px solid var(--line);background:var(--chip)'></td>"); continue
+            x = val(a, b)
+            k = chosen.get(frozenset((a, b)))
+            if k:
+                cell = f"<span style='border:2px solid #e5484d;border-radius:4px;padding:0 4px;font-weight:700'>{x}</span><sup style='color:#e5484d'>{k}</sup>"
+            else:
+                cell = "" if x is None else str(x)
+            tds.append(f"<td style='padding:4px 6px;border:1px solid var(--line);text-align:center'>{cell}</td>")
+        trs.append("<tr>" + "".join(tds) + "</tr>")
+    return f"<div style='overflow-x:auto'><table style='border-collapse:collapse;font-size:13px;margin:6px 0'><tr>{hdr}</tr>{''.join(trs)}</table></div>"
+
+def dijkstra_aula(V, W, s, t, directed):
+    """tabela como no caderno: colunas l(v), p, Γ(p), cálculos; valor escolhido em caixa."""
+    nb = {v: [] for v in V}
+    for (a, b), w in W.items():
+        nb[a].append((b, w))
+        if not directed: nb[b].append((a, w))
+    for v in V: nb[v].sort(key=lambda x: V.index(x[0]))
+    lab = {v: math.inf for v in V}; ant = {v: None for v in V}; lab[s] = 0
+    perm = []; rows = []; contas = []
+    box = lambda x: f"<span style='border:2px solid #e5484d;border-radius:4px;padding:0 4px;font-weight:700'>{x}</span>"
     while True:
-        n = rnd.randint(7, 8)
+        temp = [v for v in V if v not in perm and lab[v] < math.inf]
+        p = min(temp, key=lambda v: (lab[v], V.index(v)))
+        cells = []
+        for v in V:
+            if v in perm: cells.append("")
+            elif v == p: cells.append(box(lab[v]))
+            elif lab[v] < math.inf: cells.append(str(lab[v]))
+            else: cells.append("")
+        perm.append(p)
+        gam = [y for y, _ in nb[p]]
+        calc = []
+        if p != t:
+            for y, w in nb[p]:
+                if y in perm: continue
+                novo = lab[p] + w
+                velho = "∞" if lab[y] == math.inf else lab[y]
+                if novo < lab[y]:
+                    calc.append(f"ℓ({y}) = min({velho}, {lab[p]}+{w}) = {novo}")
+                    lab[y] = novo; ant[y] = p
+                else:
+                    calc.append(f"ℓ({y}) = min({velho}, {lab[p]}+{w}) = {velho}")
+        rows.append(cells + [p, "<span style='white-space:nowrap'>{" + ",".join(gam) + "}</span>"])
+        contas.append(f"p = {p}: " + ("; ".join(calc) if calc else ("é o destino, parar." if p == t else "nenhum sucessor por escolher.")))
+        if p == t: break
+    path = [t]
+    while path[-1] != s: path.append(ant[path[-1]])
+    path = path[::-1]
+    return path, lab[t], table([f"ℓ({v})" for v in V] + ["p", "Γ(p)"], rows, first_bold=False) + "Cálculos de cada linha (escreve-os ao lado da tabela):\n" + "\n".join(contas) + "\n"
+
+def dijkstra_parte(rnd):
+    from scipy.spatial import Delaunay
+    from grafos import connected
+    while True:
+        n = rnd.randint(6, 8)
         cells = rnd.sample([(c, r) for c in range(4) for r in range(3)], n)
         pts = [((c + .5 + rnd.uniform(-.22, .22)) / 4, (r + .5 + rnd.uniform(-.22, .22)) / 3) for c, r in cells]
-        order = sorted(range(n), key=lambda k: (pts[k][0], pts[k][1]))
-        pts = [pts[k] for k in order]
-        V = list("ABCDEFGHI")[:n]
+        order = sorted(range(n), key=lambda k: (pts[k][0], pts[k][1])); pts = [pts[k] for k in order]
+        V = [str(i) for i in range(1, n + 1)]
+        E = set()
+        for sx in Delaunay(pts).simplices:
+            for x, y in itertools.combinations(sorted(sx), 2): E.add((x, y))
+        E = sorted(E); rnd.shuffle(E); E = E[:rnd.randint(int(1.5 * n), int(1.9 * n))]
+        W = {}
+        for x, y in E:
+            a, b = (V[x], V[y]) if pts[x][0] <= pts[y][0] else (V[y], V[x])
+            W[(a, b)] = rnd.randint(3, 30)
+        if len(set(W.values())) < len(W) * .7 or not connected(adj_from_edges(V, list(W))): continue
+        r = dijkstra(V, W, V[0], V[-1], True)
+        if r is None or len(r[1]) < 4: continue
+        break
+    pos = {V[k]: pts[k] for k in range(n)}
+    path, cost, tab = dijkstra_aula(V, W, V[0], V[-1], True)
+    assert cost == r[2]
+    A = list(W)
+    fig = svg_multi(V, A, directed=True, pos=pos, weights=[W[x] for x in A], w=360, h=270)
+    res = R(f"O percurso mínimo de {V[0]} para {V[-1]}: a tabela com todas as iterações, o caminho e o custo.",
+        [f"1ª linha: ℓ({V[0]}) = 0, os outros ∞ (em branco). p = {V[0]}. Escreve Γ(p) (os vértices para onde saem setas de p) e calcula ℓ(y) = min(ℓ(y), ℓ(p) + peso).",
+         "Nova linha: copia as etiquetas dos vértices ainda não escolhidos; a MENOR fica em caixa e esse vértice é o novo p.",
+         "Para cada y em Γ(p) ainda não escolhido: ℓ(y) = min(valor atual, ℓ(p) + peso do arco p→y). Escreve a conta ao lado e guarda de onde veio (antecessor).",
+         "Vértices já em caixa deixam de aparecer nas linhas seguintes.",
+         f"Pára quando {V[-1]} ficar em caixa. O caminho lê-se de trás para a frente pelos antecessores; o percurso mínimo é o valor em caixa de {V[-1]}."],
+        tab + f"Percurso mínimo = {cost}\nCaminho: μ = [{', '.join(path)}]",
+        ["ℓ(v): menor custo conhecido de " + V[0] + " até v.", "p: vértice escolhido (etiqueta definitiva) nessa iteração.", "Γ(p): sucessores de p (para onde saem setas de p)."])
+    return fig, res, V[0], V[-1]
+
+def ex4(idx, dijkstra_html=None):
+    rnd = random.Random(4000 + idx)
+    from scipy.spatial import Delaunay
+    from grafos import connected
+    while True:
+        n = rnd.randint(6, 8)
+        cells = rnd.sample([(c, r) for c in range(4) for r in range(3)], n)
+        pts = [((c + .5 + rnd.uniform(-.22, .22)) / 4, (r + .5 + rnd.uniform(-.22, .22)) / 3) for c, r in cells]
+        V = rnd.sample(CIDADES, n) if rnd.random() < .35 else [str(i) for i in range(1, n + 1)]
         E = set()
         for sx in Delaunay(pts).simplices:
             for x, y in itertools.combinations(sorted(sx), 2): E.add((x, y))
         E = sorted(E); rnd.shuffle(E)
         E = E[:rnd.randint(int(1.5 * n), int(1.9 * n))]
-        W = {}
-        for x, y in E:
-            a, b = (V[x], V[y]) if pts[x][0] <= pts[y][0] else (V[y], V[x])  # setas da esquerda para a direita
-            W[(a, b)] = rnd.randint(1, 12)
-        r = dijkstra(V, W, V[0], V[-1], directed)
-        if r is None: continue
-        rows, path, cost = r
-        if len(path) < 4 or len(set(W.values())) < len(W) * .6: continue
-        und = adj_from_edges(V, list(W))
-        from grafos import connected
-        if not connected(und): continue
-        break
+        big = rnd.random() < .4
+        W = {(V[x], V[y]): (rnd.randint(8, 99) if big else rnd.randint(1, 25)) for x, y in E}
+        if len(set(W.values())) < len(W) * .75: continue
+        if not connected(adj_from_edges(V, list(W))): continue
+        steps, total = prim(V, W, V[0])
+        if len(steps) == n - 1: break
+    chosen = {frozenset((a, b)): k for k, (a, b, w) in enumerate(steps, 1)}
     pos = {V[k]: pts[k] for k in range(n)}
     A = list(W); ws = [W[x] for x in A]
-    p, c, tab = dijkstra_html(V, W, V[0], V[-1], directed)
-    al = [dict(enunciado=f"Utilize o algoritmo de Dijkstra para determinar o caminho mais curto entre {V[0]} e {V[-1]}. Apresente a tabela com todas as iterações, o caminho e o respetivo custo.", cotacao=25, resolucao=R(
-        "A tabela do Dijkstra (uma linha por iteração), o caminho e o custo.",
-        [f"Linha 1: {V[0]} = 0 (permanente ✓); para cada vértice ligado a {V[0]} escreve custo (antecessor); os outros ficam ∞.",
-         "Em cada nova linha: a MENOR etiqueta temporária passa a permanente (✓).",
-         "A partir desse vértice, para cada vizinho" + (" (seguindo as setas)" if directed else "") + ": se custo do permanente + peso < etiqueta atual, substitui (com o novo antecessor). Se não, copia a etiqueta.",
-         "Vértices já permanentes ficam com — nas linhas seguintes.",
-         f"Para quando {V[-1]} ficar permanente. O caminho lê-se pelos antecessores, de {V[-1]} para trás."],
-        "Etiquetas custo (antecessor); ✓ = permanente.\n" + tab + f"Caminho mais curto: {' → '.join(p)}, custo {c}."))]
-    return dict(id=f"t4-{idx}", grupo=N4, tipo="aberta", tema="Dijkstra", fonte=FONTE,
-                enunciado=f"Considere a {'rede orientada' if directed else 'rede'} da figura:\n" + svg_multi(V, A, directed=directed, pos=pos, weights=ws, w=360, h=270),
+    arv = []
+    for k, (a, b, w) in enumerate(steps, 1):
+        dentro = [V[0]] + [y for _, y, _ in steps[:k - 1]]
+        arv.append(f"Passo {k}: árvore {{{', '.join(dentro)}}}. Nas colunas e linhas destes vértices, o menor valor que liga a um vértice ainda fora é {w} ({a}–{b}) ⇒ entra {b}.")
+    hl = [(a, b) for a, b, _ in steps] + [(b, a) for a, b, _ in steps]
+    soma = " + ".join(str(w) for _, _, w in steps)
+    al = [dict(enunciado="Utilize o algoritmo de Prim, a partir da matriz, para determinar a árvore geradora mínima. Represente-a e indique a extensão mínima.", cotacao=25, resolucao=R(
+        "As ligações que unem todos os vértices com a menor soma (árvore geradora mínima), feitas na matriz, o desenho e a soma.",
+        [f"Começa no vértice {V[0]}: marca a sua linha/coluna (risco vertical, como na aula).",
+         "Procura, nos valores que ligam os vértices já marcados a vértices AINDA NÃO marcados, o menor. Põe-no numa caixa (escreve a ordem ao lado).",
+         "O vértice novo passa a estar marcado: risca também a coluna/linha dele. Os valores entre dois vértices já marcados deixam de contar (formariam ciclo).",
+         f"Repete até teres n − 1 = {n - 1} caixas (todos os vértices ligados).",
+         "Desenha só as ligações das caixas e soma os valores: é a extensão mínima."] + arv,
+        "Matriz (os valores em caixa são as ligações escolhidas, pela ordem indicada):\n" + tri_table(V, W, chosen) +
+        svg_multi(V, A, directed=False, pos=pos, weights=ws, w=360, h=270, hl=hl) +
+        f"Árvore geradora mínima: {', '.join(f'{a}–{b}' for a, b, _ in steps)} ({n - 1} arestas para {n} vértices).\nExtensão mínima: {soma} = {total}.",
+        ["Árvore: grafo conexo sem ciclos, com |E| = |V| − 1.", "Árvore geradora mínima: árvore com todos os vértices e com a menor soma de custos (extensão mínima)."]))]
+    fig, resd, s0, t0 = dijkstra_parte(rnd)
+    al.append(dict(enunciado=f"Considere agora a rede orientada da figura. Utilize o algoritmo de Dijkstra para determinar o percurso mínimo entre {s0} e {t0}, apresentando a tabela com todas as iterações e o caminho.\n" + fig,
+                   cotacao=25, resolucao=resd))
+    return dict(id=f"t4-{idx}", grupo=N4, tipo="aberta", tema="Prim na matriz e Dijkstra", fonte=FONTE,
+                enunciado="Considere a rede com a seguinte matriz de custos (em branco: não há ligação):\n" + tri_table(V, W, {}),
                 alineas=al)
 
 def gerar(dijkstra_html, n=25):
