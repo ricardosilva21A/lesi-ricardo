@@ -1257,11 +1257,14 @@ def main():
         temas.setdefault(f["grupo"], []).append(f["id"])
         f["grupo"] = G2 if f["id"] in ("ex-2", "ex-17", "aula-2") else para_grupo[f["grupo"]]
     perguntas += fichas
+    import gerar_md_turno as tn
+    perguntas += tn.gerar(dijkstra_html, 25)
     banco = dict(
         uc="MD", titulo="2º teste · Teoria de Grafos",
-        descricao="Formato do teste do prof. Ricardo (2025/26). Os grafos e as resoluções são gerados e calculados automaticamente.",
+        descricao="Teste modelo no formato do 1º turno (dezembro): 4 exercícios. Os grafos e as resoluções são gerados e calculados automaticamente.",
         cabula="https://claude.ai/artifact/ShdbdPjQgkLmhrSpaJ9odP",
-        estrutura=[dict(grupo=G1, n=1, cotacao=8), dict(grupo=G2, n=1, cotacao=4.5), dict(grupo=G3, n=1, cotacao=3.5), dict(grupo=G4, n=1, cotacao=4)],
+        estrutura=[dict(grupo=tn.N1, n=1, cotacao=5), dict(grupo=tn.N2, n=1, cotacao=6), dict(grupo=tn.N3, n=1, cotacao=4), dict(grupo=tn.N4, n=1, cotacao=5),
+                   dict(grupo=G1, n=1, cotacao=8, extra=True), dict(grupo=G2, n=1, cotacao=4.5, extra=True), dict(grupo=G3, n=1, cotacao=3.5, extra=True), dict(grupo=G4, n=1, cotacao=4, extra=True)],
         testesReais=[
             dict(titulo="🆕 Teste do diurno · 25/11/2026 (José Castro / Paula Cheira)", nota="Feito esta semana pelo diurno: o mais provável de se parecer com o teu.", ids=["r-diu26-1", "r-diu26-2", "r-diu26-3", "r-diu26-4", "r-diu26-5", "r-diu26-6"]),
             dict(titulo="Teste do Ricardo · 21/11/2025", nota="O mais parecido com o teu: faz este primeiro, com 1h30.", ids=["r-ric25-1", "r-ric25-2", "r-ric25-3", "r-ric25-4"]),

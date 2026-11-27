@@ -141,6 +141,7 @@
   const feitas = () => new Set(store.get(kFeitas, []));
   const marcarFeita = id => { const f = feitas(); f.add(id); store.set(kFeitas, [...f]); };
   const estrutura = B.estrutura && B.estrutura.length ? B.estrutura : [{ grupo: "Perguntas", n: Math.min(10, B.perguntas.length) }];
+  const modelo = estrutura.filter(g => !g.extra);  // grupos "extra" só aparecem em "Treinar um grupo"
   const L = "ABCDEFGH";
   const isReal = q => /real/i.test(q.fonte || "");
   const fonteHtml = q => q.fonte ? `<span class="fonte ${isReal(q) ? "real" : ""}">${esc(q.fonte)}</span>` : "";
@@ -273,7 +274,7 @@
       <h2>${reais.length ? ((B.fichas || []).length ? "3. " : "2. ") : ""}Treinar</h2>
       <div class="modes">
         ${soltas.length ? `<button class="mode" data-m="soltas"><b>✅ Afirmações uma a uma</b><span>${soltas.length} afirmações: verdadeira ou falsa? Correção imediata com o porquê. As que erras voltam no fim.</span></button>` : ""}
-        <button class="mode" data-m="modelo"><b>📝 Teste modelo</b><span>${estrutura.map(g => `${esc(g.grupo)}${g.cotacao ? ` (${fmtN(g.cotacao)} val.)` : ""}`).join(" · ")}. Exercícios novos em cada tentativa.</span></button>
+        <button class="mode" data-m="modelo"><b>📝 Teste modelo</b><span>${modelo.map(g => `${esc(g.grupo)}${g.cotacao ? ` (${fmtN(g.cotacao)} val.)` : ""}`).join(" · ")}. Exercícios novos em cada tentativa.</span></button>
         <button class="mode" data-m="treino" ${nEsc ? "" : "disabled"}><b>🎯 Conceitos (escolha múltipla)</b><span>${nEsc} perguntas uma a uma, com correção imediata. As que erras voltam no fim.</span></button>
         <button class="mode" data-m="grupo"><b>🧩 Treinar um grupo</b><span>Só exercícios do grupo onde tens mais dificuldade.</span></button>
         <button class="mode" data-m="erradas" ${err.length ? "" : "disabled"}><b>🔁 Repetir o que falhei</b><span>${err.length ? `${errAb.length} exercícios · ${errEsc.length} escolhas múltiplas` : "Nada por rever"}</span></button>
@@ -317,7 +318,7 @@
   }
 
   function testeModelo(soGrupo) {
-    const est = soGrupo ? estrutura.filter(g => g.grupo === soGrupo) : estrutura;
+    const est = soGrupo ? estrutura.filter(g => g.grupo === soGrupo) : modelo;
     const grupos = est.map(g => {
       const pool = B.perguntas.filter(q => (q.grupo || "Perguntas") === g.grupo);
       return { ...g, itens: sortear(pool, g.n || 1).map(prepara) };
